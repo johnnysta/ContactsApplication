@@ -15,9 +15,13 @@ public class UserEntity {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "You must provide a name")
-    @Column(name = "username")
-    private String username;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+//    @NotBlank(message = "You must provide a name")
+//    @Column(name = "username")
+//    private String username;
 
     @NotBlank(message = "You must provide the first name")
     @Column(name = "first_name")
@@ -30,5 +34,10 @@ public class UserEntity {
     @NotBlank(message = "You must provide an email address")
     @Column(name = "email")
     private String email;
+
+    @NotBlank(message = "You must provide a password")
+    @Column(name = "password")
+    private String password;
+
 
 }

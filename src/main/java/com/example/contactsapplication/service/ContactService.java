@@ -5,7 +5,6 @@ import com.example.contactsapplication.domain.UserEntity;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.ContactMapper;
 import com.example.contactsapplication.repository.ContactRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

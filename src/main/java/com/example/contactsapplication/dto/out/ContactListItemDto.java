@@ -1,8 +1,5 @@
 package com.example.contactsapplication.dto.out;
 
-import com.example.contactsapplication.domain.UserEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.util.Date;

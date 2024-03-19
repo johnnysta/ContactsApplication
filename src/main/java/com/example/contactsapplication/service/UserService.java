@@ -2,6 +2,8 @@ package com.example.contactsapplication.service;
 
 
 import com.example.contactsapplication.domain.UserEntity;
+import com.example.contactsapplication.dto.in.UserCreationDto;
+import com.example.contactsapplication.mapper.UserMapper;
 import com.example.contactsapplication.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -14,9 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     UserRepository userRepository;
+    UserMapper userMapper;
 
     public UserEntity getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
+    public void addUser(UserCreationDto userCreationDto) {
+        UserEntity userEntity = userMapper.userCreationDtoToUserEntity(userCreationDto);
+        userRepository.save(userEntity);
+    }
 }
