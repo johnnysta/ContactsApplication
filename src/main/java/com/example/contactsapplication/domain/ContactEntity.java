@@ -10,8 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name = "contact")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ContactEntity {
 
     @Id
@@ -37,6 +35,10 @@ public class ContactEntity {
     private String taxId;
 
     @Column(name = "email")
-    private String eMail;
+    private String email;
+
+    @ManyToOne
+    private UserEntity contactOwner;
+
 
 }
