@@ -1,0 +1,57 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+    <h3 class="mb-3">Contacts of ... </h3>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">E-mail</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let item of contacts, let i=index">
+      <tr>
+        <td>{{item.firstName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.email}}</td>
+        <td>
+          <div>
+            <button type="button" class="btn btn-danger mx-3"
+                    (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
+            </button>
+            <button type="button" class="btn btn-primary mx-3"
+                    (click)="showDetails(item.id)">Details
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal bg-light bg-opacity-50" id="confirmDeleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Deleting Contact</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this contact and all its data?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()">No, keep
+          it
+        </button>
+        <button type="button" (click)="deleteContact()" class="btn btn-danger">Yes, delete this contact</button>
+      </div>
+    </div>
+  </div>
+</div>
