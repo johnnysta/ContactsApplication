@@ -12,14 +12,14 @@ public class ContactMapper {
 
     public ContactListItemDto mapContactEntityToContactListItemDto(ContactEntity contactEntity){
         ContactListItemDto  contactListItemDto = new ContactListItemDto();
-        contactListItemDto.setId(contactListItemDto.getId());
+        contactListItemDto.setId(contactEntity.getId());
         contactListItemDto.setFirstName(contactEntity.getFirstName());
-        contactListItemDto.setLastName(contactListItemDto.getLastName());
-        contactListItemDto.setEmail(contactListItemDto.getEmail());
-        contactListItemDto.setSsId(contactListItemDto.getSsId());
-        contactListItemDto.setTaxId(contactListItemDto.getTaxId());
-        contactListItemDto.setBirthDate(contactListItemDto.getBirthDate());
-        contactListItemDto.setMothersName(contactListItemDto.getMothersName());
+        contactListItemDto.setLastName(contactEntity.getLastName());
+        contactListItemDto.setEmail(contactEntity.getEmail());
+        contactListItemDto.setSsId(contactEntity.getSsId());
+        contactListItemDto.setTaxId(contactEntity.getTaxId());
+        contactListItemDto.setBirthDate(contactEntity.getBirthDate());
+        contactListItemDto.setMothersName(contactEntity.getMothersName());
         contactListItemDto.setContactOwnerId(contactEntity.getContactOwner().getId());
         return contactListItemDto;
 
