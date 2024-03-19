@@ -1,6 +1,7 @@
 package com.example.contactsapplication.service;
 
 import com.example.contactsapplication.domain.ContactEntity;
+import com.example.contactsapplication.domain.UserEntity;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.ContactMapper;
 import com.example.contactsapplication.repository.ContactRepository;
@@ -17,12 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ContactService {
 
-
     ContactRepository contactRepository;
+    UserService userService;
     ContactMapper contactMapper;
 
     public List<ContactListItemDto> getContactsByUserId(Long userId) {
-        List<ContactEntity> resultContacts = contactRepository.findAllByContactOwner(userId);
+        UserEntity userEntity = userService.getUserById(userId);
+        List<ContactEntity> resultContacts = contactRepository.findAllByContactOwner(userEntity);
         List<ContactListItemDto> resultContactListItemDtos = new ArrayList<>();
         resultContacts.forEach(contactEntity ->
                 resultContactListItemDtos.add(contactMapper.mapContactEntityToContactListItemDto(contactEntity)));
