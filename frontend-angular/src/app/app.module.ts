@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { PhonesListComponent } from './components/phones-list/phones-list.component';
+import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
     NavbarComponent,
     ContactsListComponent,
     LoginComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    PhonesListComponent,
+    AddressesListComponent
   ],
   imports: [
     BrowserModule,

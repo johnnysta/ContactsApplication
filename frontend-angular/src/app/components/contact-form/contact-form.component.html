@@ -9,7 +9,7 @@
         <label
           for="firstName"
           class="form-label"
-        >First Name:</label>
+        >First Name:<sup>*</sup></label>
         <input
           type="text"
           class="form-control"
@@ -31,11 +31,23 @@
 
       <div class="mb-3">
         <label
+          for="email"
+          class="form-label"
+        >E-mail:<sup>*</sup></label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          formControlName="email">
+      </div>
+
+      <div class="mb-3">
+        <label
           for="birthDate"
           class="form-label"
         >Birth Date:</label>
         <input
-          type="text"
+          type="date"
           class="form-control"
           id="birthDate"
           formControlName="birthDate">
@@ -77,11 +89,19 @@
           formControlName="taxId">
       </div>
 
-      <button
-        type="submit"
-        class="btn btn-success"
-      >Submit
-      </button>
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-success"
+          >Submit
+          </button>
+        </div>
+        <div class="col text-right">
+          <p class="text-end"><sup>*</sup>Required fields</p>
+        </div>
+      </div>
+
     </form>
   </div>
 </div>

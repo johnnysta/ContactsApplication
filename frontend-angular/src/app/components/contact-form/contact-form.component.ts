@@ -13,7 +13,7 @@ export class ContactFormComponent {
 
   contactForm: FormGroup;
   // loggedInUser!: AuthenticatedUserModel;
-   existingContactData!: ContactDetailsDataModel;
+  existingContactData!: ContactDetailsDataModel;
 
 
   constructor(private contactService: ContactsService,
@@ -24,15 +24,28 @@ export class ContactFormComponent {
     this.contactForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['',],
+      email: ['', Validators.required],
       birthDate: ['',],
       mothersName: ['',],
       ssId: ['',],
       taxId: ['',],
-      email: ['', Validators.required]
+
     });
   }
 
   submitData() {
-
+    const contactData: ContactDetailsDataModel = this.contactForm.value;
+    this.contactService.sendContactRegistration(contactData).subscribe(
+      {
+        next: () => {
+        },
+        error: (err) => {
+          console.log(err)
+        },
+        complete: () => {
+          console.log("New contact saved successfully.");
+          this.router.navigate(['contacts']);
+        }
+      });
   }
 }

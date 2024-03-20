@@ -13,7 +13,7 @@ public class ContactListItemDto {
 
     private String lastName;
 
-    private Date birthDate;
+    private String birthDate;
 
     private String mothersName;
 

@@ -2,6 +2,7 @@ package com.example.contactsapplication.service;
 
 import com.example.contactsapplication.domain.ContactEntity;
 import com.example.contactsapplication.domain.UserEntity;
+import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.ContactMapper;
 import com.example.contactsapplication.repository.ContactRepository;
@@ -34,5 +35,10 @@ public class ContactService {
 
     public void deleteContactById(Long contactId) {
         contactRepository.deleteById(contactId);
+    }
+
+    public void addNewContact(ContactDetailsDto contactDetailsDto) {
+        ContactEntity contactEntity = contactMapper.mapContactDetailDtoToContactEntity(contactDetailsDto);
+        contactRepository.save(contactEntity);
     }
 }

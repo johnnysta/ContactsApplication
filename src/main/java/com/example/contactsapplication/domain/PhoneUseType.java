@@ -2,9 +2,9 @@ package com.example.contactsapplication.domain;
 
 public enum PhoneUseType {
 
+    PRIMARY("Primary"),
     WORK("Work"),
     HOME("Home"),
-    MOBILE("Hobby"),
     OTHER("Other");
 
     String displayName;
