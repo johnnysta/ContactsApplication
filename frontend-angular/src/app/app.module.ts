@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { PhonesListComponent } from './components/phones-list/phones-list.component';
 import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
+import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AddressesListComponent } from './components/addresses-list/addresses-li
     LoginComponent,
     ContactFormComponent,
     PhonesListComponent,
-    AddressesListComponent
+    AddressesListComponent,
+    ContactDetailsComponent
   ],
   imports: [
     BrowserModule,

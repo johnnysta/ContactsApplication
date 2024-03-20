@@ -28,5 +28,7 @@ public class AddressService {
         return resultAddressDtos;
     }
 
-
+    public void deleteAddressById(Long addressId) {
+        addressRepository.deleteById(addressId);
+    }
 }

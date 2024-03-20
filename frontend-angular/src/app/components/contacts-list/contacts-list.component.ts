@@ -77,6 +77,7 @@ export class ContactsListComponent implements OnInit {
   }
 
   showDetails(id: number) {
+    this.router.navigate(['contactDetails', id])
   }
 
   addNewContact() {

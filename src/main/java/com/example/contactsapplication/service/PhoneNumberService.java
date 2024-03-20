@@ -27,4 +27,8 @@ public class PhoneNumberService {
                 resultPhoneDetailsDtos.add(phoneMapper.mapPhoneEntityToPhoneDetailsDto(phoneEntity)));
         return resultPhoneDetailsDtos;
     }
+
+    public void deletePhoneById(Long phoneId) {
+        phoneNumberRepository.deleteById(phoneId);
+    }
 }

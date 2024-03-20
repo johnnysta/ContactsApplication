@@ -41,17 +41,28 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("phones/{contactId}")
+    @GetMapping("/phones/{contactId}")
     public ResponseEntity<List<PhoneDetailsDto>> getPhonesByContactId(@PathVariable Long contactId) {
         List<PhoneDetailsDto> phonesList = phoneNumberService.getPhonesByContactId(contactId);
         return new ResponseEntity<>(phonesList, HttpStatus.OK);
     }
 
-    @GetMapping("addresses/{contactId}")
+    @GetMapping("/addresses/{contactId}")
     public ResponseEntity<List<AddressDetailsDto>> getAddressesByContactId(@PathVariable Long contactId) {
         List<AddressDetailsDto> addressesList = addressService.getAddressesByContactId(contactId);
         return new ResponseEntity<>(addressesList, HttpStatus.OK);
     }
 
+    @DeleteMapping("/phones/{phoneId}")
+    public ResponseEntity<Void> deletePhoneByPhoneId(@PathVariable Long phoneId) {
+        phoneNumberService.deletePhoneById(phoneId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/addresses/{addressId}")
+    public ResponseEntity<Void> deleteAddressByAddressId(@PathVariable Long addressId) {
+        addressService.deleteAddressById(addressId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
