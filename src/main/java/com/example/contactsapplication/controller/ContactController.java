@@ -8,6 +8,7 @@ import com.example.contactsapplication.service.AddressService;
 import com.example.contactsapplication.service.ContactService;
 import com.example.contactsapplication.service.PhoneNumberService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/contacts")
 @AllArgsConstructor
+@Slf4j
 public class ContactController {
 
     ContactService contactService;
@@ -27,6 +29,13 @@ public class ContactController {
     public ResponseEntity<List<ContactListItemDto>> getContactsByUserId(@PathVariable Long userId) {
         List<ContactListItemDto> results = contactService.getContactsByUserId(userId);
         return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
+    @GetMapping("/contact/{contactId}")
+    public ResponseEntity<ContactDetailsDto> getContactById(@PathVariable Long contactId) {
+        log.info("contactId" + contactId);
+        ContactDetailsDto result = contactService.getContactById(contactId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/{contactId}")

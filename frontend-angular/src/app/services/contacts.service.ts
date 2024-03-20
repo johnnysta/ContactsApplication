@@ -29,4 +29,8 @@ export class ContactsService {
   sendContactRegistration(contactData: ContactDetailsDataModel) {
     return this.http.post(BASE_URL, contactData);
   }
+
+  getContactById(contactId: number): Observable<ContactDetailsDataModel> {
+    return this.http.get<ContactDetailsDataModel>(BASE_URL + "/contact/" + contactId);
+  }
 }

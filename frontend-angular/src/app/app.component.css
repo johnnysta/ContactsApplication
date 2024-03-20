@@ -1,8 +1,9 @@
 #container {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   background-image: url("../assets/images/background/pawel-czerwinski--0xCCPIbl3M-unsplash.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }

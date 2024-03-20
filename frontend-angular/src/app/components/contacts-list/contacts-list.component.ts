@@ -2,7 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ContactListItemModel} from "../../models/contact-list-item.model";
 import {ContactsService} from "../../services/contacts.service";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
+import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 
 @Component({
   selector: 'app-contacts-list',
@@ -76,8 +77,10 @@ export class ContactsListComponent implements OnInit {
     this.closeDeleteModal();
   }
 
-  showDetails(id: number) {
-    this.router.navigate(['contactDetails', id])
+  showDetails(item: ContactListItemModel) {
+
+
+    this.router.navigate(['contactDetails', item.id])
   }
 
   addNewContact() {

@@ -45,4 +45,9 @@ public class ContactService {
     public ContactEntity findById(Long id) {
         return contactRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
+
+    public ContactDetailsDto getContactById(Long contactId) {
+        ContactEntity contactEntity = contactRepository.findById(contactId).orElseThrow(EntityNotFoundException::new);
+        return contactMapper.mapContactEntityToContactDetailsDto(contactEntity);
+    }
 }

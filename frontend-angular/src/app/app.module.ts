@@ -14,6 +14,7 @@ import { AddressesListComponent } from './components/addresses-list/addresses-li
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { PhoneFormComponent } from './components/phone-form/phone-form.component';
 import { AddressFromComponent } from './components/address-from/address-from.component';
+import { ContactBasicDataComponent } from './components/contact-basic-data/contact-basic-data.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AddressFromComponent } from './components/address-from/address-from.com
     AddressesListComponent,
     ContactDetailsComponent,
     PhoneFormComponent,
-    AddressFromComponent
+    AddressFromComponent,
+    ContactBasicDataComponent
   ],
   imports: [
     BrowserModule,

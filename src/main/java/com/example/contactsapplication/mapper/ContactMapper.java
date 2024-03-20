@@ -40,8 +40,6 @@ public class ContactMapper {
     }
 
     public ContactEntity mapContactDetailDtoToContactEntity(ContactDetailsDto contactDetailsDto) {
-
-
         ContactEntity contactEntity = new ContactEntity();
 
         contactEntity.setFirstName(contactDetailsDto.getFirstName());
@@ -52,5 +50,25 @@ public class ContactMapper {
         contactEntity.setSsId(contactDetailsDto.getSsId());
         contactEntity.setTaxId(contactDetailsDto.getTaxId());
         return contactEntity;
+    }
+
+    public ContactDetailsDto mapContactEntityToContactDetailsDto(ContactEntity contactEntity) {
+        ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
+
+        contactDetailsDto.setFirstName(contactEntity.getFirstName());
+        contactDetailsDto.setLastName(contactEntity.getLastName());
+        contactDetailsDto.setEmail(contactEntity.getEmail());
+        LocalDate birthDate = contactEntity.getBirthDate();
+        if (birthDate != null) {
+            contactDetailsDto.setBirthDate(birthDate.format(formatter));
+        } else {
+            contactDetailsDto.setBirthDate("");
+        }
+        contactDetailsDto.setMothersName(contactEntity.getMothersName());
+        contactDetailsDto.setSsId(contactEntity.getSsId());
+        contactDetailsDto.setTaxId(contactEntity.getTaxId());
+        contactDetailsDto.setId(contactEntity.getId());
+        contactDetailsDto.setUserId(contactEntity.getContactOwner().getId());
+        return contactDetailsDto;
     }
 }
