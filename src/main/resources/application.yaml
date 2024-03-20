@@ -9,8 +9,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/contacts
-    username:
-    password:
+    username: postgres
+    password: root
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -32,7 +32,7 @@ logging:
   level:
     hu.progmasters: info
     org.springframework.web: info
-    org.hibernate: error
+    org.hibernate: info
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 

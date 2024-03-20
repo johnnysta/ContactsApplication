@@ -1,0 +1,87 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+
+    <h3 class="mb-3" *ngIf="existingContactData">Edit Contact</h3>
+    <h3 class="mb-3" *ngIf="!existingContactData">Add New Contact</h3>
+
+    <form [formGroup]="contactForm" (submit)="submitData()">
+      <div class="mb-3">
+        <label
+          for="firstName"
+          class="form-label"
+        >First Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="lastName"
+          class="form-label"
+        >Last Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="birthDate"
+          class="form-label"
+        >Birth Date:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="birthDate"
+          formControlName="birthDate">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="mothersName"
+          class="form-label"
+        >Mothers Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="mothersName"
+          formControlName="mothersName">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="ssId"
+          class="form-label"
+        >Social Security ID:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ssId"
+          formControlName="ssId">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="taxId"
+          class="form-label"
+        >Tax Id:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="taxId"
+          formControlName="taxId">
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+      >Submit
+      </button>
+    </form>
+  </div>
+</div>

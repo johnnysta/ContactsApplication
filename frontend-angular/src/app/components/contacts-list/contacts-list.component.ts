@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ContactListItemModel} from "../../models/contact-list-item.model";
 import {ContactsService} from "../../services/contacts.service";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contacts-list',
@@ -18,7 +19,8 @@ export class ContactsListComponent implements OnInit {
   currentContactFirst!: string;
   currentContactLast!: string;
 
-  constructor(private contactsService: ContactsService) {
+  constructor(private contactsService: ContactsService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -77,5 +79,8 @@ export class ContactsListComponent implements OnInit {
   showDetails(id: number) {
   }
 
+  addNewContact() {
+    this.router.navigate(["contactsForm"]);
+  }
 }
 

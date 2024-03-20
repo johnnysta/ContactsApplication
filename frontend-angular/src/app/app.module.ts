@@ -8,13 +8,15 @@ import { ContactsListComponent } from './components/contacts-list/contacts-list.
 import { LoginComponent } from './components/login/login.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ContactsListComponent,
-    LoginComponent
+    LoginComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
