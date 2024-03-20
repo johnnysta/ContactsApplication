@@ -14,6 +14,8 @@ export class PhonesListComponent {
 
   // @ts-ignore
   @Input() public contactId: number;
+  // @ts-ignore
+  @Input() fullName: string;
 
   phones!: PhoneDataModel[];
 

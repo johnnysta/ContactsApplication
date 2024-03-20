@@ -15,7 +15,9 @@ import {AddressService} from "../../services/address.service";
 export class AddressesListComponent {
 
   // @ts-ignore
-  @Input() public contactId: number;
+  @Input() contactId: number;
+  // @ts-ignore
+  @Input() fullName: string;
 
   addresses!: AddressDataModel[];
 

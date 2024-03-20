@@ -34,7 +34,8 @@ export class ContactFormComponent {
   }
 
   submitData() {
-    const contactData: ContactDetailsDataModel = this.contactForm.value;
+    let contactData: ContactDetailsDataModel = this.contactForm.value;
+    contactData.userId = 1;
     this.contactService.sendContactRegistration(contactData).subscribe(
       {
         next: () => {

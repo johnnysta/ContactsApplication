@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+    <h3 class="mb-3">Please log in</h3>
+    <form>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary"  (click)="submitData()">Submit</button>
+    </form>
+  </div>
+</div>

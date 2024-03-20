@@ -38,7 +38,9 @@ public class ContactService {
     }
 
     public void addNewContact(ContactDetailsDto contactDetailsDto) {
+        UserEntity user = userService.findById(contactDetailsDto.getUserId());
         ContactEntity contactEntity = contactMapper.mapContactDetailDtoToContactEntity(contactDetailsDto);
+        contactEntity.setContactOwner(user);
         contactRepository.save(contactEntity);
     }
 

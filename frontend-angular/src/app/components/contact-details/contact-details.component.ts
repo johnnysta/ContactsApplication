@@ -9,6 +9,7 @@ import {ActivatedRoute, Route} from "@angular/router";
 export class ContactDetailsComponent implements OnInit {
 
   contactId!: number;
+  fullName!: string;
 
   constructor(private activatedRoute: ActivatedRoute) {
   }
@@ -17,7 +18,7 @@ export class ContactDetailsComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe({
       next: param => {
         this.contactId = Number(param.get('id'));
-        console.log("contactId: " + this.contactId);
+        this.fullName = param.get('fullName') ?? "...";
       }
     })
   }

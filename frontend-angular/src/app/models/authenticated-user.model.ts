@@ -3,4 +3,6 @@ export interface AuthenticatedUserModel {
   email: String;
   isLoggedIn: boolean;
   id: number;
+  role: string;
+
 }
