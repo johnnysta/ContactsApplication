@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "contact")
@@ -37,6 +38,13 @@ public class ContactEntity {
 
     @ManyToOne
     private UserEntity contactOwner;
+
+    @OneToMany(mappedBy="addressOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AddressEntity> addresses;
+
+    @OneToMany(mappedBy="phoneNumberOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhoneNumberEntity> phoneNumbers;
+
 
 
 }

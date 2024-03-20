@@ -5,6 +5,7 @@ import com.example.contactsapplication.domain.UserEntity;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.ContactMapper;
 import com.example.contactsapplication.repository.ContactRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class ContactService {
     UserService userService;
     ContactMapper contactMapper;
 
+
     public List<ContactListItemDto> getContactsByUserId(Long userId) {
         UserEntity userEntity = userService.getUserById(userId);
         List<ContactEntity> resultContacts = contactRepository.findAllByContactOwner(userEntity);
@@ -28,5 +30,9 @@ public class ContactService {
         resultContacts.forEach(contactEntity ->
                 resultContactListItemDtos.add(contactMapper.mapContactEntityToContactListItemDto(contactEntity)));
         return resultContactListItemDtos;
+    }
+
+    public void deleteContactById(Long contactId) {
+        contactRepository.deleteById(contactId);
     }
 }
