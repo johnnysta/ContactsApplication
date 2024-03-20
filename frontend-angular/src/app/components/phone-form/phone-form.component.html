@@ -1,0 +1,61 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+
+    <h3 class="mb-3" *ngIf="existingPhoneData">Edit Phone Number</h3>
+    <h3 class="mb-3" *ngIf="!existingPhoneData">Add New Phone Number</h3>
+
+
+    <form [formGroup]="phoneForm" (submit)="submitData()">
+      <div class="mb-3">
+        <label
+          for="phoneUseType"
+          class="form-label"
+        >Use Type:<sup>*</sup></label>
+        <input
+          type="text"
+          class="form-control"
+          id="phoneUseType"
+          formControlName="phoneUseType">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="phoneNumber"
+          class="form-label"
+        >Phone Number:<sup>*</sup></label>
+        <input
+          type="text"
+          class="form-control"
+          id="phoneNumber"
+          formControlName="phoneNumber">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="note"
+          class="form-label"
+        >Note:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="note"
+          formControlName="note">
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-success"
+          >Submit
+          </button>
+        </div>
+        <div class="col text-right">
+          <p class="text-end"><sup>*</sup>Required fields</p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

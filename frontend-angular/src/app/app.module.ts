@@ -12,6 +12,8 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { PhonesListComponent } from './components/phones-list/phones-list.component';
 import { AddressesListComponent } from './components/addresses-list/addresses-list.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
+import { PhoneFormComponent } from './components/phone-form/phone-form.component';
+import { AddressFromComponent } from './components/address-from/address-from.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
     ContactFormComponent,
     PhonesListComponent,
     AddressesListComponent,
-    ContactDetailsComponent
+    ContactDetailsComponent,
+    PhoneFormComponent,
+    AddressFromComponent
   ],
   imports: [
     BrowserModule,

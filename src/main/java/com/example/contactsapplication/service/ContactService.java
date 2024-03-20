@@ -41,4 +41,8 @@ public class ContactService {
         ContactEntity contactEntity = contactMapper.mapContactDetailDtoToContactEntity(contactDetailsDto);
         contactRepository.save(contactEntity);
     }
+
+    public ContactEntity findById(Long id) {
+        return contactRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
 }

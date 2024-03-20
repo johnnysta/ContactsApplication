@@ -20,7 +20,6 @@ export class ContactDetailsComponent implements OnInit{
         console.log("contactId: " + this.contactId);
       }
     })
-
   }
 
 }

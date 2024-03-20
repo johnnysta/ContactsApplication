@@ -65,4 +65,16 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/phones")
+    public ResponseEntity<Void> addNewPhone(@RequestBody PhoneDetailsDto phoneDetailsDto) {
+        phoneNumberService.addNewPhone(phoneDetailsDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/addresses")
+    public ResponseEntity<Void> addNewAddress(@RequestBody AddressDetailsDto addressDetailsDto) {
+        addressService.addNewAddress(addressDetailsDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

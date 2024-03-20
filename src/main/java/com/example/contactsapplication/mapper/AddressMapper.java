@@ -10,7 +10,6 @@ public class AddressMapper {
 
     public AddressDetailsDto mapAddressEntityToAddressDetaildDto(AddressEntity addressEntity) {
         AddressDetailsDto addressDetailsDto = new AddressDetailsDto();
-
         addressDetailsDto.setId(addressEntity.getId());
         addressDetailsDto.setNote(addressEntity.getNote());
         addressDetailsDto.setCity(addressEntity.getCity());
@@ -18,8 +17,16 @@ public class AddressMapper {
         addressDetailsDto.setStreet(addressEntity.getStreet());
         addressDetailsDto.setHouseNumber(addressEntity.getHouseNumber());
         addressDetailsDto.setAddressOwner(addressEntity.getAddressOwner().getId());
-
         return addressDetailsDto;
+    }
 
+    public AddressEntity mapAddressDetailsDtoToAddressEntity(AddressDetailsDto addressDetailsDto) {
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setZipCode(addressDetailsDto.getZipCode());
+        addressEntity.setCity(addressDetailsDto.getCity());
+        addressEntity.setStreet(addressDetailsDto.getStreet());
+        addressEntity.setHouseNumber(addressDetailsDto.getHouseNumber());
+        addressEntity.setNote(addressDetailsDto.getNote());
+        return addressEntity;
     }
 }

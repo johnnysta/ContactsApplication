@@ -81,7 +81,7 @@ export class AddressesListComponent {
   }
 
   addNewAddress() {
-    this.router.navigate(["addressForm"]);
+    this.router.navigate(["addressForm", this.contactId]);
   }
 
   editAddress(id: number) {

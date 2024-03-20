@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ContactListItemModel} from "../models/contact-list-item.model";
@@ -25,5 +25,9 @@ export class AddressService {
   deleteAddressById(id: number) {
     return this.http.delete(BASE_URL + "/" + id);
 
+  }
+
+  sendAddressRegistration(addressData: AddressDataModel) {
+    return this.http.post(BASE_URL, addressData);
   }
 }

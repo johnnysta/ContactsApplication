@@ -77,7 +77,7 @@ export class PhonesListComponent {
   }
 
   addNewPhone() {
-    this.router.navigate(["phoneForm"]);
+    this.router.navigate(["phoneForm", this.contactId]);
   }
 
   editPhone(id: number) {

@@ -23,5 +23,7 @@ export class PhonesService {
     return this.http.delete(BASE_URL + "/" + id);
   }
 
-
+  sendPhoneRegistration(phoneData: PhoneDataModel) {
+    return this.http.post(BASE_URL, phoneData);
+  }
 }

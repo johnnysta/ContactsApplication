@@ -1,5 +1,6 @@
 package com.example.contactsapplication.service;
 
+import com.example.contactsapplication.domain.ContactEntity;
 import com.example.contactsapplication.domain.PhoneNumberEntity;
 import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PhoneNumberService {
 
+    ContactService contactService;
     PhoneNumberRepository phoneNumberRepository;
     PhoneMapper phoneMapper;
 
@@ -30,5 +32,12 @@ public class PhoneNumberService {
 
     public void deletePhoneById(Long phoneId) {
         phoneNumberRepository.deleteById(phoneId);
+    }
+
+    public void addNewPhone(PhoneDetailsDto phoneDetailsDto) {
+        ContactEntity phoneNumberOwner = contactService.findById(phoneDetailsDto.getPhoneNumberOwner());
+        PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
+        phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
+        phoneNumberRepository.save(phoneNumberEntity);
     }
 }
