@@ -11,7 +11,9 @@ Node: 16.20.2
 Package Manager: npm 8.19.4
 (Please run nmp i as usual to install dependencies)
 
-Authentication and some functions are still not working, coming soon.. :)
+Authentication and some related functions are still not working, coming soon.. :)
+
+Until authentication is not working, please manually add a user record in app_user table that should have primary key value of 1.
 
 
 
