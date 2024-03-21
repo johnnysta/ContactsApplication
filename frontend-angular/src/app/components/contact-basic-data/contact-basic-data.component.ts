@@ -35,4 +35,8 @@ export class ContactBasicDataComponent implements OnInit {
   editContactDetails(contactId: number) {
     this.router.navigate(["contactsForm", contactId]);
   }
+
+  backToMyContacts() {
+    this.router.navigate(["contacts"])
+  }
 }

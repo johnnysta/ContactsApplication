@@ -21,18 +21,18 @@
         <td>{{item.note}}</td>
         <td>
           <div>
-            <button type="button" class="btn btn-danger mx-3"
-                    (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
-            </button>
-            <button type="button" class="btn btn-primary mx-3"
+            <button type="button" class="btn btn-primary btn-sm mx-3"
                     (click)="editAddress(item.id)">Edit
+            </button>
+            <button type="button" class="btn btn-danger btn-sm mx-3"
+                    (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
             </button>
           </div>
         </td>
       </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary mx-3"
+    <button type="button" class="btn btn-primary"
             (click)="addNewAddress()">Add New Address
     </button>
 

@@ -11,10 +11,17 @@
         <h6>Tax ID: {{contactDetails.taxId}}</h6>
         <h6>E-mail: {{contactDetails.email}}</h6>
       </div>
-      <div class="col-md-auto d-flex flex-column justify-content-end align-items-center">
-        <button type="button" class="btn btn-primary mx-3 mt-auto mb-2" (click)="editContactDetails(contactId)"
-        >Edit Contact Details
-        </button>
+      <div class="col-md-auto d-flex flex-column justify-content-end align-items-end">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-secondary btn-block mx-3 mb-2" (click)="editContactDetails(contactId)">
+            Edit Contact Details
+          </button>
+        </div>
+        <div class="col-md-12">
+          <button type="button" class="btn btn-secondary btn-block mx-3 mb-2" (click)="backToMyContacts()">
+            Back to My Contacts
+          </button>
+        </div>
       </div>
     </div>
   </div>

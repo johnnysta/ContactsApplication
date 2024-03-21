@@ -17,19 +17,19 @@
         <td>{{item.lastName}}</td>
         <td>{{item.email}}</td>
         <td>
-          <div>
-            <button type="button" class="btn btn-danger mx-1"
-                    (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
-            </button>
-            <button type="button" class="btn btn-primary mx-1"
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary btn-sm mx-1"
                     (click)="showDetails(item)">Details
+            </button>
+            <button type="button" class="btn btn-danger btn-sm mx-1"
+                    (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
             </button>
           </div>
         </td>
       </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary mx-3"
+    <button type="button" class="btn btn-primary"
             (click)="addNewContact()">Add New Contact
     </button>
 
