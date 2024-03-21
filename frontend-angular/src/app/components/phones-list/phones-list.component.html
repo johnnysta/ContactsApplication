@@ -1,33 +1,40 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
     <h3 class="mb-3">Phone Numbers of Contact</h3>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Use</th>
-        <th scope="col">Number</th>
-        <th scope="col">Note</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody *ngFor="let item of phones, let i=index">
-      <tr>
-        <td>{{item.phoneUseType}}</td>
-        <td>{{item.phoneNumber}}</td>
-        <td>{{item.note}}</td>
-        <td>
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary mx-3 btn-sm"
-                    (click)="editPhone(item.id)">Edit
-            </button>
-            <button type="button" class="btn btn-danger mx-3 btn-sm"
-                    (click)="openDeleteModal(item.id, item.phoneNumber)">Delete
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+
+    <div *ngIf="phones.length === 0; else phoneList">
+      <h6>No phone numbers available for this contact. You can add phone by clicking the button below.</h6>
+    </div>
+
+    <ng-template #phoneList>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Use</th>
+          <th scope="col">Number</th>
+          <th scope="col">Note</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let item of phones, let i=index">
+        <tr>
+          <td>{{item.phoneUseType}}</td>
+          <td>{{item.phoneNumber}}</td>
+          <td>{{item.note}}</td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary mx-3 btn-sm"
+                      (click)="editPhone(item.id)">Edit
+              </button>
+              <button type="button" class="btn btn-danger mx-3 btn-sm"
+                      (click)="openDeleteModal(item.id, item.phoneNumber)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
     <button type="button" class="btn btn-secondary"
             (click)="addNewPhone()">Add New Phone
     </button>

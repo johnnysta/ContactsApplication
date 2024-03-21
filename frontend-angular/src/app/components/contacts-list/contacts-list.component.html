@@ -2,33 +2,40 @@
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
     <h3 class="mb-3">My Contacts</h3>
 
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">E-mail</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody *ngFor="let item of contacts, let i=index">
-      <tr>
-        <td>{{item.firstName}}</td>
-        <td>{{item.lastName}}</td>
-        <td>{{item.email}}</td>
-        <td>
-          <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary btn-sm mx-1"
-                    (click)="showDetails(item)">Details
-            </button>
-            <button type="button" class="btn btn-danger btn-sm mx-1"
-                    (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div *ngIf="contacts.length === 0; else contactsList">
+      <h6>No contacts available for this user. You can add contacts by clicking the button below.</h6>
+    </div>
+
+    <ng-template #contactsList>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">E-mail</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let item of contacts, let i=index">
+        <tr>
+          <td>{{item.firstName}}</td>
+          <td>{{item.lastName}}</td>
+          <td>{{item.email}}</td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary btn-sm mx-1"
+                      (click)="showDetails(item)">Details
+              </button>
+              <button type="button" class="btn btn-danger btn-sm mx-1"
+                      (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
+
     <button type="button" class="btn btn-secondary"
             (click)="addNewContact()">Add New Contact
     </button>

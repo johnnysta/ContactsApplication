@@ -1,37 +1,45 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
     <h3 class="mb-3">Addresses of Contact</h3>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Zip</th>
-        <th scope="col">City</th>
-        <th scope="col">Street</th>
-        <th scope="col">House</th>
-        <th scope="col">Note</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody *ngFor="let item of addresses, let i=index">
-      <tr>
-        <td>{{item.zipCode}}</td>
-        <td>{{item.city}}</td>
-        <td>{{item.street}}</td>
-        <td>{{item.houseNumber}}</td>
-        <td>{{item.note}}</td>
-        <td>
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary btn-sm mx-3"
-                    (click)="editAddress(item.id)">Edit
-            </button>
-            <button type="button" class="btn btn-danger btn-sm mx-3"
-                    (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
-            </button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+
+    <div *ngIf="addresses.length === 0; else addressList">
+      <h6>No addresses available for this contact. You can add address by clicking the button below.</h6>
+    </div>
+
+    <ng-template #addressList>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Zip</th>
+          <th scope="col">City</th>
+          <th scope="col">Street</th>
+          <th scope="col">House</th>
+          <th scope="col">Note</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let item of addresses, let i=index">
+        <tr>
+          <td>{{item.zipCode}}</td>
+          <td>{{item.city}}</td>
+          <td>{{item.street}}</td>
+          <td>{{item.houseNumber}}</td>
+          <td>{{item.note}}</td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary btn-sm mx-3"
+                      (click)="editAddress(item.id)">Edit
+              </button>
+              <button type="button" class="btn btn-danger btn-sm mx-3"
+                      (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
+
     <button type="button" class="btn btn-secondary"
             (click)="addNewAddress()">Add New Address
     </button>
