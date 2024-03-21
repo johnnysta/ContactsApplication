@@ -99,4 +99,7 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
+  cancelForm() {
+    this.router.navigate(['contacts']);
+  }
 }

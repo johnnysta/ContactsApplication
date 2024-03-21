@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PhoneDataModel} from "../../models/phone-data.model";
-import {PhonesService} from "../../services/phones.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AddressService} from "../../services/address.service";
 import {AddressDataModel} from "../../models/address-data.model";
@@ -59,5 +58,7 @@ export class AddressFromComponent implements OnInit {
       });
   }
 
-
+  cancelForm() {
+    this.router.navigate(['contactDetails', this.contactId]);
+  }
 }
