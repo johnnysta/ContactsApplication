@@ -11,11 +11,14 @@
           for="phoneUseType"
           class="form-label"
         >Use Type:<sup>*</sup></label>
-        <input
-          type="text"
+        <select
+          formControlName="phoneUseType"
           class="form-control"
           id="phoneUseType"
-          formControlName="phoneUseType">
+        >
+          <option *ngFor="let usageType of initData.usageTypeList"
+                  value="{{usageType}}">{{usageType}}</option>
+        </select>
       </div>
 
       <div class="mb-3">

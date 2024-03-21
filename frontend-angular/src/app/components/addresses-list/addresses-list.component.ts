@@ -16,8 +16,6 @@ export class AddressesListComponent {
 
   // @ts-ignore
   @Input() contactId: number;
-  // @ts-ignore
-  @Input() fullName: string;
 
   addresses!: AddressDataModel[];
 

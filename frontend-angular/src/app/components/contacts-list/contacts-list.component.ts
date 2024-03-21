@@ -78,8 +78,7 @@ export class ContactsListComponent implements OnInit {
   }
 
   showDetails(item: ContactListItemModel) {
-    let fullName = item.firstName + " " + item.lastName;
-    this.router.navigate(['contactDetails', item.id, fullName]);
+    this.router.navigate(['contactDetails', item.id]);
   }
 
   addNewContact() {

@@ -4,6 +4,7 @@ import {ContactListItemModel} from "../models/contact-list-item.model";
 import {PhoneDataModel} from "../models/phone-data.model";
 import {environment} from "../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {PhoneRegistrationInitDataModel} from "../models/phone-registration-init-data.model";
 
 const BASE_URL: string = environment.serverUrl + '/api/contacts/phones';
 
@@ -25,5 +26,9 @@ export class PhonesService {
 
   sendPhoneRegistration(phoneData: PhoneDataModel) {
     return this.http.post(BASE_URL, phoneData);
+  }
+
+  getPhoneRegistrationInitData(): Observable<PhoneRegistrationInitDataModel> {
+    return this.http.get<PhoneRegistrationInitDataModel>(BASE_URL + "/init-data");
   }
 }

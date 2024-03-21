@@ -5,6 +5,7 @@ import {ContactsService} from "../../services/contacts.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PhoneDataModel} from "../../models/phone-data.model";
 import {PhonesService} from "../../services/phones.service";
+import {PhoneRegistrationInitDataModel} from "../../models/phone-registration-init-data.model";
 
 @Component({
   selector: 'app-phone-form',
@@ -14,6 +15,7 @@ import {PhonesService} from "../../services/phones.service";
 export class PhoneFormComponent implements OnInit {
 
   contactId!: number;
+  initData!: PhoneRegistrationInitDataModel;
 
   phoneForm: FormGroup;
   // loggedInUser!: AuthenticatedUserModel;
@@ -38,6 +40,19 @@ export class PhoneFormComponent implements OnInit {
         console.log("contactId: " + this.contactId);
       }
     })
+    this.phoneService.getPhoneRegistrationInitData().subscribe({
+      next: value => {
+        this.initData = value;
+      },
+      error: err => {
+        console.log(err)
+      },
+      complete: () => {
+        console.log(this.initData)
+      }
+    })
+
+
   }
 
   submitData() {

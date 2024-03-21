@@ -2,11 +2,14 @@ package com.example.contactsapplication.service;
 
 import com.example.contactsapplication.domain.ContactEntity;
 import com.example.contactsapplication.domain.PhoneNumberEntity;
+import com.example.contactsapplication.domain.PhoneUseType;
 import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
+import com.example.contactsapplication.dto.in_out.PhoneRegistrationInitDataDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.PhoneMapper;
 import com.example.contactsapplication.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +42,14 @@ public class PhoneNumberService {
         PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
         phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
         phoneNumberRepository.save(phoneNumberEntity);
+    }
+
+    public PhoneRegistrationInitDataDto getPhoneRegistrationInitData() {
+        List<String> initDataList = new ArrayList<>();
+        PhoneRegistrationInitDataDto phoneRegistrationInitDataDto = new PhoneRegistrationInitDataDto(initDataList);
+        for (PhoneUseType phoneUseType : PhoneUseType.values()) {
+            initDataList.add(phoneUseType.name());
+        }
+        return phoneRegistrationInitDataDto;
     }
 }

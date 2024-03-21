@@ -3,6 +3,7 @@ package com.example.contactsapplication.controller;
 import com.example.contactsapplication.dto.in_out.AddressDetailsDto;
 import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
 import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
+import com.example.contactsapplication.dto.in_out.PhoneRegistrationInitDataDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.service.AddressService;
 import com.example.contactsapplication.service.ContactService;
@@ -86,4 +87,8 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/phones/init-data")
+    public ResponseEntity<PhoneRegistrationInitDataDto> getPhoneRegistrationInitData() {
+        return new ResponseEntity<>(phoneNumberService.getPhoneRegistrationInitData(), HttpStatus.OK);
+    }
 }
