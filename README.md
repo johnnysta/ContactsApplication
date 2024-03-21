@@ -14,6 +14,7 @@ Package Manager: npm 8.19.4
 Authentication and some related functions are still not working, coming soon.. :)
 
 Until authentication is not working, please manually add a user record in app_user table that should have primary key value of 1.
+After that you can add contacts from frontend.
 
 
 
