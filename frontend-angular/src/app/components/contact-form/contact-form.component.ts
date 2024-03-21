@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ContactsService} from "../../services/contacts.service";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
+import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
   selector: 'app-contact-form',
@@ -22,9 +23,9 @@ export class ContactFormComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute) {
     this.contactForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['',],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
       birthDate: ['',],
       mothersName: ['',],
       ssId: ['',],
@@ -77,6 +78,7 @@ export class ContactFormComponent implements OnInit {
           next: () => {
           },
           error: (err) => {
+            validationHandler(err, this.contactForm);
             console.log(err)
           },
           complete: () => {
@@ -89,6 +91,7 @@ export class ContactFormComponent implements OnInit {
           next: () => {
           },
           error: (err) => {
+            validationHandler(err, this.contactForm);
             console.log(err)
           },
           complete: () => {

@@ -17,6 +17,18 @@
           formControlName="firstName">
       </div>
 
+      <small
+        *ngIf="!contactForm.get('firstName')?.valid
+                        && contactForm.get('firstName')?.touched
+                        && !contactForm.get('firstName')?.errors?.['serverError']"
+        class="text-danger"
+      >First Name is a required field. Please enter a valid first name that is at least 3 characters long.
+      </small>
+
+      <small *ngIf="contactForm.get('firstName')?.errors?.['serverError']" class="text-danger">
+        {{contactForm.get('firstName')?.errors?.['serverError']}}
+      </small>
+
       <div class="mb-3">
         <label
           for="lastName"
@@ -40,6 +52,18 @@
           id="email"
           formControlName="email">
       </div>
+
+      <small
+        *ngIf="!contactForm.get('email')?.valid
+                        && contactForm.get('email')?.touched
+                        && !contactForm.get('email')?.errors?.['serverError']"
+        class="text-danger"
+      >Email is a required field. Please enter a valid first email that is at least 3 characters long.
+      </small>
+
+      <small *ngIf="contactForm.get('email')?.errors?.['serverError']" class="text-danger">
+        {{contactForm.get('email')?.errors?.['serverError']}}
+      </small>
 
       <div class="mb-3">
         <label
@@ -94,6 +118,7 @@
           <button
             type="submit"
             class="btn btn-success"
+            [disabled]="contactForm.invalid"
           >Submit
           </button>
           <button

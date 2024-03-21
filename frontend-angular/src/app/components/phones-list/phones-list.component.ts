@@ -11,7 +11,7 @@ import {PhonesService} from "../../services/phones.service";
 export class PhonesListComponent {
 
   // @ts-ignore
-  @Input() public contactId: number;
+  @Input() contactId: number;
 
 
   phones!: PhoneDataModel[];
