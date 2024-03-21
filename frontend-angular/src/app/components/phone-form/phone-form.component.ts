@@ -26,7 +26,7 @@ export class PhoneFormComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
     this.phoneForm = this.formBuilder.group({
       phoneUseType: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.minLength(3)]],
       note: ['']
     });
   }
@@ -49,8 +49,6 @@ export class PhoneFormComponent implements OnInit {
         console.log(this.initData)
       }
     })
-
-
   }
 
   submitData() {
