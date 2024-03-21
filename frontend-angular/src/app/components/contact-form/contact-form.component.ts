@@ -80,7 +80,7 @@ export class ContactFormComponent implements OnInit {
             console.log(err)
           },
           complete: () => {
-            this.router.navigate(['contacts']);
+            this.router.navigate(['contactDetails', contactData.id]);
           }
         });
     } else {
@@ -98,6 +98,5 @@ export class ContactFormComponent implements OnInit {
         });
     }
   }
-
 
 }

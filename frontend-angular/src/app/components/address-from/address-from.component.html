@@ -1,8 +1,8 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
 
-    <h3 class="mb-3" *ngIf="existingAddressData">Edit Phone Number</h3>
-    <h3 class="mb-3" *ngIf="!existingAddressData">Add New Phone Number</h3>
+    <h3 class="mb-3" *ngIf="existingAddressData">Edit Address</h3>
+    <h3 class="mb-3" *ngIf="!existingAddressData">Add New Address</h3>
 
     <form [formGroup]="addressForm" (submit)="submitData()">
       <div class="mb-3">
@@ -39,6 +39,18 @@
           class="form-control"
           id="street"
           formControlName="street">
+      </div>
+
+      <div class="mb-3">
+        <label
+          for="houseNumber"
+          class="form-label"
+        >House number:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="houseNumber"
+          formControlName="houseNumber">
       </div>
 
       <div class="mb-3">

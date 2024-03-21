@@ -5,11 +5,10 @@ import com.example.contactsapplication.domain.PhoneNumberEntity;
 import com.example.contactsapplication.domain.PhoneUseType;
 import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
 import com.example.contactsapplication.dto.in_out.PhoneRegistrationInitDataDto;
-import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.mapper.PhoneMapper;
 import com.example.contactsapplication.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +18,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class PhoneNumberService {
 
     ContactService contactService;
@@ -40,6 +40,7 @@ public class PhoneNumberService {
     public void addNewPhone(PhoneDetailsDto phoneDetailsDto) {
         ContactEntity phoneNumberOwner = contactService.findById(phoneDetailsDto.getPhoneNumberOwner());
         PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
+        log.info(phoneNumberEntity.getPhoneUseType().toString());
         phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
         phoneNumberRepository.save(phoneNumberEntity);
     }

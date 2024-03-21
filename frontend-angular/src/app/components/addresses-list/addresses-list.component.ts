@@ -1,9 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ContactListItemModel} from "../../models/contact-list-item.model";
-import {ContactsService} from "../../services/contacts.service";
 import {Router} from "@angular/router";
-import {PhoneDataModel} from "../../models/phone-data.model";
-import {PhonesService} from "../../services/phones.service";
 import {AddressDataModel} from "../../models/address-data.model";
 import {AddressService} from "../../services/address.service";
 
@@ -47,7 +43,7 @@ export class AddressesListComponent {
 
 
   openDeleteModal(id: number, street: string, houseNumber: string) {
-    const modelDiv = document.getElementById('confirmDeleteModal');
+    const modelDiv = document.getElementById('confirmAddressDeleteModal');
     if (modelDiv != null) {
       console.log("Delete Modal opened..")
       modelDiv.style.display = 'block';
@@ -59,7 +55,7 @@ export class AddressesListComponent {
 
 
   closeDeleteModal() {
-    const modelDiv = document.getElementById('confirmDeleteModal');
+    const modelDiv = document.getElementById('confirmAddressDeleteModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
     }

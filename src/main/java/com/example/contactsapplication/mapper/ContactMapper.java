@@ -3,8 +3,11 @@ package com.example.contactsapplication.mapper;
 import com.example.contactsapplication.domain.ContactEntity;
 import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -41,7 +44,11 @@ public class ContactMapper {
         contactEntity.setFirstName(contactDetailsDto.getFirstName());
         contactEntity.setLastName(contactDetailsDto.getLastName());
         contactEntity.setEmail(contactDetailsDto.getEmail());
-        contactEntity.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
+        try {
+            contactEntity.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
+        } catch (DateTimeParseException e) {
+            contactEntity.setBirthDate(null);
+        }
         contactEntity.setMothersName(contactDetailsDto.getMothersName());
         contactEntity.setSsId(contactDetailsDto.getSsId());
         contactEntity.setTaxId(contactDetailsDto.getTaxId());
@@ -73,9 +80,11 @@ public class ContactMapper {
         contactFound.setFirstName(contactDetailsDto.getFirstName());
         contactFound.setLastName(contactDetailsDto.getLastName());
         contactFound.setEmail(contactDetailsDto.getEmail());
-
-        contactFound.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
-
+        try {
+            contactFound.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
+        } catch (DateTimeParseException e) {
+            contactFound.setBirthDate(null);
+        }
         contactFound.setMothersName(contactDetailsDto.getMothersName());
         contactFound.setSsId(contactDetailsDto.getSsId());
         contactFound.setTaxId(contactDetailsDto.getTaxId());
