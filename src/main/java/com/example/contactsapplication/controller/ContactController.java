@@ -91,4 +91,12 @@ public class ContactController {
     public ResponseEntity<PhoneRegistrationInitDataDto> getPhoneRegistrationInitData() {
         return new ResponseEntity<>(phoneNumberService.getPhoneRegistrationInitData(), HttpStatus.OK);
     }
+
+    @PutMapping("{contactId}")
+    public ResponseEntity<Void> updateContactById(@PathVariable Long contactId, @RequestBody ContactDetailsDto contactDetailsDto) {
+        contactService.updateContactById(contactId, contactDetailsDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

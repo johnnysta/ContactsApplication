@@ -52,4 +52,10 @@ public class ContactService {
         ContactEntity contactEntity = contactRepository.findById(contactId).orElseThrow(EntityNotFoundException::new);
         return contactMapper.mapContactEntityToContactDetailsDto(contactEntity);
     }
+
+    public void updateContactById(Long contactId, ContactDetailsDto contactDetailsDto) {
+        ContactEntity contactFound = contactRepository.findById(contactId).orElseThrow(EntityNotFoundException::new);
+        contactMapper.mapFromContactDetailsDtoToExistingContactEntity(contactDetailsDto, contactFound);
+        contactRepository.save(contactFound);
+    }
 }

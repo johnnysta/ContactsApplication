@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 import {ContactsService} from "../../services/contacts.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact-basic-data',
@@ -13,7 +14,8 @@ export class ContactBasicDataComponent implements OnInit {
 
   contactDetails!: ContactDetailsDataModel;
 
-  constructor(private contactsService: ContactsService) {
+  constructor(private contactsService: ContactsService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -27,8 +29,10 @@ export class ContactBasicDataComponent implements OnInit {
       complete: () => {
       }
     });
-
   }
 
 
+  editContactDetails(contactId: number) {
+    this.router.navigate(["contactsForm", contactId]);
+  }
 }

@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "contacts", component: ContactsListComponent},
   {path: "contactsForm", component: ContactFormComponent},
+  {path: "contactsForm/:id", component: ContactFormComponent},
   {path: "contactDetails/:id", component: ContactDetailsComponent},
   {path: "phoneForm/:id", component: PhoneFormComponent},
   {path: "addressForm/:id", component: AddressFromComponent}

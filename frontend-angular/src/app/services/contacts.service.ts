@@ -33,4 +33,10 @@ export class ContactsService {
   getContactById(contactId: number): Observable<ContactDetailsDataModel> {
     return this.http.get<ContactDetailsDataModel>(BASE_URL + "/contact/" + contactId);
   }
+
+  sendContactUpdate(contactData: ContactDetailsDataModel) {
+    return this.http.put<ContactDetailsDataModel>(BASE_URL + "/" + contactData.id, contactData);
+  }
+
+
 }
