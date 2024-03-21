@@ -25,8 +25,8 @@ export class AddressFromComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
     this.addressForm = this.formBuilder.group({
       zipCode: [''],
-      city: ['', Validators.required],
-      street: ['', Validators.required],
+      city: ['', [Validators.required, Validators.minLength(2)]],
+      street: ['', [Validators.required, Validators.minLength(2)]],
       houseNumber: ['', Validators.required],
       note: ['']
     });

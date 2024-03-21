@@ -29,6 +29,19 @@
           formControlName="city">
       </div>
 
+      <small
+        *ngIf="!addressForm.get('city')?.valid
+                        && addressForm.get('city')?.touched
+                        && !addressForm.get('city')?.errors?.['serverError']"
+        class="text-danger"
+      >City is a required field. Please enter a valid city name that is at least 2 characters long.
+      </small>
+
+      <small *ngIf="addressForm.get('city')?.errors?.['serverError']" class="text-danger">
+        {{addressForm.get('city')?.errors?.['serverError']}}
+      </small>
+
+
       <div class="mb-3">
         <label
           for="street"
@@ -40,6 +53,19 @@
           id="street"
           formControlName="street">
       </div>
+
+      <small
+        *ngIf="!addressForm.get('street')?.valid
+                        && addressForm.get('street')?.touched
+                        && !addressForm.get('street')?.errors?.['serverError']"
+        class="text-danger"
+      >Street is a required field. Please enter a valid street name that is at least 2 characters long.
+      </small>
+
+      <small *ngIf="addressForm.get('street')?.errors?.['serverError']" class="text-danger">
+        {{addressForm.get('street')?.errors?.['serverError']}}
+      </small>
+
 
       <div class="mb-3">
         <label
@@ -65,12 +91,12 @@
           formControlName="note">
       </div>
 
-
       <div class="row">
         <div class="col">
           <button
             type="submit"
             class="btn btn-success"
+            [disabled]="addressForm.invalid"
           >Submit
           </button>
           <button
