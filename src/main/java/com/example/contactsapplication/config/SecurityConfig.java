@@ -33,40 +33,20 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(10);
+        return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        return authProvider;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-//        AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         httpSecurity.csrf(csrf -> csrf.disable())
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/test/**").permitAll()
 //                        .anyRequest().authenticated()
                                 .anyRequest().permitAll()
                 )
-//                .authenticationManager(authenticationManager)
                 .httpBasic(Customizer.withDefaults());
         return httpSecurity.build();
     }
