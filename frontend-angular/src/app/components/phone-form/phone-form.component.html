@@ -5,7 +5,7 @@
     <h3 class="mb-3" *ngIf="!existingPhoneData">Add New Phone Number</h3>
 
 
-    <form [formGroup]="phoneForm" (submit)="submitData()">
+    <form [formGroup]="phoneForm" (submit)="submitData()" *ngIf="initData">
       <div class="mb-3">
         <label
           for="phoneUseType"

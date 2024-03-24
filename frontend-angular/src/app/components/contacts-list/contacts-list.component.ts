@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ContactListItemModel} from "../../models/contact-list-item.model";
 import {ContactsService} from "../../services/contacts.service";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
-import {NavigationExtras, Router} from "@angular/router";
-import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-contacts-list',
@@ -12,7 +12,7 @@ import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 })
 export class ContactsListComponent implements OnInit {
 
-  // @Input() public loggedInUser: AuthenticatedUserModel;
+  // @Input() loggedInUser: AuthenticatedUserModel;
 
   contacts!: ContactListItemModel[];
 

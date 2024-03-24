@@ -2,8 +2,8 @@
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-75 my-0">
     <h3 class="mb-3">Phone Numbers of Contact</h3>
 
-    <div *ngIf="phones.length === 0; else phoneList">
-      <h6>No phone numbers available for this contact. You can add phone by clicking the button below.</h6>
+    <div *ngIf="!phones || phones.length === 0; else phoneList">
+      <h6>No phone numbers available for this contact. You can add a phone by clicking the button below.</h6>
     </div>
 
     <ng-template #phoneList>

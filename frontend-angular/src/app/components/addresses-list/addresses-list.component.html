@@ -2,8 +2,8 @@
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-75 my-0">
     <h3 class="mb-3">Addresses of Contact</h3>
 
-    <div *ngIf="addresses.length === 0; else addressList">
-      <h6>No addresses available for this contact. You can add address by clicking the button below.</h6>
+    <div *ngIf="!addresses || addresses.length === 0; else addressList">
+      <h6>No addresses available for this contact. You can add an address by clicking the button below.</h6>
     </div>
 
     <ng-template #addressList>

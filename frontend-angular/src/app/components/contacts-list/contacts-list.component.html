@@ -2,7 +2,7 @@
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
     <h3 class="mb-3">My Contacts</h3>
 
-    <div *ngIf="contacts.length === 0; else contactsList">
+    <div *ngIf="!contacts || contacts.length === 0; else contactsList">
       <h6>No contacts available for this user. You can add contacts by clicking the button below.</h6>
     </div>
 

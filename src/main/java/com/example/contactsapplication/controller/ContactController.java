@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,14 @@ public class ContactController {
     ContactService contactService;
     PhoneNumberService phoneNumberService;
     AddressService addressService;
+
+
+    //This endpoint is just for testing security
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello Spring Security";
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<ContactListItemDto>> getContactsByUserId(@PathVariable Long userId) {

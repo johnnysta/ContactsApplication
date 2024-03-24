@@ -22,7 +22,7 @@
                         && contactForm.get('firstName')?.touched
                         && !contactForm.get('firstName')?.errors?.['serverError']"
         class="text-danger"
-      >First Name is a required field. Please enter a valid first name that is at least 3 characters long.
+      >First Name is a required field. <br>Please enter a valid first name that is at least 3 characters long.
       </small>
 
       <small *ngIf="contactForm.get('firstName')?.errors?.['serverError']" class="text-danger">
@@ -58,7 +58,7 @@
                         && contactForm.get('email')?.touched
                         && !contactForm.get('email')?.errors?.['serverError']"
         class="text-danger"
-      >Email is a required field. Please enter a valid first email that is at least 3 characters long.
+      >Email is a required field.<br> Please enter a valid first email that is at least 3 characters long.
       </small>
 
       <small *ngIf="contactForm.get('email')?.errors?.['serverError']" class="text-danger">
