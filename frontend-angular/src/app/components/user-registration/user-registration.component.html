@@ -12,7 +12,7 @@
                         && !userRegForm.get('firstName')?.errors?.['serverError']"
           class="text-danger"
         >
-          Please enter a valid first name that is at least 3 characters long!
+          Please enter a valid first name that is at least 3 characters long.
         </small>
         <small *ngIf="userRegForm.get('firstName')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('firstName')?.errors?.['serverError']}}
@@ -29,7 +29,7 @@
                         && !userRegForm.get('lastName')?.errors?.['serverError']"
           class="text-danger"
         >
-          Please enter a valid last name that is at least 3 characters long!
+          Please enter a valid last name that is at least 3 characters long.
         </small>
         <small *ngIf="userRegForm.get('lastName')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('lastName')?.errors?.['serverError']}}
@@ -46,7 +46,7 @@
                         && !userRegForm.get('email')?.errors?.['serverError']"
           class="text-danger"
         >
-          Please enter a valid email address!
+          Please enter a valid email address.
         </small>
         <small *ngIf="userRegForm.get('email')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('email')?.errors?.['serverError']}}
@@ -64,7 +64,7 @@
                         && !userRegForm.get('password')?.errors?.['serverError']"
           class="text-danger"
         >
-          Please enter a valid password that is at least 3 characters long!
+          Please enter a valid password that is at least 3 characters long.
         </small>
         <small *ngIf="userRegForm.get('password')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('password')?.errors?.['serverError']}}
@@ -88,7 +88,7 @@
                         && !userRegForm.get('confirmPassword')?.errors?.['serverError']"
           class="text-danger"
         >
-          Please enter a valid password that is at least 3 characters long!
+          Please enter a valid password that is at least 3 characters long.
         </small>
         <small *ngIf="userRegForm.get('confirmPassword')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('confirmPassword')?.errors?.['serverError']}}
@@ -109,6 +109,18 @@
           <option *ngFor="let role of initialRoles"
                   value="{{role}}">{{role}}</option>
         </select>
+
+        <small
+          *ngIf="!userRegForm.get('role')?.valid
+                        && userRegForm.get('role')?.touched
+                        && !userRegForm.get('role')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please select a role.
+        </small>
+        <small *ngIf="userRegForm.get('role')?.errors?.['serverError']" class="text-danger">
+          {{userRegForm.get('role')?.errors?.['serverError']}}
+        </small>
 
       </div>
 

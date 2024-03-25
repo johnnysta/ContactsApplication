@@ -1,8 +1,8 @@
 export interface AuthenticatedUserModel {
-  firstName: String;
-  email: String;
+  userId: number;
+  firstName: string;
+  lastName: string
+  email: string;
   isLoggedIn: boolean;
-  id: number;
   role: string;
-
 }

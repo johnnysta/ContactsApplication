@@ -3,6 +3,8 @@ package com.example.contactsapplication.mapper;
 import com.example.contactsapplication.domain.Role;
 import com.example.contactsapplication.domain.UserEntity;
 import com.example.contactsapplication.dto.in.UserCreationDto;
+import com.example.contactsapplication.dto.out.AuthenticatedUserDto;
+import com.example.contactsapplication.service.CustomUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -25,4 +27,15 @@ public class UserMapper {
         userEntity.setPassword(userCreationDto.getPassword());
         return userEntity;
     }
+
+    public AuthenticatedUserDto mapCustomUserDetailsToAuthenticatedUserDto(CustomUserDetails loggedInUserDetails) {
+        AuthenticatedUserDto authenticatedUserDto = new AuthenticatedUserDto();
+        authenticatedUserDto.setUserId(loggedInUserDetails.getUserId());
+        authenticatedUserDto.setFirstName(loggedInUserDetails.getFirstName());
+        authenticatedUserDto.setLastName(loggedInUserDetails.getLastName());
+        authenticatedUserDto.setRole(loggedInUserDetails.getAuthorities().toArray()[0].toString());
+        authenticatedUserDto.setEmail(loggedInUserDetails.getEmail());
+        return authenticatedUserDto;
+    }
+
 }

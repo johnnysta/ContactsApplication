@@ -28,10 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 " UserEntity role: " + userEntity.getRole().name());
 
         // Create and return the Spring Security UserDetails object
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(userEntity.getEmail())
-                .password(userEntity.getPassword())
-                .roles(userEntity.getRole().name()) // Replace with appropriate roles from userDetails if available
-                .build();
+
+        CustomUserDetails userDetails = new CustomUserDetails(userEntity);
+        return userDetails;
     }
 }

@@ -29,7 +29,7 @@ public class ContactController {
 
 
     //This endpoint is just for testing security
-    @PreAuthorize("hasAuthority('ROLE_NEW_USER')")
+    @PreAuthorize("hasAuthority('NEW_USER')")
     @GetMapping("/hello")
     public String hello() {
         return "Hello Spring Security";

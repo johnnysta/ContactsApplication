@@ -39,8 +39,8 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-//                                .anyRequest().authenticated()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
+//                                .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .authenticationProvider(authenticationProvider());

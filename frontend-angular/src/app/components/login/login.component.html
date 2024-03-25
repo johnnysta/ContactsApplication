@@ -1,16 +1,62 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h3 class="mb-3">Please log in</h3>
-    <form>
+    <h3 class="mb-3">Log In</h3>
+    <form [formGroup]="loginForm">
       <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
+        <label for="email" class="form-label">Email:<sup>*</sup></label>
         <input type="email" class="form-control" id="email" formControlName="email">
+
+        <small
+          *ngIf="!loginForm.get('email')?.valid
+                        && loginForm.get('email')?.touched
+                        && !loginForm.get('email')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please enter a valid email address.
+        </small>
+        <small *ngIf="loginForm.get('email')?.errors?.['serverError']" class="text-danger">
+          {{loginForm.get('email')?.errors?.['serverError']}}
+        </small>
+
+
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">Password:<sup>*</sup></label>
         <input type="password" class="form-control" id="password" formControlName="password">
+
+        <small
+          *ngIf="!loginForm.get('password')?.valid
+                        && loginForm.get('password')?.touched
+                        && !loginForm.get('password')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please enter a valid password that is at least 3 characters long.
+        </small>
+        <small *ngIf="loginForm.get('password')?.errors?.['serverError']" class="text-danger">
+          {{loginForm.get('password')?.errors?.['serverError']}}
+        </small>
+
+
       </div>
-      <button type="submit" class="btn btn-primary"  (click)="submitData()">Submit</button>
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="loginForm.invalid"
+          >Submit
+          </button>
+          <button
+            type="submit"
+            class="btn btn-secondary mx-3"
+            (click)="submitData()"
+          >Cancel
+          </button>
+        </div>
+        <div class="col text-right">
+          <p class="text-end"><sup>*</sup>Required fields</p>
+        </div>
+      </div>
     </form>
   </div>
 </div>
