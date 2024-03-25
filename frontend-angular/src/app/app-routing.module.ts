@@ -6,15 +6,18 @@ import {ContactFormComponent} from "./components/contact-form/contact-form.compo
 import {ContactDetailsComponent} from "./components/contact-details/contact-details.component";
 import {PhoneFormComponent} from "./components/phone-form/phone-form.component";
 import {AddressFromComponent} from "./components/address-from/address-from.component";
+import {UserRegistrationComponent} from "./components/user-registration/user-registration.component";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
+  {path: "registerUser", component: UserRegistrationComponent},
   {path: "contacts", component: ContactsListComponent},
   {path: "contactsForm", component: ContactFormComponent},
   {path: "contactsForm/:id", component: ContactFormComponent},
   {path: "contactDetails/:id", component: ContactDetailsComponent},
   {path: "phoneForm/:id", component: PhoneFormComponent},
-  {path: "addressForm/:id", component: AddressFromComponent}
+  {path: "addressForm/:id", component: AddressFromComponent},
+  {path: "home", component: ContactsListComponent}
 ];
 
 @NgModule({

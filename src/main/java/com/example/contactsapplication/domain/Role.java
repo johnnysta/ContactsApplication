@@ -2,6 +2,8 @@ package com.example.contactsapplication.domain;
 
 public enum Role {
     ADMIN,
-    USER
+    USER,
+    NEW_USER,
+    NEW_ADMIN
 }
 
