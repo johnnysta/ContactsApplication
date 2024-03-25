@@ -32,7 +32,7 @@ public class UserEntity {
     private String lastName;
 
     @NotBlank(message = "You must provide an email address")
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank(message = "You must provide a password")
