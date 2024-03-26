@@ -6,11 +6,16 @@ import com.example.contactsapplication.dto.in.UserCreationDto;
 import com.example.contactsapplication.dto.out.AuthenticatedUserDto;
 import com.example.contactsapplication.service.CustomUserDetails;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class UserMapper {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public UserEntity userCreationDtoToUserEntity(UserCreationDto userCreationDto) {
         UserEntity userEntity = new UserEntity();
@@ -24,7 +29,7 @@ public class UserMapper {
         userEntity.setEmail(userCreationDto.getEmail());
         userEntity.setFirstName(userCreationDto.getFirstName());
         userEntity.setLastName(userCreationDto.getLastName());
-        userEntity.setPassword(userCreationDto.getPassword());
+        userEntity.setPassword(passwordEncoder.encode(userCreationDto.getPassword()));
         return userEntity;
     }
 

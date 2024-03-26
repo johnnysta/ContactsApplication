@@ -41,6 +41,25 @@ public class UserEntityController {
         log.info("FN: " + loggedInUserDetails.getFirstName());
         log.info("LN: " + loggedInUserDetails.getLastName());
 
+        AuthenticatedUserDto authenticatedUserDto;
+        if (principal != null) {
+            authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticatedUserDto> login(Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        log.info("Email: " + loggedInUserDetails.getEmail());
+        log.info("Id: " + loggedInUserDetails.getUserId().toString());
+        log.info("FN: " + loggedInUserDetails.getFirstName());
+        log.info("LN: " + loggedInUserDetails.getLastName());
+
         AuthenticatedUserDto authenticatedUserDto = null;
         if (principal != null) {
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
@@ -49,5 +68,6 @@ public class UserEntityController {
         }
         return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
     }
+
 
 }

@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContactListItemModel} from "../../models/contact-list-item.model";
 import {ContactsService} from "../../services/contacts.service";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {Router} from "@angular/router";
+import {AccountService} from "../../services/account.service";
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Router} from "@angular/router";
 })
 export class ContactsListComponent implements OnInit {
 
-  // @Input() loggedInUser: AuthenticatedUserModel;
+  loggedInUser!: AuthenticatedUserModel;
 
   contacts!: ContactListItemModel[];
 
@@ -21,25 +22,33 @@ export class ContactsListComponent implements OnInit {
   currentContactLast!: string;
 
   constructor(private contactsService: ContactsService,
-              private router: Router) {
+              private router: Router,
+              private accountService: AccountService) {
   }
 
   ngOnInit(): void {
-    this.loadContacts();
+    this.accountService.loggedInUser.subscribe({
+      next: value => {
+        this.loggedInUser = value;
+        this.loadContacts();
+      }
+    });
   }
 
   loadContacts() {
-    this.contactsService.getContactsByUserId(1).subscribe({
-      next: value => {
-        this.contacts = value;
-      },
-      error: err => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log("Contacts for user retrieved successfully");
-      }
-    });
+    if (this.loggedInUser && this.loggedInUser.userId != 0) {
+      this.contactsService.getContactsByUserId(this.loggedInUser.userId).subscribe({
+        next: value => {
+          this.contacts = value;
+        },
+        error: err => {
+          console.log(err);
+        },
+        complete: () => {
+          console.log("Contacts for user retrieved successfully");
+        }
+      });
+    }
   }
 
 

@@ -44,12 +44,12 @@
             type="submit"
             class="btn btn-success"
             [disabled]="loginForm.invalid"
+            (click)="submitData()"
           >Submit
           </button>
           <button
             type="submit"
             class="btn btn-secondary mx-3"
-            (click)="submitData()"
           >Cancel
           </button>
         </div>

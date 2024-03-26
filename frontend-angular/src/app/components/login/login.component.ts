@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {LoginDataModel} from "../../models/login-data.model";
-import {AddressService} from "../../services/address.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
 
 @Component({
@@ -27,7 +26,16 @@ export class LoginComponent {
   }
 
   submitData() {
+    console.log("Submitting login data..");
     this.loginData = this.loginForm.value;
-    this.accountService.basicLogin(this.loginData).subscribe();
+    this.accountService.login(this.loginData).subscribe({
+      next: value => console.log("E-mail back: " + value.email),
+      error: err => {
+        console.log(err)
+      },
+      complete: () => {
+        this.router.navigate(['contacts'])
+      }
+    });
   }
 }

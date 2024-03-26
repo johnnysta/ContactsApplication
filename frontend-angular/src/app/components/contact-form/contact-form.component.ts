@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ContactsService} from "../../services/contacts.service";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 import {validationHandler} from "../../utils/validationHandler";
+import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
+import {AccountService} from "../../services/account.service";
 
 @Component({
   selector: 'app-contact-form',
@@ -13,7 +15,7 @@ import {validationHandler} from "../../utils/validationHandler";
 export class ContactFormComponent implements OnInit {
 
   contactForm: FormGroup;
-  // loggedInUser!: AuthenticatedUserModel;
+  loggedInUser!: AuthenticatedUserModel;
   existingContactData!: ContactDetailsDataModel;
 
 
@@ -21,7 +23,8 @@ export class ContactFormComponent implements OnInit {
               private formBuilder: FormBuilder,
               // private accountService: AccountService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private accountService: AccountService) {
     this.contactForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['',],
@@ -34,6 +37,13 @@ export class ContactFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accountService.loggedInUser.subscribe({
+      next: value => {
+        this.loggedInUser = value;
+        console.log("User ID from behav. subject: " + value.userId);
+      }
+    });
+
     this.route.paramMap.subscribe({
       next: param => {
         const idFromParamMap = param.get('id');
@@ -69,8 +79,8 @@ export class ContactFormComponent implements OnInit {
 
   submitData() {
     let contactData: ContactDetailsDataModel = this.contactForm.value;
-    //Until authentication not works, we use 1 for logged in user id:
-    contactData.userId = 1;
+    contactData.userId = this.loggedInUser.userId;
+    console.log("Logged in User ID in submitData : " + this.loggedInUser.userId);
     if (this.existingContactData) {
       contactData.id = this.existingContactData.id;
       this.contactService.sendContactUpdate(contactData).subscribe(
