@@ -24,6 +24,13 @@ export class NavbarComponent {
 
 
   logout() {
-    this.accountService.setLoggedOut();
+    this.accountService.logout().subscribe({
+        next: _ => {
+          this.accountService.setLoggedOut()
+          console.log("Logged out successfully")
+        },
+        error: err => console.log("Logout error: " + err)
+      }
+    );
   }
 }

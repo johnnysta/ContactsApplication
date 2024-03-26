@@ -49,7 +49,13 @@ export class AccountService {
     this.loggedInUser.next(user);
   }
 
+  public logout(): Observable<void> {
+    return this.http.get<void>(BASE_URL + '/logout');
+  };
+
   setLoggedOut() {
     this.loggedInUser.next(this.INITIAL_USER_STATE);
   }
+
+
 }
