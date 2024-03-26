@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -34,7 +33,7 @@ public class ContactEntity {
     @Column(name = "tax_id")
     private String taxId;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @ManyToOne

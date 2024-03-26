@@ -29,9 +29,14 @@ export class LoginComponent {
     console.log("Submitting login data..");
     this.loginData = this.loginForm.value;
     this.accountService.login(this.loginData).subscribe({
-      next: value => console.log("E-mail back: " + value.email),
+      next: value => {
+        console.log("E-mail back: " + value.email);
+        value.isLoggedIn = true;
+        this.accountService.setLoggedIn(value);
+      },
       error: err => {
         console.log(err)
+        this.accountService.setLoggedOut();
       },
       complete: () => {
         this.router.navigate(['contacts'])

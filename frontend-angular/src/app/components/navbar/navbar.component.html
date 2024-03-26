@@ -8,16 +8,17 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" routerLink="registerUser">Add User</a>
+          <a class="nav-link" routerLink="registerUser" *ngIf="loggedInUser.role==='ADMIN'">Add User</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="contacts">My Contacts</a>
+          <a class="nav-link" routerLink="contacts" *ngIf="loggedInUser.role==='ADMIN'||loggedInUser.role==='USER'">My
+            Contacts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="login">Login</a>
+          <a class="nav-link" routerLink="login" *ngIf="!loggedInUser.isLoggedIn">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Logout</a>
+          <a class="nav-link" routerLink="contacts" (click)="logout()" *ngIf="loggedInUser.isLoggedIn">Logout</a>
         </li>
       </ul>
     </div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
+import {AccountService} from "../../services/account.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +9,21 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  loggedInUser!: AuthenticatedUserModel;
+
+  constructor(private accountService: AccountService) {
+  }
+
+  ngOnInit(): void {
+    this.accountService.loggedInUser.subscribe({
+      next: value => {
+        this.loggedInUser = value;
+      }
+    });
+  }
+
+
+  logout() {
+    this.accountService.setLoggedOut();
+  }
 }

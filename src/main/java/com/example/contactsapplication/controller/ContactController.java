@@ -54,7 +54,7 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> addNewContact(@RequestBody ContactDetailsDto contactDetailsDto) {
         contactService.addNewContact(contactDetailsDto);

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LoginDataModel} from "../models/login-data.model";
-import {BehaviorSubject, Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {AuthenticatedUserModel} from "../models/authenticated-user.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../environments/environment";
@@ -36,17 +36,20 @@ export class AccountService {
     const headers = new HttpHeaders(loginData ? {
       Authorization: 'Basic ' + btoa(loginData.email + ':' + loginData.password),
     } : {});
-    return this.http.post<AuthenticatedUserModel>(BASE_URL + '/login', {}, {headers: headers})
-      .pipe(
-        tap((user) => {
-          console.log("User ID received back from server: " + user.userId);
-          this.loggedInUser.next(user);
-        })
-      );
+    return this.http.post<AuthenticatedUserModel>(BASE_URL + '/login', {}, {headers: headers});
   }
 
 
   registerUser(userRegData: UserRegistrationDataModel) {
     return this.http.post<UserRegistrationDataModel>(BASE_URL, userRegData);
+  }
+
+  setLoggedIn(user: AuthenticatedUserModel) {
+    console.log("User ID received back from server: " + user.userId);
+    this.loggedInUser.next(user);
+  }
+
+  setLoggedOut() {
+    this.loggedInUser.next(this.INITIAL_USER_STATE);
   }
 }
