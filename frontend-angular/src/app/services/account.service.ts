@@ -22,10 +22,10 @@ export class AccountService {
     role: ''
   }
 
-  public loggedInUser: BehaviorSubject<AuthenticatedUserModel>
-    = new BehaviorSubject<AuthenticatedUserModel>(this.INITIAL_USER_STATE);
+  public loggedInUser: BehaviorSubject<AuthenticatedUserModel>;
 
   constructor(private http: HttpClient) {
+    this.loggedInUser = new BehaviorSubject<AuthenticatedUserModel>(this.INITIAL_USER_STATE);
   }
 
 
