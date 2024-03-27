@@ -32,7 +32,6 @@ export class AccountService {
   login(loginData: LoginDataModel): Observable<AuthenticatedUserModel> {
     console.log("Email: " + loginData.email);
     console.log("PW: " + loginData.password);
-
     const headers = new HttpHeaders(loginData ? {
       Authorization: 'Basic ' + btoa(loginData.email + ':' + loginData.password),
     } : {});
@@ -59,4 +58,7 @@ export class AccountService {
   }
 
 
+  getUserInfo() {
+    return this.http.get<AuthenticatedUserModel>(BASE_URL + '/userInfo');
+  }
 }

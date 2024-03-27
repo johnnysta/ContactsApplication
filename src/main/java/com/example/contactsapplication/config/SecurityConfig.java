@@ -4,6 +4,7 @@ import com.example.contactsapplication.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -42,12 +43,14 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                                .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/users/userInfo").permitAll()
                                 .anyRequest().authenticated()
 //                                .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 //                .securityContext(httpSecuritySecurityContextConfigurer ->
 //                        httpSecuritySecurityContextConfigurer.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .logout(httpSecurityLogoutConfigurer -> {

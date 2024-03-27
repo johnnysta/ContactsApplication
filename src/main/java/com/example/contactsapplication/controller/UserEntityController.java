@@ -32,42 +32,37 @@ public class UserEntityController {
     }
 
 
-    @GetMapping("/me")
-    public ResponseEntity<AuthenticatedUserDto> getUserInfo(Principal principal) {
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticatedUserDto> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        log.info("Email: " + loggedInUserDetails.getEmail());
-        log.info("Id: " + loggedInUserDetails.getUserId().toString());
-        log.info("FN: " + loggedInUserDetails.getFirstName());
-        log.info("LN: " + loggedInUserDetails.getLastName());
 
-        AuthenticatedUserDto authenticatedUserDto;
-        if (principal != null) {
+        log.info("Queried user info in login: " + loggedInUserDetails.getEmail());
+
+        AuthenticatedUserDto authenticatedUserDto = null;
+        if (loggedInUserDetails != null) {
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
         } else {
+            log.info("Unauthorized during logib");
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticatedUserDto> login(Principal principal) {
+    @GetMapping("/userInfo")
+    public ResponseEntity<AuthenticatedUserDto> getUserInfo(Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        log.info("Email: " + loggedInUserDetails.getEmail());
-        log.info("Id: " + loggedInUserDetails.getUserId().toString());
-        log.info("FN: " + loggedInUserDetails.getFirstName());
-        log.info("LN: " + loggedInUserDetails.getLastName());
 
         AuthenticatedUserDto authenticatedUserDto = null;
         if (principal != null) {
+            CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
+            log.info("Queried user info: " + loggedInUserDetails.getEmail());
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
         } else {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
     }
-
 
 }
