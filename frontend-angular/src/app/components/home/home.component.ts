@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {AccountService} from "../../services/account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   loggedInUser!: AuthenticatedUserModel;
 
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -23,5 +25,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
+  login() {
+    this.router.navigate(['login']);
+  }
 }

@@ -19,8 +19,8 @@ export class LoginComponent {
               private router: Router,
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
 
   }
@@ -42,5 +42,9 @@ export class LoginComponent {
         this.router.navigate(['home'])
       }
     });
+  }
+
+  cancel() {
+    this.router.navigate(['home'])
   }
 }

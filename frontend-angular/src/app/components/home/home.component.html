@@ -8,7 +8,10 @@
 
 <div class="container p-5" *ngIf="!loggedInUser.isLoggedIn">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h3 class="mb-3">In order to manage contacts please log in first.</h3>
+    <h3 class="mb-3">In order to manage contacts please log in.</h3>
+    <button type="button" class="btn btn-secondary"
+            (click)="login()">Login
+    </button>
   </div>
 </div>
 

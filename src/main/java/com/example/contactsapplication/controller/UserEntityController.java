@@ -60,7 +60,7 @@ public class UserEntityController {
             log.info("Queried user info: " + loggedInUserDetails.getEmail());
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
     }

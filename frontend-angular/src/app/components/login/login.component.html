@@ -1,6 +1,6 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h3 class="mb-3">Log In</h3>
+    <h3 class="mb-3">Login</h3>
     <form [formGroup]="loginForm">
       <div class="mb-3">
         <label for="email" class="form-label">Email:<sup>*</sup></label>
@@ -50,6 +50,7 @@
           <button
             type="submit"
             class="btn btn-secondary mx-3"
+            (click)="cancel()"
           >Cancel
           </button>
         </div>
