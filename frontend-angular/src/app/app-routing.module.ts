@@ -7,6 +7,7 @@ import {ContactDetailsComponent} from "./components/contact-details/contact-deta
 import {PhoneFormComponent} from "./components/phone-form/phone-form.component";
 import {AddressFromComponent} from "./components/address-from/address-from.component";
 import {UserRegistrationComponent} from "./components/user-registration/user-registration.component";
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
   {path: "contactDetails/:id", component: ContactDetailsComponent},
   {path: "phoneForm/:id", component: PhoneFormComponent},
   {path: "addressForm/:id", component: AddressFromComponent},
-  {path: "home", component: ContactsListComponent}
+  {path: "home", component: HomeComponent}
 ];
 
 @NgModule({

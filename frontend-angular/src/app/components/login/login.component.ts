@@ -39,7 +39,7 @@ export class LoginComponent {
         this.accountService.setLoggedOut();
       },
       complete: () => {
-        this.router.navigate(['contacts'])
+        this.router.navigate(['home'])
       }
     });
   }

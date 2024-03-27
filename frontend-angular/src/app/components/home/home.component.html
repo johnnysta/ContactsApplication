@@ -1,0 +1,14 @@
+<app-contacts-list *ngIf="loggedInUser.role==='ADMIN'||loggedInUser.role==='USER'"></app-contacts-list>
+
+<div class="container p-5" *ngIf="loggedInUser.role==='NEW_ADMIN'||loggedInUser.role==='NEW_USER'">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+    <h3 class="mb-3">In order to manage contacts please change your initial password.</h3>
+  </div>
+</div>
+
+<div class="container p-5" *ngIf="!loggedInUser.isLoggedIn">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+    <h3 class="mb-3">In order to manage contacts please log in first.</h3>
+  </div>
+</div>
+

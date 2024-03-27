@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {AccountService} from "../../services/account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,8 @@ export class NavbarComponent {
 
   loggedInUser!: AuthenticatedUserModel;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,11 +27,13 @@ export class NavbarComponent {
 
   logout() {
     this.accountService.logout().subscribe({
-        next: _ => {
-          this.accountService.setLoggedOut()
-          console.log("Logged out successfully")
+        next: () => {
+          console.log("Logged out successfully");
+          this.router.navigate(['home'])
         },
-        error: err => console.log("Logout error: " + err)
+        error: err => console.log("Logout error: " + err),
+        complete: () => {
+        }
       }
     );
   }

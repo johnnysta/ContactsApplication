@@ -17,6 +17,7 @@ import { AddressFromComponent } from './components/address-from/address-from.com
 import { ContactBasicDataComponent } from './components/contact-basic-data/contact-basic-data.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import {AuthInterceptor} from "./utils/auth-interceptor.service";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {AuthInterceptor} from "./utils/auth-interceptor.service";
     PhoneFormComponent,
     AddressFromComponent,
     ContactBasicDataComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

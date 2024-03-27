@@ -50,6 +50,7 @@ export class AccountService {
   }
 
   public logout(): Observable<void> {
+    this.setLoggedOut();
     return this.http.get<void>(BASE_URL + '/logout');
   };
 
