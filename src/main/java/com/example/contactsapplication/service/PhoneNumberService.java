@@ -7,6 +7,7 @@ import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
 import com.example.contactsapplication.dto.in_out.PhoneRegistrationInitDataDto;
 import com.example.contactsapplication.mapper.PhoneMapper;
 import com.example.contactsapplication.repository.PhoneNumberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,26 @@ public class PhoneNumberService {
             initDataList.add(phoneUseType.name());
         }
         return phoneRegistrationInitDataDto;
+    }
+
+    public void replacePhonesList(Long contactId, List<PhoneDetailsDto> phoneDetailsDtos) {
+        phoneDetailsDtos.forEach(phoneDetailsDto -> {
+            Long currentId = phoneDetailsDto.getId();
+            Boolean isDeleted = phoneDetailsDto.getIsDeleted();
+            if (isDeleted) {
+                phoneNumberRepository.deleteById(currentId);
+            } else if (phoneDetailsDto.getId() == 0) {
+                ContactEntity phoneNumberOwner = contactService.findById(contactId);
+                PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
+                phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
+                phoneNumberRepository.save(phoneNumberEntity);
+            } else {
+                PhoneNumberEntity phoneNumberEntity = phoneNumberRepository.findById(currentId).orElseThrow(EntityNotFoundException::new);
+                phoneNumberEntity.setPhoneNumber(phoneDetailsDto.getPhoneNumber());
+                phoneNumberEntity.setNote(phoneDetailsDto.getNote());
+                phoneNumberEntity.setPhoneUseType(PhoneUseType.valueOf(phoneDetailsDto.getPhoneUseType()));
+                phoneNumberRepository.save(phoneNumberEntity);
+            }
+        });
     }
 }

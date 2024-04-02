@@ -18,6 +18,9 @@ import { ContactBasicDataComponent } from './components/contact-basic-data/conta
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import {AuthInterceptor} from "./utils/auth-interceptor.service";
 import { HomeComponent } from './components/home/home.component';
+import { ContactFormFullComponent } from './components/contact-form-full/contact-form-full.component';
+import { PhonesListSubComponent } from './components/phones-list-sub/phones-list-sub.component';
+import { PhoneFormLocalComponent } from './components/phone-form-local/phone-form-local.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { HomeComponent } from './components/home/home.component';
     AddressFromComponent,
     ContactBasicDataComponent,
     UserRegistrationComponent,
-    HomeComponent
+    HomeComponent,
+    ContactFormFullComponent,
+    PhonesListSubComponent,
+    PhoneFormLocalComponent
   ],
   imports: [
     BrowserModule,

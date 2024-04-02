@@ -56,9 +56,9 @@ public class ContactController {
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping
-    public ResponseEntity<Void> addNewContact(@RequestBody ContactDetailsDto contactDetailsDto) {
-        contactService.addNewContact(contactDetailsDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> addNewContact(@RequestBody ContactDetailsDto contactDetailsDto) {
+        Long newContactId = contactService.addNewContact(contactDetailsDto);
+        return new ResponseEntity<>(newContactId, HttpStatus.CREATED);
     }
 
     @GetMapping("/phones/{contactId}")
@@ -105,6 +105,14 @@ public class ContactController {
     @PutMapping("{contactId}")
     public ResponseEntity<Void> updateContactById(@PathVariable Long contactId, @RequestBody ContactDetailsDto contactDetailsDto) {
         contactService.updateContactById(contactId, contactDetailsDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @PostMapping("/phones/phones-list/{contactId}")
+    public ResponseEntity<Void> replacePhonesList(@PathVariable Long contactId, @RequestBody List<PhoneDetailsDto> phoneDetailsDtos) {
+        phoneNumberService.replacePhonesList(contactId, phoneDetailsDtos);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

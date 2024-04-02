@@ -9,4 +9,5 @@ public class PhoneDetailsDto {
     String phoneNumber;
     String note;
     Long phoneNumberOwner;
+    Boolean isDeleted;
 }

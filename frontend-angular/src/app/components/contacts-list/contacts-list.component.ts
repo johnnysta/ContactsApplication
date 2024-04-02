@@ -87,11 +87,13 @@ export class ContactsListComponent implements OnInit {
   }
 
   showDetails(item: ContactListItemModel) {
-    this.router.navigate(['contactDetails', item.id]);
+    // this.router.navigate(['contactDetails', item.id]);
+    this.router.navigate(['contactsFormFull', item.id]);
   }
 
   addNewContact() {
-    this.router.navigate(["contactsForm"]);
+    // this.router.navigate(["contactsForm"]);
+    this.router.navigate(["contactsFormFull"]);
   }
 }
 

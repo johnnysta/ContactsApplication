@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {ContactListItemModel} from "../models/contact-list-item.model";
 import {PhoneDataModel} from "../models/phone-data.model";
 import {environment} from "../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -30,5 +29,9 @@ export class PhonesService {
 
   getPhoneRegistrationInitData(): Observable<PhoneRegistrationInitDataModel> {
     return this.http.get<PhoneRegistrationInitDataModel>(BASE_URL + "/init-data");
+  }
+
+  sendPhonesData(contactPhones: PhoneDataModel[], id: number) {
+    return this.http.post<PhoneDataModel[]>(BASE_URL + "/phones-list/" + id, contactPhones);
   }
 }

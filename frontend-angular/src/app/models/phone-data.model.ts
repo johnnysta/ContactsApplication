@@ -4,4 +4,5 @@ export interface PhoneDataModel {
   phoneNumber: string;
   note: string;
   phoneNumberOwner: number;
+  isDeleted: boolean;
 }

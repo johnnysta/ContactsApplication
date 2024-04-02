@@ -1,0 +1,96 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+
+    <h3 class="mb-3" *ngIf="phoneIndex > -1">Edit Phone Number</h3>
+    <h3 class="mb-3" *ngIf="phoneIndex === -1">Add New Phone Number</h3>
+
+
+    <form [formGroup]="phoneForm" (submit)="submitData()" *ngIf="initData">
+      <div class="mb-3">
+        <label
+          for="phoneUseType"
+          class="form-label"
+        >Use Type:<sup>*</sup></label>
+        <select
+          formControlName="phoneUseType"
+          class="form-control"
+          id="phoneUseType"
+        >
+          <option *ngFor="let usageType of initData.usageTypeList"
+                  value="{{usageType}}">{{usageType}}</option>
+        </select>
+      </div>
+
+      <small
+        *ngIf="!phoneForm.get('phoneUseType')?.valid
+                        && phoneForm.get('phoneUseType')?.touched
+                        && !phoneForm.get('phoneUseType')?.errors?.['serverError']"
+        class="text-danger"
+      >Phone use type is a required field. Please select a phone use type.
+      </small>
+
+      <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
+        {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
+      </small>
+
+
+      <div class="mb-3">
+        <label
+          for="phoneNumber"
+          class="form-label"
+        >Phone Number:<sup>*</sup></label>
+        <input
+          type="text"
+          class="form-control"
+          id="phoneNumber"
+          formControlName="phoneNumber">
+      </div>
+
+      <small
+        *ngIf="!phoneForm.get('phoneNumber')?.valid
+                        && phoneForm.get('phoneNumber')?.touched
+                        && !phoneForm.get('phoneNumber')?.errors?.['serverError']"
+        class="text-danger"
+      >Phone number is a required field. Please enter a valid phone number that is at least 3 characters long.
+      </small>
+
+      <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
+        {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
+      </small>
+
+      <div class="mb-3">
+        <label
+          for="note"
+          class="form-label"
+        >Note:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="note"
+          formControlName="note">
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-success me-3 mb-2"
+            [disabled]="phoneForm.invalid"
+          >Ok
+          </button>
+          <button
+            type="submit"
+            class="btn btn-secondary me-3 mb-2"
+            (click)="cancelForm()"
+          >Cancel
+          </button>
+        </div>
+        <div class="col text-right">
+          <p class="text-end"><sup>*</sup>Required fields</p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -14,6 +14,7 @@ public class PhoneMapper {
         phoneDetailsDto.setNote(phoneEntity.getNote());
         phoneDetailsDto.setId(phoneEntity.getId());
         phoneDetailsDto.setPhoneNumberOwner(phoneEntity.getPhoneNumberOwner().getId());
+        phoneDetailsDto.setIsDeleted(false);
         return phoneDetailsDto;
     }
 

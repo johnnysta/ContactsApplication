@@ -26,8 +26,8 @@ export class ContactsService {
     return this.http.delete(BASE_URL + "/" + id);
   }
 
-  sendContactRegistration(contactData: ContactDetailsDataModel) {
-    return this.http.post(BASE_URL, contactData);
+  sendContactRegistration(contactData: ContactDetailsDataModel): Observable<number> {
+    return this.http.post<number>(BASE_URL, contactData);
   }
 
   getContactById(contactId: number): Observable<ContactDetailsDataModel> {

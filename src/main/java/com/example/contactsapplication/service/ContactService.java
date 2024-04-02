@@ -37,11 +37,11 @@ public class ContactService {
         contactRepository.deleteById(contactId);
     }
 
-    public void addNewContact(ContactDetailsDto contactDetailsDto) {
+    public Long addNewContact(ContactDetailsDto contactDetailsDto) {
         UserEntity user = userService.findById(contactDetailsDto.getUserId());
         ContactEntity contactEntity = contactMapper.mapContactDetailDtoToContactEntity(contactDetailsDto);
         contactEntity.setContactOwner(user);
-        contactRepository.save(contactEntity);
+        return contactRepository.save(contactEntity).getId();
     }
 
     public ContactEntity findById(Long id) {

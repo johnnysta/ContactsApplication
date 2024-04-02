@@ -8,6 +8,8 @@ import {PhoneFormComponent} from "./components/phone-form/phone-form.component";
 import {AddressFromComponent} from "./components/address-from/address-from.component";
 import {UserRegistrationComponent} from "./components/user-registration/user-registration.component";
 import {HomeComponent} from "./components/home/home.component";
+import {ContactFormFullComponent} from "./components/contact-form-full/contact-form-full.component";
+import {PhoneFormLocalComponent} from "./components/phone-form-local/phone-form-local.component";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -17,7 +19,11 @@ const routes: Routes = [
   {path: "contactsForm/:id", component: ContactFormComponent},
   {path: "contactDetails/:id", component: ContactDetailsComponent},
   {path: "phoneForm/:id", component: PhoneFormComponent},
+  {path: "phoneFormLocal/:id", component: PhoneFormLocalComponent},
+  {path: "phoneFormLocal", component: PhoneFormLocalComponent},
   {path: "addressForm/:id", component: AddressFromComponent},
+  {path: "contactsFormFull/:id", component: ContactFormFullComponent},
+  {path: "contactsFormFull", component: ContactFormFullComponent},
   {path: "home", component: HomeComponent}
 ];
 
