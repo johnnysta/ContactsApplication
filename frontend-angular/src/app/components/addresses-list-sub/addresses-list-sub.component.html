@@ -1,0 +1,70 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-75 my-0">
+    <h3 class="mb-3">Addresses of Contact</h3>
+
+    <div *ngIf="!addresses || addresses.length === 0; else addressList">
+      <h6>No addresses available for this contact. You can add an address by clicking the button below.</h6>
+    </div>
+
+    <ng-template #addressList>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Zip</th>
+          <th scope="col">City</th>
+          <th scope="col">Street</th>
+          <th scope="col">House</th>
+          <th scope="col">Note</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let item of addresses, let i=index">
+        <tr>
+          <td>{{item.zipCode}}</td>
+          <td>{{item.city}}</td>
+          <td>{{item.street}}</td>
+          <td>{{item.houseNumber}}</td>
+          <td>{{item.note}}</td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary btn-sm mx-3"
+                      (click)="editAddress(item.id)">Edit
+              </button>
+              <button type="button" class="btn btn-danger btn-sm mx-3"
+                      (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
+
+    <button type="button" class="btn btn-secondary"
+            (click)="addNewAddress()">Add New Address
+    </button>
+
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal bg-light bg-opacity-50" id="confirmAddressDeleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Deleting Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this address?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()">No, keep
+          it
+        </button>
+        <button type="button" (click)="deleteAddress()" class="btn btn-danger">Yes, delete this address</button>
+      </div>
+    </div>
+  </div>
+</div>

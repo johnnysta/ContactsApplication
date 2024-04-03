@@ -6,4 +6,5 @@ export interface AddressDataModel {
   houseNumber: string;
   note: string;
   addressOwner: number;
+  isDeleted: boolean;
 }

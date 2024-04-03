@@ -40,12 +40,12 @@ export class PhonesListSubComponent {
   }
 
 
-  openDeleteModal(id: number, phoneNumber: string) {
+  openDeleteModal(index: number, phoneNumber: string) {
     const modelDiv = document.getElementById('confirmPhoneDeleteModal');
     if (modelDiv != null) {
       console.log("Delete Modal opened..")
       modelDiv.style.display = 'block';
-      this.currentPhoneIndex = id;
+      this.currentPhoneIndex = index;
       this.currentPhoneNumber = phoneNumber;
     }
   }
@@ -73,4 +73,8 @@ export class PhonesListSubComponent {
   }
 
 
+  undeletePhone(i: number) {
+    this.phones[i].isDeleted = false;
+    this.contactFormFullService.phoneList.next(this.phones);
+  }
 }

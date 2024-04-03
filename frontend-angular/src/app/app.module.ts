@@ -21,6 +21,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ContactFormFullComponent } from './components/contact-form-full/contact-form-full.component';
 import { PhonesListSubComponent } from './components/phones-list-sub/phones-list-sub.component';
 import { PhoneFormLocalComponent } from './components/phone-form-local/phone-form-local.component';
+import { AddressesListSubComponent } from './components/addresses-list-sub/addresses-list-sub.component';
+import { AddressFormLocalComponent } from './components/address-form-local/address-form-local.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { PhoneFormLocalComponent } from './components/phone-form-local/phone-for
     HomeComponent,
     ContactFormFullComponent,
     PhonesListSubComponent,
-    PhoneFormLocalComponent
+    PhoneFormLocalComponent,
+    AddressesListSubComponent,
+    AddressFormLocalComponent
   ],
   imports: [
     BrowserModule,

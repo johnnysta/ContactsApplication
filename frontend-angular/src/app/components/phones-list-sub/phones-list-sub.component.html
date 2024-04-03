@@ -21,8 +21,6 @@
           <td>{{item.phoneUseType}}</td>
           <td>{{item.phoneNumber}}</td>
           <td>{{item.note}}</td>
-          <td>{{item.id}}</td>
-          <td>{{i}}</td>
           <td>
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary mx-3 btn-sm"
@@ -30,6 +28,18 @@
               </button>
               <button type="button" class="btn btn-danger mx-3 btn-sm"
                       (click)="openDeleteModal(i, item.phoneNumber)">Delete
+              </button>
+            </div>
+          </td>
+        <tr *ngIf="item.isDeleted">
+          <td>{{item.phoneUseType}}</td>
+          <td>{{item.phoneNumber}}</td>
+          <td>{{item.note}}</td>
+          <td>
+            <div class="d-flex justify-content-end">
+              <p><i>Deleted Item</i></p>
+              <button type="button" class="btn btn-secondary mx-3 btn-sm"
+                      (click)="undeletePhone(i)">Undelete
               </button>
             </div>
           </td>
