@@ -1,8 +1,8 @@
 <div class="container p-5">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-75 my-0">
 
-    <h3 class="mb-3" *ngIf="existingContactData">Edit Contact</h3>
-    <h3 class="mb-3" *ngIf="!existingContactData">Add New Contact</h3>
+    <h3 class="mb-3" *ngIf="contactDetails.id">Edit Contact</h3>
+    <h3 class="mb-3" *ngIf="!contactDetails.id">Add New Contact</h3>
 
     <form [formGroup]="contactForm" (submit)="submitData()">
       <div class="mb-3">
@@ -113,8 +113,12 @@
           formControlName="taxId">
       </div>
 
-      <app-phones-list-sub [contactId]="contactDetails.id"></app-phones-list-sub>
-      <app-addresses-list-sub [contactId]="contactDetails.id"></app-addresses-list-sub>
+      <app-phones-list-sub [contactId]="contactDetails.id"
+                           (saveContactsBasicDetails)="saveContactDetailsToSubject()">
+      </app-phones-list-sub>
+      <app-addresses-list-sub [contactId]="contactDetails.id"
+                              (saveContactsBasicDetails)="saveContactDetailsToSubject()">
+      </app-addresses-list-sub>
 
       <div class="row">
         <div class="col">

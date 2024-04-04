@@ -17,11 +17,21 @@ public class AddressMapper {
         addressDetailsDto.setStreet(addressEntity.getStreet());
         addressDetailsDto.setHouseNumber(addressEntity.getHouseNumber());
         addressDetailsDto.setAddressOwner(addressEntity.getAddressOwner().getId());
+        addressDetailsDto.setIsDeleted(false);
         return addressDetailsDto;
     }
 
     public AddressEntity mapAddressDetailsDtoToAddressEntity(AddressDetailsDto addressDetailsDto) {
         AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setZipCode(addressDetailsDto.getZipCode());
+        addressEntity.setCity(addressDetailsDto.getCity());
+        addressEntity.setStreet(addressDetailsDto.getStreet());
+        addressEntity.setHouseNumber(addressDetailsDto.getHouseNumber());
+        addressEntity.setNote(addressDetailsDto.getNote());
+        return addressEntity;
+    }
+
+    public AddressEntity mapAddressDetailsDtoToAddressEntity(AddressDetailsDto addressDetailsDto, AddressEntity addressEntity) {
         addressEntity.setZipCode(addressDetailsDto.getZipCode());
         addressEntity.setCity(addressDetailsDto.getCity());
         addressEntity.setStreet(addressDetailsDto.getStreet());

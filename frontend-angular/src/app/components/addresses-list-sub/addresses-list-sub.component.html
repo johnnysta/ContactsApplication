@@ -1,9 +1,9 @@
-<div class="container p-5">
-  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-75 my-0">
-    <h3 class="mb-3">Addresses of Contact</h3>
+<div class="container py-4 px-0">
+  <div class="container py-4 w-100 shadow rounded bg-light bg-opacity-75 my-0">
+    <h5 class="mb-3">Addresses of this Contact</h5>
 
     <div *ngIf="!addresses || addresses.length === 0; else addressList">
-      <h6>No addresses available for this contact. You can add an address by clicking the button below.</h6>
+      <p>No addresses available for this contact. You can add an address by clicking the button below.</p>
     </div>
 
     <ng-template #addressList>
@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody *ngFor="let item of addresses, let i=index">
-        <tr>
+        <tr *ngIf="!item.isDeleted">
           <td>{{item.zipCode}}</td>
           <td>{{item.city}}</td>
           <td>{{item.street}}</td>
@@ -28,10 +28,24 @@
           <td>
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary btn-sm mx-3"
-                      (click)="editAddress(item.id)">Edit
+                      (click)="editAddress(i)">Edit
               </button>
               <button type="button" class="btn btn-danger btn-sm mx-3"
-                      (click)="openDeleteModal(item.id, item.street, item.houseNumber)">Delete
+                      (click)="openDeleteModal(i, item.street, item.houseNumber)">Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="item.isDeleted">
+          <td class="bg-light">{{item.zipCode}}</td>
+          <td class="bg-light">{{item.city}}</td>
+          <td class="bg-light">{{item.street}}</td>
+          <td class="bg-light">{{item.houseNumber}}</td>
+          <td class="bg-light">{{item.note}}</td>
+          <td class="bg-light">
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary btn-sm mx-3"
+                      (click)="undeleteAddress(i)">Undelete
               </button>
             </div>
           </td>

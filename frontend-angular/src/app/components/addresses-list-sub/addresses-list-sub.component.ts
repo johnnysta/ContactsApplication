@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ContactFormFullService} from "../../services/contact-form-full.service";
 import {Router} from "@angular/router";
 import {AddressDataModel} from "../../models/address-data.model";
@@ -13,6 +13,7 @@ export class AddressesListSubComponent {
   // @ts-ignore
   @Input() contactId: number;
 
+  @Output() saveContactsBasicDetails: EventEmitter<any> = new EventEmitter<any>();
 
   addresses!: AddressDataModel[];
 
@@ -69,10 +70,12 @@ export class AddressesListSubComponent {
   }
 
   addNewAddress() {
+    this.saveContactsBasicDetails.emit();
     this.router.navigate(["addressFormLocal", -1]);
   }
 
   editAddress(index: number) {
+    this.saveContactsBasicDetails.emit();
     this.router.navigate(["addressFormLocal", index]);
   }
 

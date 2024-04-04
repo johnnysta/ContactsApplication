@@ -116,5 +116,12 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @PostMapping("/addresses/addresses-list/{contactId}")
+    public ResponseEntity<Void> replaceAddressesList(@PathVariable Long contactId, @RequestBody List<AddressDetailsDto> addressDetailsDtos) {
+        addressService.replaceAddressesList(contactId, addressDetailsDtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

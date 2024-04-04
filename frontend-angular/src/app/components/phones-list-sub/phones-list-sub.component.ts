@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PhoneDataModel} from "../../models/phone-data.model";
 import {Router} from "@angular/router";
 import {ContactFormFullService} from "../../services/contact-form-full.service";
@@ -12,6 +12,8 @@ export class PhonesListSubComponent {
 
   // @ts-ignore
   @Input() contactId: number;
+
+  @Output() saveContactsBasicDetails: EventEmitter<any> = new EventEmitter<any>();
 
 
   phones!: PhoneDataModel[];
@@ -65,10 +67,12 @@ export class PhonesListSubComponent {
   }
 
   addNewPhone() {
+    this.saveContactsBasicDetails.emit();
     this.router.navigate(["phoneFormLocal", -1]);
   }
 
   editPhone(index: number) {
+    this.saveContactsBasicDetails.emit();
     this.router.navigate(["phoneFormLocal", index]);
   }
 

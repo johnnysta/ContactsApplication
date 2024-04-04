@@ -25,4 +25,9 @@ export class AddressService {
   sendAddressRegistration(addressData: AddressDataModel) {
     return this.http.post(BASE_URL, addressData);
   }
+
+  sendAddressesData(contactAddresses: AddressDataModel[], id: number) {
+    return this.http.post<AddressDataModel[]>(BASE_URL + "/addresses-list/" + id, contactAddresses);
+  }
+
 }

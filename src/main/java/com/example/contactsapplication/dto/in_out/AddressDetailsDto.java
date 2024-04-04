@@ -11,4 +11,5 @@ public class AddressDetailsDto {
     String houseNumber;
     String note;
     Long addressOwner;
+    Boolean isDeleted;
 }

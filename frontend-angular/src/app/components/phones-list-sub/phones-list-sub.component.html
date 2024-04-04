@@ -3,7 +3,7 @@
     <h5 class="mb-3">Phone Numbers of this Contact</h5>
 
     <div *ngIf="!phones || phones.length === 0; else phoneList">
-      <h6>No phone numbers available for this contact. You can add a phone by clicking the button below.</h6>
+      <p>No phone numbers available for this contact. You can add a phone by clicking the button below.</p>
     </div>
 
     <ng-template #phoneList>
@@ -31,6 +31,7 @@
               </button>
             </div>
           </td>
+        </tr>
         <tr *ngIf="item.isDeleted">
           <td>{{item.phoneUseType}}</td>
           <td>{{item.phoneNumber}}</td>

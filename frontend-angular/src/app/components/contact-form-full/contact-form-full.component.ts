@@ -23,10 +23,8 @@ export class ContactFormFullComponent {
   contactDetails!: ContactDetailsDataModel;
   contactPhones!: PhoneDataModel[];
   contactAddresses!: AddressDataModel[];
-
   contactForm: FormGroup;
   loggedInUser!: AuthenticatedUserModel;
-  existingContactData!: ContactDetailsDataModel;
 
 
   constructor(private contactService: ContactsService,
@@ -83,7 +81,6 @@ export class ContactFormFullComponent {
           this.contactService.getContactById(Number(idFromParamMap)).subscribe({
             next:
               (data) => {
-                // this.existingContactData = data;
                 this.contactDetails = data;
                 this.contactFormFullService.contactFormDetails.next(this.contactDetails);
                 this.fillContactForm();
@@ -98,7 +95,6 @@ export class ContactFormFullComponent {
             next: (data) => {
               this.contactPhones = data;
               this.contactFormFullService.phoneList.next(this.contactPhones);
-              // this.fillPhonesList();
             },
             error: () => {
             },
@@ -110,7 +106,6 @@ export class ContactFormFullComponent {
             next: (data) => {
               this.contactAddresses = data;
               this.contactFormFullService.addressList.next(this.contactAddresses);
-              // this.fillAddressesList();
             },
             error: () => {
             },
@@ -118,7 +113,8 @@ export class ContactFormFullComponent {
             }
           })
         } else {
-          //route did not contain contact id as path variable, so creating a new contact, or returning back from phone/address form
+          //route did not contain contact id as path variable, so creating a new contact,
+          // or this is the case when returning back from phone/address form
           console.log("Route without contact Id..")
           this.fillContactForm();
         }
@@ -151,14 +147,22 @@ export class ContactFormFullComponent {
             console.log("Contact ID: " + this.contactDetails.id);
             this.phonesService.sendPhonesData(this.contactPhones, this.contactDetails.id).subscribe({
               next: () => {
-                console.log("Phones added")
+                console.log("Phones added");
               },
               error: (err) => {
                 console.log(err)
               }
             });
-            //TODO send addresses list to backend contactData.id
+            this.addressService.sendAddressesData(this.contactAddresses, this.contactDetails.id).subscribe({
+              next: () => {
+                console.log("Addresses added");
+              },
+              error: (err) => {
+                console.log(err);
+              }
+            });
             console.log("Contact updated successfully.");
+            this.clearContactSubjects();
             this.router.navigate(['contacts']);
           },
           error: (err) => {
@@ -172,9 +176,24 @@ export class ContactFormFullComponent {
       this.contactService.sendContactRegistration(contactData).subscribe(
         {
           next: (contactIdFromServer: number) => {
-            this.phonesService.sendPhonesData(this.contactPhones, contactIdFromServer);
-            //TODO send addresses list to backend contactIdFromServer
+            this.phonesService.sendPhonesData(this.contactPhones, contactIdFromServer).subscribe({
+              next: () => {
+                console.log("Phones added");
+              },
+              error: (err) => {
+                console.log(err)
+              }
+            });
+            this.addressService.sendAddressesData(this.contactAddresses, contactIdFromServer).subscribe({
+              next: () => {
+                console.log("Addresses added");
+              },
+              error: (err) => {
+                console.log(err);
+              }
+            });
             console.log("New contact saved successfully.");
+            this.clearContactSubjects();
             this.router.navigate(['contacts']);
           },
           error: (err) => {
@@ -188,8 +207,22 @@ export class ContactFormFullComponent {
   }
 
   cancelForm() {
+    this.clearContactSubjects();
     this.router.navigate(['contacts']);
   }
 
 
+  saveContactDetailsToSubject() {
+    let contactData: ContactDetailsDataModel = this.contactForm.value;
+    contactData.id = this.contactFormFullService.contactFormDetails.getValue().id;
+    contactData.userId = this.contactFormFullService.contactFormDetails.getValue().userId;
+    this.contactFormFullService.contactFormDetails.next(contactData);
+  }
+
+  clearContactSubjects() {
+    this.contactFormFullService.contactFormDetails.next(this.contactFormFullService.INITIAL_CONTACT_DETAILS);
+    this.contactFormFullService.phoneList.next(this.contactFormFullService.INITIAL_PHONE_LIST);
+    this.contactFormFullService.phoneList.next(new Array<PhoneDataModel>());
+    this.contactFormFullService.addressList.next(new Array<AddressDataModel>());
+  }
 }
