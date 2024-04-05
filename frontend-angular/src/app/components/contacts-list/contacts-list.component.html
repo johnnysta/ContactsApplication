@@ -3,7 +3,7 @@
     <h3 class="mb-3">My Contacts</h3>
 
     <div *ngIf="!contacts || contacts.length === 0; else contactsList">
-      <h6>No contacts available for this user. You can add contacts by clicking the button below.</h6>
+      <p>No contacts available for this user. You can add contacts by clicking the button below.</p>
     </div>
 
     <ng-template #contactsList>
