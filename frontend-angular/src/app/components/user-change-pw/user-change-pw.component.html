@@ -1,0 +1,91 @@
+<div class="container p-5">
+  <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
+    <h3 class="mb-3" *ngIf="!isNewUser">Change Password</h3>
+    <h3 class="mb-3" *ngIf="isNewUser">Change Password for New User</h3>
+    <p class="mb-3" *ngIf="isNewUser">Please change your new password received from the admin, then log in with your
+      new password.</p>
+    <form [formGroup]="changePwForm" (submit)="submitData()">
+
+
+      <div class="mb-3">
+        <label for="oldPassword" class="form-label">Old Password:<sup>*</sup></label>
+        <input type="password" class="form-control" id="oldPassword" formControlName="oldPassword">
+
+        <small
+          *ngIf="!changePwForm.get('oldPassword')?.valid
+                        && changePwForm.get('oldPassword')?.touched
+                        && !changePwForm.get('oldPassword')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please enter a valid password that is at least 3 characters long.
+        </small>
+        <small *ngIf="changePwForm.get('oldPassword')?.errors?.['serverError']" class="text-danger">
+          {{changePwForm.get('oldPassword')?.errors?.['serverError']}}
+        </small>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">New Password:<sup>*</sup></label>
+        <input type="password" class="form-control" id="newPassword" formControlName="newPassword">
+
+        <small
+          *ngIf="!changePwForm.get('newPassword')?.valid
+                        && changePwForm.get('newPassword')?.touched
+                        && !changePwForm.get('newPassword')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please enter a valid password that is at least 3 characters long.
+        </small>
+        <small *ngIf="changePwForm.get('newPassword')?.errors?.['serverError']" class="text-danger">
+          {{changePwForm.get('newPassword')?.errors?.['serverError']}}
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmNewPassword" class="form-label">Confirm New Password:<sup>*</sup></label>
+        <input type="password" class="form-control" id="confirmNewPassword" formControlName="confirmNewPassword">
+
+        <small class="text-danger"
+               *ngIf="changePwForm.get('confirmNewPassword')?.touched &&
+                changePwForm.get('confirmNewPassword')?.touched &&
+                changePwForm.hasError('passwordMismatch')">{{changePwForm.getError('passwordMismatch')}}
+        </small>
+
+        <small
+          *ngIf="!changePwForm.get('confirmPassword')?.valid
+                        && changePwForm.get('confirmPassword')?.touched
+                        && !changePwForm.get('confirmPassword')?.errors?.['serverError']"
+          class="text-danger"
+        >
+          Please enter a valid password that is at least 3 characters long.
+        </small>
+        <small *ngIf="changePwForm.get('confirmPassword')?.errors?.['serverError']" class="text-danger">
+          {{changePwForm.get('confirmPassword')?.errors?.['serverError']}}
+        </small>
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="changePwForm.invalid"
+          >Submit
+          </button>
+          <button
+            type="submit"
+            class="btn btn-secondary mx-3"
+            (click)="cancelForm()"
+          >Cancel
+          </button>
+        </div>
+        <div class="col text-right">
+          <p class="text-end"><sup>*</sup>Required fields</p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

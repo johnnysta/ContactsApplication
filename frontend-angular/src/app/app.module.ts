@@ -16,6 +16,7 @@ import {PhonesListSubComponent} from './components/phones-list-sub/phones-list-s
 import {PhoneFormLocalComponent} from './components/phone-form-local/phone-form-local.component';
 import {AddressesListSubComponent} from './components/addresses-list-sub/addresses-list-sub.component';
 import {AddressFormLocalComponent} from './components/address-form-local/address-form-local.component';
+import { UserChangePwComponent } from './components/user-change-pw/user-change-pw.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {AddressFormLocalComponent} from './components/address-form-local/address
     PhonesListSubComponent,
     PhoneFormLocalComponent,
     AddressesListSubComponent,
-    AddressFormLocalComponent
+    AddressFormLocalComponent,
+    UserChangePwComponent
   ],
   imports: [
     BrowserModule,

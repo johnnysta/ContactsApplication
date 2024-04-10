@@ -5,6 +5,7 @@ import {AuthenticatedUserModel} from "../models/authenticated-user.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {UserRegistrationDataModel} from "../models/user-registration-data.model";
+import {UserChangePasswordModel} from "../models/user-change-pw.model";
 
 const BASE_URL: string = environment.serverUrl + '/api/users';
 
@@ -61,4 +62,9 @@ export class AccountService {
   getUserInfo() {
     return this.http.get<AuthenticatedUserModel>(BASE_URL + '/userInfo');
   }
+
+  changePassword(userChangePasswordModel: UserChangePasswordModel) {
+    return this.http.post<UserChangePasswordModel>(BASE_URL + '/changePw', userChangePasswordModel);
+  }
+
 }

@@ -51,9 +51,8 @@
         <small *ngIf="userRegForm.get('email')?.errors?.['serverError']" class="text-danger">
           {{userRegForm.get('email')?.errors?.['serverError']}}
         </small>
-
-
       </div>
+
       <div class="mb-3">
         <label for="password" class="form-label">Password:<sup>*</sup></label>
         <input type="password" class="form-control" id="password" formControlName="password">

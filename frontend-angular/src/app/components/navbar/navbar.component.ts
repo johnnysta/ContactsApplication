@@ -24,7 +24,6 @@ export class NavbarComponent {
     });
   }
 
-
   logout() {
     this.accountService.logout().subscribe({
         next: () => {

@@ -31,15 +31,17 @@ export class LoginComponent {
     this.accountService.login(this.loginData).subscribe({
       next: value => {
         console.log("E-mail back: " + value.email);
+        console.log("Role back: " + value.role);
         value.isLoggedIn = true;
         this.accountService.setLoggedIn(value);
+        this.router.navigate(['home']);
       },
       error: err => {
         console.log(err)
         this.accountService.setLoggedOut();
       },
       complete: () => {
-        this.router.navigate(['home'])
+
       }
     });
   }

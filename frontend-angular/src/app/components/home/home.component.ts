@@ -28,4 +28,8 @@ export class HomeComponent implements OnInit {
   login() {
     this.router.navigate(['login']);
   }
+
+  changePassword() {
+    this.router.navigate(['userChangePw']);
+  }
 }

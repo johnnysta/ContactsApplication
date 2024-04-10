@@ -9,5 +9,4 @@ public class AuthenticatedUserDto {
     private String lastName;
     private String email;
     private String role;
-
 }

@@ -2,13 +2,16 @@
 
 <div class="container p-5" *ngIf="loggedInUser.role==='NEW_ADMIN'||loggedInUser.role==='NEW_USER'">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h5 class="mb-3">In order to manage contacts please change your initial password.</h5>
+    <h4 class="mb-3">In order to manage contacts please change your initial password.</h4>
+    <button type="button" class="btn btn-secondary"
+            (click)="changePassword()">Change Password
+    </button>
   </div>
 </div>
 
 <div class="container p-5" *ngIf="!loggedInUser.isLoggedIn">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h5 class="mb-3">In order to manage contacts please log in.</h5>
+    <h4 class="mb-3">In order to manage contacts please log in.</h4>
     <button type="button" class="btn btn-secondary"
             (click)="login()">Login
     </button>
