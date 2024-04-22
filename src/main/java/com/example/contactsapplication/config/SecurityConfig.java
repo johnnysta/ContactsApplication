@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +31,8 @@ public class SecurityConfig {
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -43,16 +44,15 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/users/userInfo").permitAll()
-                                .anyRequest().authenticated()
-//                                .anyRequest().permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/users/userInfo").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(basic -> {
+                    basic.authenticationEntryPoint(customAuthenticationEntryPoint);
+                })
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-//                .securityContext(httpSecuritySecurityContextConfigurer ->
-//                        httpSecuritySecurityContextConfigurer.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .logout(httpSecurityLogoutConfigurer -> {
                     httpSecurityLogoutConfigurer.logoutUrl("/api/users/logout");
                     httpSecurityLogoutConfigurer.invalidateHttpSession(true);
@@ -70,7 +70,6 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
         return authenticationProvider;
     }
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

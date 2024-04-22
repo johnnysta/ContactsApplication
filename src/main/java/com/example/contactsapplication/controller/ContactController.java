@@ -35,12 +35,14 @@ public class ContactController {
         return "Hello Spring Security";
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/{userId}")
     public ResponseEntity<List<ContactListItemDto>> getContactsByUserId(@PathVariable Long userId) {
         List<ContactListItemDto> results = contactService.getContactsByUserId(userId);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/contact/{contactId}")
     public ResponseEntity<ContactDetailsDto> getContactById(@PathVariable Long contactId) {
         log.info("contactId" + contactId);
@@ -48,6 +50,7 @@ public class ContactController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @DeleteMapping("/{contactId}")
     public ResponseEntity<Void> deleteContactsByUserId(@PathVariable Long contactId) {
         contactService.deleteContactById(contactId);
@@ -61,47 +64,56 @@ public class ContactController {
         return new ResponseEntity<>(newContactId, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/phones/{contactId}")
     public ResponseEntity<List<PhoneDetailsDto>> getPhonesByContactId(@PathVariable Long contactId) {
         List<PhoneDetailsDto> phonesList = phoneNumberService.getPhonesByContactId(contactId);
         return new ResponseEntity<>(phonesList, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/addresses/{contactId}")
     public ResponseEntity<List<AddressDetailsDto>> getAddressesByContactId(@PathVariable Long contactId) {
         List<AddressDetailsDto> addressesList = addressService.getAddressesByContactId(contactId);
         return new ResponseEntity<>(addressesList, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @DeleteMapping("/phones/{phoneId}")
     public ResponseEntity<Void> deletePhoneByPhoneId(@PathVariable Long phoneId) {
         phoneNumberService.deletePhoneById(phoneId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @DeleteMapping("/addresses/{addressId}")
     public ResponseEntity<Void> deleteAddressByAddressId(@PathVariable Long addressId) {
         addressService.deleteAddressById(addressId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/phones")
     public ResponseEntity<Void> addNewPhone(@RequestBody PhoneDetailsDto phoneDetailsDto) {
         phoneNumberService.addNewPhone(phoneDetailsDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/addresses")
     public ResponseEntity<Void> addNewAddress(@RequestBody AddressDetailsDto addressDetailsDto) {
         addressService.addNewAddress(addressDetailsDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/phones/init-data")
     public ResponseEntity<PhoneRegistrationInitDataDto> getPhoneRegistrationInitData() {
         return new ResponseEntity<>(phoneNumberService.getPhoneRegistrationInitData(), HttpStatus.OK);
     }
 
+
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PutMapping("{contactId}")
     public ResponseEntity<Void> updateContactById(@PathVariable Long contactId, @RequestBody ContactDetailsDto contactDetailsDto) {
         contactService.updateContactById(contactId, contactDetailsDto);

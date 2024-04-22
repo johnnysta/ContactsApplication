@@ -3,6 +3,7 @@ import {LoginDataModel} from "../../models/login-data.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
+import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,12 @@ export class LoginComponent {
 
   loginData!: LoginDataModel;
   loginForm: FormGroup;
+  otherServerError!: string;
+
 
   constructor(private accountService: AccountService,
               private formBuilder: FormBuilder,
-              private router: Router,
+              private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
@@ -39,6 +42,9 @@ export class LoginComponent {
       error: err => {
         console.log(err)
         this.accountService.setLoggedOut();
+        console.error("****User Login Err ****" + err.error);
+        this.otherServerError = err.error;
+        validationHandler(err, this.loginForm);
       },
       complete: () => {
 

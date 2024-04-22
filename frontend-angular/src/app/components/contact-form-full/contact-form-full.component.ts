@@ -37,12 +37,12 @@ export class ContactFormFullComponent {
               private addressService: AddressService) {
     this.contactForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['',],
+      lastName: [''],
       email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
-      birthDate: ['',],
-      mothersName: ['',],
-      ssId: ['',],
-      taxId: ['',]
+      birthDate: [''],
+      mothersName: [''],
+      ssId: [''],
+      taxId: ['']
     });
   }
 

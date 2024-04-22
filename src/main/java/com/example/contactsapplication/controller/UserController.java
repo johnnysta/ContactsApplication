@@ -39,14 +39,12 @@ public class UserController {
     public ResponseEntity<AuthenticatedUserDto> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
-
         log.info("Queried user info in login: " + loggedInUserDetails.getEmail());
-
         AuthenticatedUserDto authenticatedUserDto = null;
         if (loggedInUserDetails != null) {
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
         } else {
-            log.info("Unauthorized during logib");
+            log.info("Unauthorized during login");
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(authenticatedUserDto, HttpStatus.OK);
