@@ -32,18 +32,17 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public void addUser(UserCreationDto userCreationDto) {
+    public UserEntity addUser(UserCreationDto userCreationDto) {
         UserEntity userEntity = userMapper.userCreationDtoToUserEntity(userCreationDto);
-        userRepository.save(userEntity);
+        return userRepository.save(userEntity);
     }
-
 
     public UserEntity findById(Long userId) {
         return userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
     }
 
 
-    public void changePassword(UserChangePasswordDto userChangePasswordDto, CustomUserDetails customUserDetails) {
+    public UserEntity changePassword(UserChangePasswordDto userChangePasswordDto, CustomUserDetails customUserDetails) {
         log.info("Old PW: " + userChangePasswordDto.getOldPassword());
         log.info("Old PW from Db: " + customUserDetails.getPassword());
         if (customUserDetails.getPassword() != null && passwordEncoder.matches(userChangePasswordDto.getOldPassword(), customUserDetails.getPassword())) {
@@ -53,9 +52,10 @@ public class UserService {
             if (currentRole.name().substring(0, 4).equals("NEW_")) {
                 userEntity.setRole(Role.valueOf(currentRole.name().substring(4)));
             }
-            userRepository.save((userEntity));
+            UserEntity userEntityResult = userRepository.save((userEntity));
+            return userEntityResult;
         } else {
-            throw new InvalidPasswordException("Invalid passsword!");
+            throw new InvalidPasswordException("Invalid password!");
         }
     }
 }
