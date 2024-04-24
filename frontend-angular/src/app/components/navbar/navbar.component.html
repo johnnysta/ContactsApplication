@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="registerUser" *ngIf="loggedInUser.role==='ADMIN'">Add User</a>
         </li>
@@ -24,6 +24,20 @@
           <a class="nav-link" routerLink="contacts" (click)="logout()" *ngIf="loggedInUser.isLoggedIn">Logout</a>
         </li>
       </ul>
+
+      <span class="navbar-text me-3" id="loggedInAsText" *ngIf="loggedInUser.isLoggedIn">
+            Logged in as <span class="fw-semibold">{{loggedInUser.firstName}} {{loggedInUser.lastName}}</span>
+          </span>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <button class="btn btn-outline-success" routerLink="login" id="loginButton"
+                *ngIf="!loggedInUser?.isLoggedIn">Login
+        </button>
+        <button class="btn btn-outline-success" (click)="logout()" id="logoutButton"
+                *ngIf="loggedInUser?.isLoggedIn">Logout
+        </button>
+      </ul>
+
     </div>
   </div>
 </nav>

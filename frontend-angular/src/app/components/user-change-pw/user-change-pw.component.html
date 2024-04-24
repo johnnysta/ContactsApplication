@@ -65,6 +65,9 @@
         </small>
       </div>
 
+      <div *ngIf="otherServerError" class="alert alert-danger mt-2" role="alert" >
+        <small id="otherServerError">{{otherServerError}}</small>
+      </div>
 
       <div class="row">
         <div class="col">

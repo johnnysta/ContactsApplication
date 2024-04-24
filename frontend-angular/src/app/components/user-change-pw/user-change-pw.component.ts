@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {AccountService} from "../../services/account.service";
 import {UserChangePasswordModel} from "../../models/user-change-pw.model";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
+import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
   selector: 'app-user-change-pw',
@@ -15,6 +16,7 @@ export class UserChangePwComponent implements OnInit {
   isNewUser!: boolean;
   changePwForm!: FormGroup;
   loggedInUser!: AuthenticatedUserModel;
+  otherServerError!: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -71,7 +73,9 @@ export class UserChangePwComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        console.error("****User Change PW Error ****" + err.error);
+        this.otherServerError = err.error;
+        validationHandler(err, this.changePwForm);
       },
       complete: () => {
       }

@@ -2,6 +2,7 @@ package com.example.contactsapplication.exception;
 
 import com.example.contactsapplication.exception.custom.DuplicateEmailException;
 import com.example.contactsapplication.exception.custom.InvalidLoginRequestException;
+import com.example.contactsapplication.exception.custom.InvalidPasswordException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,12 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<String> badCredentialsException(BadCredentialsException ex) {
         log.info("Bad credentials.", ex);
         return new ResponseEntity<>("Bad credentials.", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    protected ResponseEntity<String> invalidPasswordException(InvalidPasswordException ex) {
+        log.info("Invalid password.", ex);
+        return new ResponseEntity<>("Invalid password entered.", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -40,7 +40,6 @@ export class LoginComponent {
         this.router.navigate(['home']);
       },
       error: err => {
-        console.log(err)
         this.accountService.setLoggedOut();
         console.error("****User Login Err ****" + err.error);
         this.otherServerError = err.error;

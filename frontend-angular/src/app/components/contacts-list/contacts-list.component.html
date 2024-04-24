@@ -1,6 +1,6 @@
 <div class="container p-5" *ngIf="loggedInUser.isLoggedIn">
   <div class="container w-75 shadow p-5 rounded bg-light bg-opacity-50 my-0">
-    <h3 class="mb-3">My Contacts</h3>
+    <h3 class="mb-3" id="myContactsTitle">My Contacts</h3>
 
     <div *ngIf="!contacts || contacts.length === 0; else contactsList">
       <p>No contacts available for this user. You can add contacts by clicking the button below.</p>

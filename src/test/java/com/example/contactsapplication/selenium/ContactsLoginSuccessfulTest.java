@@ -8,17 +8,20 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-//Prerequisite: the database does not contain a user with email "a@a.hu", and password "ssssss"
+//Prerequisite: the database should contain a user with email "a@a.hu", and password  "majom"
 
-public class ContactsLoginFailTest {
+public class ContactsLoginSuccessfulTest {
+
     private WebDriver driver;
 
     @BeforeAll
@@ -42,29 +45,39 @@ public class ContactsLoginFailTest {
     }
 
     @Test
-    public void contactsLoginFail() {
+    public void contactsLoginSuccessfulTest() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        // Test name: ContactsLoginFail
+        // Test name: LoginSuccessfulTest
         // Step # | name | target | value
         // 1 | open | /home |
         driver.get("http://localhost:4200/home");
-        // 2 | setWindowSize | 1936x1048 |
-        driver.manage().window().setSize(new Dimension(1936, 1048));
-        // 3 | click | css=.btn | 
+        // 2 | setWindowSize | 1234x909 |
+        driver.manage().window().setSize(new Dimension(1234, 909));
+        // 3 | click | id=navbarNav |
+        driver.findElement(By.id("navbarNav")).click();
+        // 4 | verifyElementPresent | id=loggedInAsText |
+        List<WebElement> elements = driver.findElements(By.id("loggedInAsText"));
+        if (elements.size() > 0) {
+            // 5 | click | id=logoutButton |
+            driver.findElement(By.id("logoutButton")).click();
+        }
+        // 6 | click | id=loginButton |
         driver.findElement(By.id("loginButton")).click();
-        // 4 | click | id=email |
+        // 7 | click | id=email |
         driver.findElement(By.id("email")).click();
-        // 5 | type | id=email | a@a.hu
+        // 8 | type | id=email | a@a.hu
         driver.findElement(By.id("email")).sendKeys("a@a.hu");
-        // 6 | click | id=password |
+        // 9 | click | id=password |
         driver.findElement(By.id("password")).click();
-        // 7 | type | id=password | ssssss
-        driver.findElement(By.id("password")).sendKeys("ssssss");
-        // 8 | click | css=.btn-success |
+        // 10 | type | id=password | majom
+        driver.findElement(By.id("password")).sendKeys("majom");
+        // 11 | click | id=submitButton |
         driver.findElement(By.id("submitButton")).click();
-        // 9 | click | css=.alert |
-        driver.findElement(By.id("otherServerError")).click();
-        // 10 | assertText | css=small | Bad credentials.
-        assertEquals(driver.findElement(By.id("otherServerError")).getText(), "Bad credentials.");
+        // 12 | click | css=.mb-3 |
+        driver.findElement(By.cssSelector(".mb-3")).click();
+        // 13 | assertText | css=.mb-3 | My Contacts
+        assertEquals(driver.findElement(By.id("myContactsTitle")).getText(), "My Contacts");
     }
+
+
 }
