@@ -36,8 +36,8 @@
           {{loginForm.get('password')?.errors?.['serverError']}}
         </small>
 
-        <div *ngIf="otherServerError" class="alert alert-danger mt-2" role="alert">
-          <small>{{otherServerError}}</small>
+        <div *ngIf="otherServerError" class="alert alert-danger mt-2" role="alert" >
+          <small id="otherServerError">{{otherServerError}}</small>
         </div>
 
 
@@ -49,12 +49,14 @@
             class="btn btn-success me-3 mb-2"
             [disabled]="loginForm.invalid"
             (click)="submitData()"
+            id="submitButton"
           >Submit
           </button>
           <button
             type="submit"
             class="btn btn-secondary me-3 mb-2"
             (click)="cancel()"
+            id="cancelButton"
           >Cancel
           </button>
         </div>
