@@ -125,12 +125,14 @@
           <button
             type="submit"
             class="btn btn-success me-3 mb-2"
+            id="saveButton"
             [disabled]="contactForm.invalid"
           >Save
           </button>
           <button
             type="submit"
             class="btn btn-secondary me-3 mb-2"
+            id="cancelButton"
             (click)="cancelForm()"
           >Cancel
           </button>

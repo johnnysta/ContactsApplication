@@ -20,11 +20,11 @@
         </thead>
         <tbody *ngFor="let item of addresses, let i=index">
         <tr *ngIf="!item.isDeleted">
-          <td>{{item.zipCode}}</td>
-          <td>{{item.city}}</td>
-          <td>{{item.street}}</td>
-          <td>{{item.houseNumber}}</td>
-          <td>{{item.note}}</td>
+          <td id="addressZipCode">{{item.zipCode}}</td>
+          <td id="addressCity">{{item.city}}</td>
+          <td id="addressStreet">{{item.street}}</td>
+          <td id="addressHouseNumber">{{item.houseNumber}}</td>
+          <td id="addressNote">{{item.note}}</td>
           <td>
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary btn-sm mx-3"
@@ -54,7 +54,7 @@
       </table>
     </ng-template>
 
-    <button type="button" class="btn btn-secondary"
+    <button type="button" class="btn btn-secondary" id="addNewAddressButton"
             (click)="addNewAddress()">Add New Address
     </button>
 

@@ -23,10 +23,10 @@
           <td>{{item.email}}</td>
           <td>
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-secondary btn-sm mx-1"
+              <button type="button" class="btn btn-secondary btn-sm mx-1" id="detailsButton"
                       (click)="showDetails(item)">Details
               </button>
-              <button type="button" class="btn btn-danger btn-sm mx-1"
+              <button type="button" class="btn btn-danger btn-sm mx-1" id="deleteButton"
                       (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
               </button>
             </div>
@@ -36,7 +36,7 @@
       </table>
     </ng-template>
 
-    <button type="button" class="btn btn-secondary"
+    <button type="button" class="btn btn-secondary" id="addNewContact"
             (click)="addNewContact()">Add New Contact
     </button>
 

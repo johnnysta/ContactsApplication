@@ -18,9 +18,9 @@
         </thead>
         <tbody *ngFor="let item of phones, let i=index">
         <tr *ngIf="!item.isDeleted">
-          <td>{{item.phoneUseType}}</td>
-          <td>{{item.phoneNumber}}</td>
-          <td>{{item.note}}</td>
+          <td id="phoneUseType">{{item.phoneUseType}}</td>
+          <td id="phoneNumber">{{item.phoneNumber}}</td>
+          <td id="phoneNote">{{item.note}}</td>
           <td>
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-secondary mx-3 btn-sm"
@@ -48,7 +48,7 @@
         </tbody>
       </table>
     </ng-template>
-    <button type="button" class="btn btn-secondary"
+    <button type="button" class="btn btn-secondary" id="addNewPhoneButton"
             (click)="addNewPhone()">Add New Phone
     </button>
 
