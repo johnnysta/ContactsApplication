@@ -3,7 +3,7 @@
     <h3 class="mb-3" id="myContactsTitle">My Contacts</h3>
 
     <div *ngIf="!contacts || contacts.length === 0; else contactsList">
-      <p>No contacts available for this user. You can add contacts by clicking the button below.</p>
+      <p id="noDataText">No contacts available for this user. You can add contacts by clicking the button below.</p>
     </div>
 
     <ng-template #contactsList>
@@ -56,10 +56,10 @@
         Are you sure you want to delete this contact and all its data?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()">No, keep
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()" id="keepButton">No, keep
           it
         </button>
-        <button type="button" (click)="deleteContact()" class="btn btn-danger">Yes, delete this contact</button>
+        <button type="button" (click)="deleteContact()" class="btn btn-danger" id="confirmDeleteButton">Yes, delete this contact</button>
       </div>
     </div>
   </div>

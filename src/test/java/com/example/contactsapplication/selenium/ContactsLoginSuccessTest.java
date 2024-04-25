@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //Prerequisite: the database should contain a user with email "a@a.hu", and password  "majom"
 
-public class ContactsLoginSuccessfulTest {
+public class ContactsLoginSuccessTest {
 
     private WebDriver driver;
 
@@ -45,7 +45,7 @@ public class ContactsLoginSuccessfulTest {
     }
 
     @Test
-    public void contactsLoginSuccessfulTest() {
+    public void contactsLoginSuccessTest() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.get("http://localhost:4200/home");
         driver.manage().window().setSize(new Dimension(1234, 909));

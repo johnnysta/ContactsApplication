@@ -23,6 +23,7 @@ export class ContactFormFullComponent {
   contactDetails!: ContactDetailsDataModel;
   contactPhones!: PhoneDataModel[];
   contactAddresses!: AddressDataModel[];
+
   contactForm: FormGroup;
   loggedInUser!: AuthenticatedUserModel;
 
