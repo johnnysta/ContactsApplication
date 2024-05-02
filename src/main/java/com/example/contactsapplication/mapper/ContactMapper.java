@@ -3,12 +3,11 @@ package com.example.contactsapplication.mapper;
 import com.example.contactsapplication.domain.ContactEntity;
 import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import org.springframework.stereotype.Component;
 
 @Component
 public class ContactMapper {
@@ -47,6 +46,8 @@ public class ContactMapper {
         try {
             contactEntity.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
         } catch (DateTimeParseException e) {
+            contactEntity.setBirthDate(null);
+        } catch (NullPointerException e) {
             contactEntity.setBirthDate(null);
         }
         contactEntity.setMothersName(contactDetailsDto.getMothersName());

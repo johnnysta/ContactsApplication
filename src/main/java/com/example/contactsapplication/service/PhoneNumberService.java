@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class PhoneNumberService {
+public class  PhoneNumberService {
 
     ContactService contactService;
     PhoneNumberRepository phoneNumberRepository;
