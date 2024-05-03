@@ -7,6 +7,8 @@ import com.example.contactsapplication.dto.out.AuthenticatedUserDto;
 import com.example.contactsapplication.mapper.UserMapper;
 import com.example.contactsapplication.service.CustomUserDetails;
 import com.example.contactsapplication.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,8 @@ public class UserController {
     UserService userService;
     UserMapper userMapper;
 
+    @Operation(summary = "Add new user", description = "A user logged in with admin role can add new users to the database.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"ADMIN"} )
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> addUser(@RequestBody UserCreationDto userCreationDto) {
@@ -35,13 +39,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    //User login, credentials arrive in Authirization header..
+
+    @Operation(summary = "User login", description = "Endpoint for user login. Login credentials arrive in Authorization header.")
     @PostMapping("/login")
     public ResponseEntity<AuthenticatedUserDto> login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails loggedInUserDetails = (CustomUserDetails) authentication.getPrincipal();
         log.info("Queried user info in login: " + loggedInUserDetails.getEmail());
-        AuthenticatedUserDto authenticatedUserDto = null;
+        AuthenticatedUserDto authenticatedUserDto;
         if (loggedInUserDetails != null) {
             authenticatedUserDto = userMapper.mapCustomUserDetailsToAuthenticatedUserDto(loggedInUserDetails);
         } else {
@@ -52,6 +57,8 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Change Password", description = "Endpoint for change password of the logged in user.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER","ADMIN","NEW_USER", "NEW_ADMIN"})
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN') || hasAuthority('NEW_USER') || hasAuthority('NEW_ADMIN')")
     @PostMapping("/changePw")
     public ResponseEntity<Void> changePassword(@RequestBody UserChangePasswordDto userChangePasswordDto, Principal principal) {
@@ -66,6 +73,7 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Get logged in user info", description = "Endpoint for query the details of the logged in user.")
     @GetMapping("/userInfo")
     public ResponseEntity<AuthenticatedUserDto> getUserInfo(Principal principal) {
         AuthenticatedUserDto authenticatedUserDto;
