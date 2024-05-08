@@ -9,6 +9,7 @@ import com.example.contactsapplication.service.CustomUserDetails;
 import com.example.contactsapplication.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,10 @@ public class UserController {
     UserMapper userMapper;
 
     @Operation(summary = "Add new user", description = "A user logged in with admin role can add new users to the database.")
-    @SecurityRequirement(name = "basicScheme", scopes = {"ADMIN"} )
+    @SecurityRequirement(name = "basicScheme", scopes = {"ADMIN"})
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
-    public ResponseEntity<Void> addUser(@RequestBody UserCreationDto userCreationDto) {
+    public ResponseEntity<Void> addUser(@RequestBody @Valid UserCreationDto userCreationDto) {
         userService.addUser(userCreationDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -58,7 +59,7 @@ public class UserController {
 
 
     @Operation(summary = "Change Password", description = "Endpoint for change password of the logged in user.")
-    @SecurityRequirement(name = "basicScheme", scopes = {"USER","ADMIN","NEW_USER", "NEW_ADMIN"})
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN", "NEW_USER", "NEW_ADMIN"})
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN') || hasAuthority('NEW_USER') || hasAuthority('NEW_ADMIN')")
     @PostMapping("/changePw")
     public ResponseEntity<Void> changePassword(@RequestBody UserChangePasswordDto userChangePasswordDto, Principal principal) {

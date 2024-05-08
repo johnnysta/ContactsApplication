@@ -19,10 +19,6 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @NotBlank(message = "You must provide a name")
-//    @Column(name = "username")
-//    private String username;
-
     @NotBlank(message = "You must provide the first name")
     @Column(name = "first_name")
     private String firstName;

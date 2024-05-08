@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/form
 import {AccountService} from "../../services/account.service";
 import {Router} from "@angular/router";
 import {UserRegistrationDataModel} from "../../models/user-registration-data.model";
+import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
   selector: 'app-user-registration',
@@ -23,7 +24,7 @@ export class UserRegistrationComponent {
     this.userRegForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+      email: ['', [Validators.required, Validators.minLength(3), Validators.email ]],
       password: ['', [Validators.required, Validators.minLength(3)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(3)]],
       role: ['', Validators.required]
@@ -49,7 +50,8 @@ export class UserRegistrationComponent {
         next: () => {
         },
         error: (err) => {
-          console.log(err)
+          console.log(err);
+          validationHandler(err, this.userRegForm);
         },
         complete: () => {
           this.router.navigate(['home']);

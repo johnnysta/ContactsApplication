@@ -3,12 +3,11 @@ import {FormGroup} from '@angular/forms';
 
 export function validationHandler(error: Error, form: FormGroup) {
   if (error instanceof HttpErrorResponse && error.status === 400) {
-    const errorObject = JSON.parse(error.error);
-    for (const errorFromServer of errorObject.fieldErrors) {
-      const formControl = form.get(errorFromServer.field);
+    Object.keys(error.error).forEach(key => {
+      const formControl = form.get(key);
       if (formControl) {
-        formControl.setErrors({serverError: errorFromServer.message});
+        formControl.setErrors({serverError: error.error[key]});
       }
-    }
+    });
   }
 }
