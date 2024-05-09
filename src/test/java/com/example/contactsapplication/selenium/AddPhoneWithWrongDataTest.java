@@ -14,7 +14,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddAddressWithWrongDataTest {
+public class AddPhoneWithWrongDataTest {
 
     private WebDriver driver;
     private JavascriptExecutor js;
@@ -67,28 +67,28 @@ public class AddAddressWithWrongDataTest {
 
         slowStep();
         {
-            WebElement element2 = driver.findElement(By.id("addNewAddressButton"));
-            Actions actions = new Actions(driver);
-            actions.moveToElement(element2).click().build().perform();
+            WebElement element = driver.findElement(By.id("addNewPhoneButton"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).click().perform();
         }
 
         slowStep();
-        driver.findElement(By.id("city")).sendKeys("a");
-        slowStep();
-        driver.findElement(By.id("street")).sendKeys("a");
-        slowStep();
-        driver.findElement(By.id("zipCode")).click();
-        slowStep();
-        driver.findElement(By.id("houseNumber")).click();
-        slowStep();
-        driver.findElement(By.id("zipCode")).click();
-        slowStep();
-        assertEquals(driver.findElement(By.cssSelector(".mb-3:nth-child(2) > .text-danger")).getText(),
-                "City is a required field. Please enter a valid city name that is at least 2 characters long.");
-        assertEquals(driver.findElement(By.cssSelector(".mb-3:nth-child(3) > .text-danger")).getText(),
-                "Street is a required field. Please enter a valid street name that is at least 2 characters long.");
-        assertEquals(driver.findElement(By.cssSelector(".mb-3:nth-child(4) > .text-danger")).getText(),
-                "House number is a required field. Please enter a valid house number.");
-    }
+        driver.findElement(By.id("phoneUseType")).click();
+        {
+            WebElement dropdown = driver.findElement(By.id("phoneUseType"));
+            dropdown.findElement(By.xpath("//option[. = 'PRIMARY']")).click();
+        }
 
+        slowStep();
+        driver.findElement(By.id("phoneNumber")).sendKeys("1");
+        {
+            WebElement element = driver.findElement(By.id("note"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).clickAndHold().perform();
+        }
+
+        slowStep();
+        assertEquals(driver.findElement(By.cssSelector(".text-danger")).getText(),
+                "Phone number is a required field. Please enter a valid phone number that is at least 3 characters long.");
+    }
 }

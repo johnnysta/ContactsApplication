@@ -19,20 +19,20 @@
           <option *ngFor="let usageType of initData.usageTypeList"
                   value="{{usageType}}">{{usageType}}</option>
         </select>
-      </div>
 
-      <small
-        *ngIf="!phoneForm.get('phoneUseType')?.valid
+        <small
+          *ngIf="!phoneForm.get('phoneUseType')?.valid
                         && phoneForm.get('phoneUseType')?.touched
                         && !phoneForm.get('phoneUseType')?.errors?.['serverError']"
-        class="text-danger"
-      >Phone use type is a required field. Please select a phone use type.
-      </small>
+          class="text-danger"
+        >Phone use type is a required field. Please select a phone use type.
+        </small>
 
-      <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
-        {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
-      </small>
+        <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
+          {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
+        </small>
 
+      </div>
 
       <div class="mb-3">
         <label
@@ -44,19 +44,20 @@
           class="form-control"
           id="phoneNumber"
           formControlName="phoneNumber">
-      </div>
 
-      <small
-        *ngIf="!phoneForm.get('phoneNumber')?.valid
+        <small
+          *ngIf="!phoneForm.get('phoneNumber')?.valid
                         && phoneForm.get('phoneNumber')?.touched
                         && !phoneForm.get('phoneNumber')?.errors?.['serverError']"
-        class="text-danger"
-      >Phone number is a required field. Please enter a valid phone number that is at least 3 characters long.
-      </small>
+          class="text-danger"
+        >Phone number is a required field. Please enter a valid phone number that is at least 3 characters long.
+        </small>
 
-      <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
-        {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
-      </small>
+        <small *ngIf="phoneForm.get('phoneNumber')?.errors?.['serverError']" class="text-danger">
+          {{phoneForm.get('phoneNumber')?.errors?.['serverError']}}
+        </small>
+
+      </div>
 
       <div class="mb-3">
         <label
