@@ -14,15 +14,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddNewContactTest {
 
     private WebDriver driver;
-    private Map<String, Object> vars;
     JavascriptExecutor js;
 
     @BeforeAll
@@ -39,7 +36,7 @@ public class AddNewContactTest {
 //        options.addArguments("incognito");
         driver = new ChromeDriver(options);
         js = (JavascriptExecutor) driver;
-        vars = new HashMap<String, Object>();
+
     }
 
     @AfterEach
@@ -48,71 +45,98 @@ public class AddNewContactTest {
     }
 
 
+    void slowStep() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void addNewContactTest() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
         driver.get("http://localhost:4200/home");
         driver.manage().window().setSize(new Dimension(1936, 1048));
+        slowStep();
         driver.findElement(By.id("loginButton")).click();
+        slowStep();
         driver.findElement(By.id("email")).sendKeys("b@b.hu");
+        slowStep();
         driver.findElement(By.id("password")).sendKeys("majom");
+        slowStep();
         driver.findElement(By.id("submitButton")).click();
 
+        slowStep();
         driver.findElement(By.id("addNewContact")).click();
+        slowStep();
         driver.findElement(By.id("firstName")).sendKeys("Hopkins");
+        slowStep();
         driver.findElement(By.id("lastName")).sendKeys("Tuskó");
+        slowStep();
         driver.findElement(By.id("email")).sendKeys("tusko.hopkins@hihkh.hu");
+        slowStep();
         driver.findElement(By.id("birthDate")).sendKeys("2024-04-11");
+        slowStep();
         driver.findElement(By.id("mothersName")).sendKeys("Kis Ica");
+        slowStep();
         driver.findElement(By.id("ssId")).sendKeys("41241241");
+        slowStep();
         driver.findElement(By.id("taxId")).sendKeys("341413412");
 
-
+        slowStep();
         {
             WebElement element2 = driver.findElement(By.id("addNewPhoneButton"));
             Actions actions = new Actions(driver);
             actions.moveToElement(element2).click().build().perform();
         }
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
+        slowStep();
         js.executeScript("window.scrollTo(0,0)");
+        slowStep();
         driver.findElement(By.id("phoneUseType")).click();
         {
             WebElement dropdown = driver.findElement(By.id("phoneUseType"));
             dropdown.findElement(By.xpath("//option[. = 'WORK']")).click();
         }
 
+        slowStep();
         driver.findElement(By.id("phoneNumber")).sendKeys("194 1988");
+        slowStep();
         driver.findElement(By.id("note")).sendKeys("Note");
+        slowStep();
         driver.findElement(By.id("okButton")).click();
 
+        slowStep();
         {
             WebElement element2 = driver.findElement(By.id("addNewAddressButton"));
             Actions actions = new Actions(driver);
             actions.moveToElement(element2).click().build().perform();
         }
 
-
+        slowStep();
         driver.findElement(By.id("zipCode")).sendKeys("11111");
+        slowStep();
         driver.findElement(By.id("city")).sendKeys("Gödöllő");
+        slowStep();
         driver.findElement(By.id("street")).sendKeys("Kossuth u.");
+        slowStep();
         driver.findElement(By.id("houseNumber")).sendKeys("7");
+        slowStep();
         driver.findElement(By.id("note")).sendKeys("Note");
+        slowStep();
         driver.findElement(By.id("okButton")).click();
 
+        slowStep();
         {
             WebElement element2 = driver.findElement(By.id("saveButton"));
             Actions actions = new Actions(driver);
             actions.moveToElement(element2).click().build().perform();
         }
 
+        slowStep();
         js.executeScript("window.scrollTo(0,0)");
+        slowStep();
         driver.findElement(By.cssSelector("tbody:last-child #detailsButton")).click();
 
         {

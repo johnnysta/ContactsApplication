@@ -27,19 +27,20 @@
           class="form-control"
           id="city"
           formControlName="city">
-      </div>
 
-      <small
-        *ngIf="!addressForm.get('city')?.valid
+        <small
+          *ngIf="!addressForm.get('city')?.valid
                         && addressForm.get('city')?.touched
                         && !addressForm.get('city')?.errors?.['serverError']"
-        class="text-danger"
-      >City is a required field. Please enter a valid city name that is at least 2 characters long.
-      </small>
+          class="text-danger"
+        >City is a required field. Please enter a valid city name that is at least 2 characters long.
+        </small>
 
-      <small *ngIf="addressForm.get('city')?.errors?.['serverError']" class="text-danger">
-        {{addressForm.get('city')?.errors?.['serverError']}}
-      </small>
+        <small *ngIf="addressForm.get('city')?.errors?.['serverError']" class="text-danger">
+          {{addressForm.get('city')?.errors?.['serverError']}}
+        </small>
+
+      </div>
 
 
       <div class="mb-3">
@@ -52,19 +53,20 @@
           class="form-control"
           id="street"
           formControlName="street">
-      </div>
 
-      <small
-        *ngIf="!addressForm.get('street')?.valid
+        <small
+          *ngIf="!addressForm.get('street')?.valid
                         && addressForm.get('street')?.touched
                         && !addressForm.get('street')?.errors?.['serverError']"
-        class="text-danger"
-      >Street is a required field. Please enter a valid street name that is at least 2 characters long.
-      </small>
+          class="text-danger"
+        >Street is a required field. Please enter a valid street name that is at least 2 characters long.
+        </small>
 
-      <small *ngIf="addressForm.get('street')?.errors?.['serverError']" class="text-danger">
-        {{addressForm.get('street')?.errors?.['serverError']}}
-      </small>
+        <small *ngIf="addressForm.get('street')?.errors?.['serverError']" class="text-danger">
+          {{addressForm.get('street')?.errors?.['serverError']}}
+        </small>
+
+      </div>
 
 
       <div class="mb-3">
@@ -77,6 +79,19 @@
           class="form-control"
           id="houseNumber"
           formControlName="houseNumber">
+
+        <small
+          *ngIf="!addressForm.get('houseNumber')?.valid
+                        && addressForm.get('houseNumber')?.touched
+                        && !addressForm.get('houseNumber')?.errors?.['serverError']"
+          class="text-danger"
+        >House number is a required field. Please enter a valid house number.
+        </small>
+
+        <small *ngIf="addressForm.get('houseNumber')?.errors?.['serverError']" class="text-danger">
+          {{addressForm.get('houseNumber')?.errors?.['serverError']}}
+        </small>
+
       </div>
 
       <div class="mb-3">
