@@ -7,33 +7,39 @@
     </div>
 
     <ng-template #contactsList>
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">E-mail</th>
-          <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody *ngFor="let item of contacts, let i=index">
-        <tr>
-          <td>{{item.firstName}}</td>
-          <td>{{item.lastName}}</td>
-          <td>{{item.email}}</td>
-          <td>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-secondary btn-sm mx-1" id="detailsButton"
-                      (click)="showDetails(item)">Details
-              </button>
-              <button type="button" class="btn btn-danger btn-sm mx-1" id="deleteButton"
-                      (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
-              </button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col" (click)="orderBy('firstName')">First</th>
+              <th scope="col" (click)="orderBy('lastName')">Last</th>
+              <th scope="col">E-mail</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let item of contacts, let i=index">
+            <tr>
+              <td>{{item.firstName}}</td>
+              <td>{{item.lastName}}</td>
+              <td>{{item.email}}</td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-secondary btn-sm mx-1" id="detailsButton"
+                          (click)="showDetails(item)">Details
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm mx-1" id="deleteButton"
+                          (click)="openDeleteModal(item.id, item.firstName, item.lastName)">Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </ng-template>
 
     <button type="button" class="btn btn-secondary" id="addNewContact"
@@ -56,10 +62,13 @@
         Are you sure you want to delete this contact and all its data?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()" id="keepButton">No, keep
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()"
+                id="keepButton">No, keep
           it
         </button>
-        <button type="button" (click)="deleteContact()" class="btn btn-danger" id="confirmDeleteButton">Yes, delete this contact</button>
+        <button type="button" (click)="deleteContact()" class="btn btn-danger" id="confirmDeleteButton">Yes, delete this
+          contact
+        </button>
       </div>
     </div>
   </div>

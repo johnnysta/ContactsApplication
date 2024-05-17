@@ -17,6 +17,10 @@ export class ContactsListComponent implements OnInit {
 
   contacts!: ContactListItemModel[];
 
+  sortByField = "firstName";
+  ascDesc = 1;   //Ascending: 1, descending: -1
+  collator = new Intl.Collator('hu');
+
   currentContactId!: number;
   currentContactFirst!: string;
   currentContactLast!: string;
@@ -40,6 +44,7 @@ export class ContactsListComponent implements OnInit {
       this.contactsService.getContactsByUserId(this.loggedInUser.userId).subscribe({
         next: value => {
           this.contacts = value;
+          this.sortContacts();
         },
         error: err => {
           console.log(err);
@@ -95,5 +100,58 @@ export class ContactsListComponent implements OnInit {
     // this.router.navigate(["contactsForm"]);
     this.router.navigate(["contactsFormFull"]);
   }
+
+  private sortContacts() {
+    console.log("Sortbyfield in sortcontacts: " + this.sortByField);
+    if (this.sortByField === "firstName") {
+      this.contacts.sort((a, b) => {
+        if (this.collator.compare(a.firstName, b.firstName) == -1) {
+          return -1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.firstName, b.firstName) == 1) {
+          return 1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.lastName, b.lastName) == -1) {
+          return -1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.lastName, b.lastName) == 1) {
+          return 1 * this.ascDesc;
+        }
+        return 0;
+      })
+    } else if (this.sortByField === "lastName") {
+      this.contacts.sort((a, b) => {
+        if (this.collator.compare(a.lastName, b.lastName) == -1) {
+          return -1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.lastName, b.lastName) == 1) {
+          return 1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.firstName, b.firstName) == -1) {
+          return -1 * this.ascDesc;
+        }
+        if (this.collator.compare(a.firstName, b.firstName) == 1) {
+          return 1 * this.ascDesc;
+        }
+        return 0;
+      })
+
+
+    }
+  }
+
+  orderBy(sortByField: string) {
+    // console.log(sortByField);
+    // console.log("currently: " + this.sortByField);
+    if (sortByField === this.sortByField) {
+      this.ascDesc *= -1;
+    } else {
+      this.sortByField = sortByField;
+      this.ascDesc = 1;
+    }
+    this.sortContacts();
+  }
+
+
 }
 

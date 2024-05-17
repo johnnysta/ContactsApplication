@@ -1,6 +1,4 @@
 export interface ContactListItemModel {
-
-
   id: number;
   firstName: string;
   lastName: string;
@@ -10,5 +8,4 @@ export interface ContactListItemModel {
   taxId: string;
   email: string;
   contactOwnerId: number;
-
 }
