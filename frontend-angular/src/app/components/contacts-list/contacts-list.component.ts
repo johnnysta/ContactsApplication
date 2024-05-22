@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {ContactListItemModel} from "../../models/contact-list-item.model";
 import {ContactsService} from "../../services/contacts.service";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
@@ -13,6 +13,8 @@ import {AccountService} from "../../services/account.service";
 })
 export class ContactsListComponent implements OnInit {
 
+  @ViewChildren('contactItems') contactItems!: QueryList<ElementRef>;
+
   loggedInUser!: AuthenticatedUserModel;
 
   contacts!: ContactListItemModel[];
@@ -22,8 +24,15 @@ export class ContactsListComponent implements OnInit {
   collator = new Intl.Collator('hu');
 
   currentContactId!: number;
-  currentContactFirst!: string;
-  currentContactLast!: string;
+  currentContactFirstName!: string;
+  currentContactLastName!: string;
+
+  contactsIndex: Map<string, number> = new Map<string, number>();
+
+
+  get contactsIndexArray(): { key: string, value: number }[] {
+    return Array.from(this.contactsIndex, ([key, value]) => ({key, value}));
+  }
 
   constructor(private contactsService: ContactsService,
               private router: Router,
@@ -63,8 +72,8 @@ export class ContactsListComponent implements OnInit {
       console.log("Delete Modal opened..")
       modelDiv.style.display = 'block';
       this.currentContactId = id;
-      this.currentContactFirst = firstName;
-      this.currentContactLast = lastName;
+      this.currentContactFirstName = firstName;
+      this.currentContactLastName = lastName;
     }
   }
 
@@ -97,7 +106,6 @@ export class ContactsListComponent implements OnInit {
   }
 
   addNewContact() {
-    // this.router.navigate(["contactsForm"]);
     this.router.navigate(["contactsFormFull"]);
   }
 
@@ -109,40 +117,37 @@ export class ContactsListComponent implements OnInit {
           return -1 * this.ascDesc;
         }
         if (this.collator.compare(a.firstName, b.firstName) == 1) {
-          return 1 * this.ascDesc;
+          return this.ascDesc;
         }
         if (this.collator.compare(a.lastName, b.lastName) == -1) {
           return -1 * this.ascDesc;
         }
         if (this.collator.compare(a.lastName, b.lastName) == 1) {
-          return 1 * this.ascDesc;
+          return this.ascDesc;
         }
         return 0;
-      })
+      });
     } else if (this.sortByField === "lastName") {
       this.contacts.sort((a, b) => {
         if (this.collator.compare(a.lastName, b.lastName) == -1) {
           return -1 * this.ascDesc;
         }
         if (this.collator.compare(a.lastName, b.lastName) == 1) {
-          return 1 * this.ascDesc;
+          return this.ascDesc;
         }
         if (this.collator.compare(a.firstName, b.firstName) == -1) {
           return -1 * this.ascDesc;
         }
         if (this.collator.compare(a.firstName, b.firstName) == 1) {
-          return 1 * this.ascDesc;
+          return this.ascDesc;
         }
         return 0;
-      })
-
-
+      });
     }
+    this.calculateIndexes();
   }
 
   orderBy(sortByField: string) {
-    // console.log(sortByField);
-    // console.log("currently: " + this.sortByField);
     if (sortByField === this.sortByField) {
       this.ascDesc *= -1;
     } else {
@@ -150,6 +155,30 @@ export class ContactsListComponent implements OnInit {
       this.ascDesc = 1;
     }
     this.sortContacts();
+  }
+
+
+  private calculateIndexes() {
+    console.log("calculate indexes");
+    this.contactsIndex = new Map<string, number>();
+    for (let i = 0; i < this.contacts.length; i++) {
+      const name = (this.contacts[i][(this.sortByField === 'firstName') ? 'firstName' : 'lastName']);
+      let startLetter = '';
+      if (name.length > 0) {
+        startLetter = name.charAt(0).toUpperCase();
+      }
+      if (!this.contactsIndex.has(startLetter)) {
+        this.contactsIndex.set(startLetter, this.contacts[i].id);
+      }
+    }
+  }
+
+  scrollToItemById(id: number) {
+    const contactArray = this.contactItems.toArray();
+    const targetElement = contactArray.find(contactItem => contactItem.nativeElement.getAttribute('data-id') == id);
+    if (targetElement) {
+      targetElement.nativeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
   }
 
 

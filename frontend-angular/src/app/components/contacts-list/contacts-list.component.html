@@ -13,13 +13,17 @@
           <table class="table">
             <thead>
             <tr>
-              <th scope="col" (click)="orderBy('firstName')">First</th>
-              <th scope="col" (click)="orderBy('lastName')">Last</th>
+              <th scope="col" (click)="orderBy('firstName')">First <span
+                *ngIf="sortByField === 'firstName' && ascDesc === 1"><b>⇩</b></span>
+                <span *ngIf="sortByField === 'firstName' && ascDesc === -1"><strong>⇧</strong></span></th>
+              <th scope="col" (click)="orderBy('lastName')">Last <span
+                *ngIf="sortByField === 'lastName' && ascDesc === 1"><strong>⇩</strong></span>
+                <span *ngIf="sortByField === 'lastName' && ascDesc === -1"><strong>⇧</strong></span></th>
               <th scope="col">E-mail</th>
               <th scope="col"></th>
             </tr>
             </thead>
-            <tbody *ngFor="let item of contacts, let i=index">
+            <tbody *ngFor="let item of contacts, let i=index" #contactItems [attr.data-id]="item.id">
             <tr>
               <td>{{item.firstName}}</td>
               <td>{{item.lastName}}</td>
@@ -42,7 +46,17 @@
 
     </ng-template>
 
-    <button type="button" class="btn btn-secondary" id="addNewContact"
+
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-auto gx-1 gy-1" *ngFor="let indexItem of contactsIndexArray">
+          <button type="button" class="btn btn-secondary btn-sm"
+                  (click)="scrollToItemById(indexItem.value)">{{indexItem.key}}</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary mt-2" id="addNewContact"
             (click)="addNewContact()">Add New Contact
     </button>
 
