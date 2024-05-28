@@ -2,5 +2,13 @@
   max-height: 300px;
   width: 100%;
   overflow: auto;
-  display:inline-block;
+  display: inline-block;
 }
+
+thead, th {
+  position: sticky;
+  top: 0;
+  background-color: darkseagreen;
+  z-index: 2; /* To ensure the header stays on top */
+}
+
