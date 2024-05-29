@@ -17,6 +17,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Add environment variables to .env
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
+          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env          
+
       - name: Build the app
         run: |
           chmod +x mvnw
