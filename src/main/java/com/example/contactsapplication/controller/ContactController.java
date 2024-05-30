@@ -27,6 +27,11 @@ public class ContactController {
     PhoneNumberService phoneNumberService;
     AddressService addressService;
 
+    //This endpoint is just for testing
+    @GetMapping("/hallo")
+    public String hallo() {
+        return "Hallo Hallo!";
+    }
 
     //This endpoint is just for testing security
     @PreAuthorize("hasAuthority('NEW_USER')")
