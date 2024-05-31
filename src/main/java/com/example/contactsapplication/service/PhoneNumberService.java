@@ -20,9 +20,8 @@ import java.util.List;
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class  PhoneNumberService {
+public class PhoneNumberService {
 
-    ContactService contactService;
     PhoneNumberRepository phoneNumberRepository;
     PhoneMapper phoneMapper;
 
@@ -38,8 +37,7 @@ public class  PhoneNumberService {
         phoneNumberRepository.deleteById(phoneId);
     }
 
-    public void addNewPhone(PhoneDetailsDto phoneDetailsDto) {
-        ContactEntity phoneNumberOwner = contactService.findById(phoneDetailsDto.getPhoneNumberOwner());
+    public void addNewPhone(PhoneDetailsDto phoneDetailsDto, ContactEntity phoneNumberOwner) {
         PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
         log.info(phoneNumberEntity.getPhoneUseType().toString());
         phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
@@ -55,14 +53,13 @@ public class  PhoneNumberService {
         return phoneRegistrationInitDataDto;
     }
 
-    public void replacePhonesList(Long contactId, List<PhoneDetailsDto> phoneDetailsDtos) {
+    public void replacePhonesList(List<PhoneDetailsDto> phoneDetailsDtos, ContactEntity phoneNumberOwner) {
         phoneDetailsDtos.forEach(phoneDetailsDto -> {
             Long currentId = phoneDetailsDto.getId();
             Boolean isDeleted = phoneDetailsDto.getIsDeleted();
             if (isDeleted) {
                 phoneNumberRepository.deleteById(currentId);
             } else if (phoneDetailsDto.getId() == 0) {
-                ContactEntity phoneNumberOwner = contactService.findById(contactId);
                 PhoneNumberEntity phoneNumberEntity = phoneMapper.mapPhoneDetailsDtoToPhoneNumberEntity(phoneDetailsDto);
                 phoneNumberEntity.setPhoneNumberOwner(phoneNumberOwner);
                 phoneNumberRepository.save(phoneNumberEntity);

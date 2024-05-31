@@ -1,13 +1,12 @@
 package com.example.contactsapplication.controller;
 
-import com.example.contactsapplication.dto.in_out.AddressDetailsDto;
-import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
-import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
-import com.example.contactsapplication.dto.in_out.PhoneRegistrationInitDataDto;
+import com.example.contactsapplication.dto.in_out.*;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
 import com.example.contactsapplication.service.AddressService;
 import com.example.contactsapplication.service.ContactService;
 import com.example.contactsapplication.service.PhoneNumberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +39,8 @@ public class ContactController {
         return "Hello Spring Security";
     }
 
+    @Operation(summary = "Get contacts basic data", description = "Endpoint for getting basic data of contacts of a given user.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/{userId}")
     public ResponseEntity<List<ContactListItemDto>> getContactsByUserId(@PathVariable Long userId) {
@@ -47,13 +48,27 @@ public class ContactController {
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
+    @Operation(summary = "Get one contact's basic data", description = "Endpoint for getting basic data of a contact by contactId.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @GetMapping("/contact/{contactId}")
+    @GetMapping("/contactDetails/{contactId}")
     public ResponseEntity<ContactDetailsDto> getContactById(@PathVariable Long contactId) {
         log.info("contactId" + contactId);
         ContactDetailsDto result = contactService.getContactById(contactId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @Operation(summary = "Get one contact's full data", description = "Endpoint for getting full data" +
+            " (including phones list and addresses list) of a contact by contactId.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @GetMapping("/contact/{contactId}")
+    public ResponseEntity<ContactFullDataDto> getFullContactById(@PathVariable Long contactId) {
+        log.info("contactId" + contactId);
+        ContactFullDataDto result = contactService.getFullContactById(contactId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @DeleteMapping("/{contactId}")
@@ -62,12 +77,26 @@ public class ContactController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Ads one contact's with basic data", description = "Endpoint for creating a new contact and adding basic data" +
+            " (with empty phones list and addresses list) to it.")
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @PostMapping
+    @PostMapping("/contactDetails/")
     public ResponseEntity<Long> addNewContact(@RequestBody ContactDetailsDto contactDetailsDto) {
-        Long newContactId = contactService.addNewContact(contactDetailsDto);
+        Long newContactId = contactService.addNewContact(contactDetailsDto).getId();
         return new ResponseEntity<>(newContactId, HttpStatus.CREATED);
     }
+
+
+    @Operation(summary = "Ads one contact's with full data", description = "Endpoint  for creating a new contact, and adding full data" +
+            " (including phones list and addresses list) to it.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @PostMapping("/contact/")
+    public ResponseEntity<Long> addNewFullContact(@RequestBody ContactFullDataDto contactFullDataDto) {
+        Long newContactId = contactService.addNewFullContact(contactFullDataDto);
+        return new ResponseEntity<>(newContactId, HttpStatus.CREATED);
+    }
+
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/phones/{contactId}")
@@ -100,14 +129,14 @@ public class ContactController {
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/phones")
     public ResponseEntity<Void> addNewPhone(@RequestBody PhoneDetailsDto phoneDetailsDto) {
-        phoneNumberService.addNewPhone(phoneDetailsDto);
+        phoneNumberService.addNewPhone(phoneDetailsDto, contactService.findById(phoneDetailsDto.getPhoneNumberOwner()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/addresses")
     public ResponseEntity<Void> addNewAddress(@RequestBody AddressDetailsDto addressDetailsDto) {
-        addressService.addNewAddress(addressDetailsDto);
+        addressService.addNewAddress(addressDetailsDto, contactService.findById(addressDetailsDto.getAddressOwner()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -118,10 +147,24 @@ public class ContactController {
     }
 
 
+    @Operation(summary = "Update one contact's basic data", description = "Endpoint for updating basic data" +
+            " of a contact by contactId.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
-    @PutMapping("{contactId}")
+    @PutMapping("/contactDetails/{contactId}")
     public ResponseEntity<Void> updateContactById(@PathVariable Long contactId, @RequestBody ContactDetailsDto contactDetailsDto) {
         contactService.updateContactById(contactId, contactDetailsDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Update one contact's full data", description = "Endpoint for updating full data" +
+            " (including phones list and addresses list) of a contact by contactId.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"USER", "ADMIN"})
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
+    @PutMapping("/contact/{contactId}")
+    public ResponseEntity<Void> updateFullContactById(@PathVariable Long contactId, @RequestBody ContactFullDataDto contactFullDataDto) {
+        contactService.updateFullContactById(contactId, contactFullDataDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -129,14 +172,14 @@ public class ContactController {
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/phones/phones-list/{contactId}")
     public ResponseEntity<Void> replacePhonesList(@PathVariable Long contactId, @RequestBody List<PhoneDetailsDto> phoneDetailsDtos) {
-        phoneNumberService.replacePhonesList(contactId, phoneDetailsDtos);
+        phoneNumberService.replacePhonesList(phoneDetailsDtos, contactService.findById(contactId));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @PostMapping("/addresses/addresses-list/{contactId}")
     public ResponseEntity<Void> replaceAddressesList(@PathVariable Long contactId, @RequestBody List<AddressDetailsDto> addressDetailsDtos) {
-        addressService.replaceAddressesList(contactId, addressDetailsDtos);
+        addressService.replaceAddressesList(addressDetailsDtos, contactService.findById(contactId));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

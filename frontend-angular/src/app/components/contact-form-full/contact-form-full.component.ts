@@ -11,6 +11,7 @@ import {PhonesService} from "../../services/phones.service";
 import {AddressService} from "../../services/address.service";
 import {PhoneDataModel} from "../../models/phone-data.model";
 import {AddressDataModel} from "../../models/address-data.model";
+import {ContactDataModel} from "../../models/contact-data.model";
 
 @Component({
   selector: 'app-contact-form-full',
@@ -33,9 +34,8 @@ export class ContactFormFullComponent {
               private router: Router,
               private route: ActivatedRoute,
               private accountService: AccountService,
-              private contactFormFullService: ContactFormFullService,
-              private phonesService: PhonesService,
-              private addressService: AddressService) {
+              private contactFormFullService: ContactFormFullService
+              ) {
     this.contactForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: [''],
@@ -79,11 +79,15 @@ export class ContactFormFullComponent {
         const idFromParamMap = param.get('id');
         console.log("idFromParamMap: " + idFromParamMap);
         if (idFromParamMap) {
-          this.contactService.getContactById(Number(idFromParamMap)).subscribe({
+          this.contactService.getFullContactById(Number(idFromParamMap)).subscribe({
             next:
               (data) => {
-                this.contactDetails = data;
+                this.contactDetails = data.contactBasicData;
+                this.contactPhones = data.phoneList;
+                this.contactAddresses = data.addressList;
                 this.contactFormFullService.contactFormDetails.next(this.contactDetails);
+                this.contactFormFullService.phoneList.next(this.contactPhones);
+                this.contactFormFullService.addressList.next(this.contactAddresses);
                 this.fillContactForm();
               },
             error: () => {
@@ -91,28 +95,6 @@ export class ContactFormFullComponent {
             complete: () => {
             }
           });
-
-          this.phonesService.getPhonesByContactId(Number(idFromParamMap)).subscribe({
-            next: (data) => {
-              this.contactPhones = data;
-              this.contactFormFullService.phoneList.next(this.contactPhones);
-            },
-            error: () => {
-            },
-            complete: () => {
-            }
-          })
-
-          this.addressService.getAddressesByContactId(Number(idFromParamMap)).subscribe({
-            next: (data) => {
-              this.contactAddresses = data;
-              this.contactFormFullService.addressList.next(this.contactAddresses);
-            },
-            error: () => {
-            },
-            complete: () => {
-            }
-          })
         } else {
           //route did not contain contact id as path variable, so creating a new contact,
           // or this is the case when returning back from phone/address form
@@ -138,72 +120,43 @@ export class ContactFormFullComponent {
   submitData() {
     let contactData: ContactDetailsDataModel = this.contactForm.value;
     contactData.userId = this.loggedInUser.userId;
+    let contactFullData: ContactDataModel = {
+      contactBasicData: contactData,
+      phoneList: this.contactPhones,
+      addressList: this.contactAddresses
+    }
     console.log("Logged in User ID in submitData : " + this.loggedInUser.userId);
+    //If contactDetails has a valid id, then this is a contact to be updated
     if (this.contactDetails.id) {
       contactData.id = this.contactDetails.id;
-      this.contactService.sendContactUpdate(contactData).subscribe(
-        {
-          next: () => {
-            console.log("Phones list length: " + this.contactPhones.length);
-            console.log("Contact ID: " + this.contactDetails.id);
-            this.phonesService.sendPhonesData(this.contactPhones, this.contactDetails.id).subscribe({
-              next: () => {
-                console.log("Phones added");
-              },
-              error: (err) => {
-                console.log(err)
-              }
-            });
-            this.addressService.sendAddressesData(this.contactAddresses, this.contactDetails.id).subscribe({
-              next: () => {
-                console.log("Addresses added");
-              },
-              error: (err) => {
-                console.log(err);
-              }
-            });
-            console.log("Contact updated successfully.");
-            this.clearContactSubjects();
-            this.router.navigate(['contacts']);
-          },
-          error: (err) => {
-            validationHandler(err, this.contactForm);
-            console.log(err)
-          },
-          complete: () => {
-          }
-        });
-    } else {
-      this.contactService.sendContactRegistration(contactData).subscribe(
-        {
-          next: (contactIdFromServer: number) => {
-            this.phonesService.sendPhonesData(this.contactPhones, contactIdFromServer).subscribe({
-              next: () => {
-                console.log("Phones added");
-              },
-              error: (err) => {
-                console.log(err)
-              }
-            });
-            this.addressService.sendAddressesData(this.contactAddresses, contactIdFromServer).subscribe({
-              next: () => {
-                console.log("Addresses added");
-              },
-              error: (err) => {
-                console.log(err);
-              }
-            });
-            console.log("New contact saved successfully.");
-            this.clearContactSubjects();
-            this.router.navigate(['contacts']);
-          },
-          error: (err) => {
-            validationHandler(err, this.contactForm);
-            console.log(err)
-          },
-          complete: () => {
-          }
-        });
+      this.contactService.sendContactFullUpdate(contactFullData).subscribe({
+        next: () => {
+        },
+        error: (err) => {
+          validationHandler(err, this.contactForm);
+          console.log(err);
+        },
+        complete: () => {
+          console.log("Contact updated successfully.");
+        }
+      });
+    } else
+      //If contactDetails has no id, then this is a new contact to be registered
+    {
+      this.contactService.sendContactFullRegistration(contactFullData).subscribe({
+        next: () => {
+          console.log("New contact saved successfully.");
+          this.clearContactSubjects();
+          this.router.navigate(['contacts']);
+        },
+        error: (err) => {
+          validationHandler(err, this.contactForm);
+          console.log(err);
+        },
+        complete: () => {
+          console.log("Contact updated successfully.");
+        }
+      });
     }
   }
 

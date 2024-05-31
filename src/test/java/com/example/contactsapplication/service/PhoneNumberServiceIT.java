@@ -71,7 +71,7 @@ class PhoneNumberServiceIT {
         contactDetailsDto.setFirstName("Dezső");
         contactDetailsDto.setEmail("dezső@skfhsk.hu");
 
-        Long currentContactId = contactService.addNewContact(contactDetailsDto);
+        Long currentContactId = contactService.addNewContact(contactDetailsDto).getId();
 
         PhoneDetailsDto phoneDetailsDto1 = new PhoneDetailsDto();
         phoneDetailsDto1.setPhoneNumber("12345");
@@ -84,7 +84,7 @@ class PhoneNumberServiceIT {
         phonesList.add(phoneDetailsDto1);
 
         //when
-        phoneNumberService.replacePhonesList(currentContactId, phonesList);
+        phoneNumberService.replacePhonesList(phonesList, contactService.findById(currentContactId));
         List<PhoneDetailsDto> resultList = phoneNumberService.getPhonesByContactId(currentContactId);
 
         //then
@@ -109,7 +109,7 @@ class PhoneNumberServiceIT {
         contactDetailsDto.setFirstName("Dezső");
         contactDetailsDto.setEmail("dezső@skfhsk.hu");
 
-        Long currentContactId = contactService.addNewContact(contactDetailsDto);
+        Long currentContactId = contactService.addNewContact(contactDetailsDto).getId();
 
         PhoneDetailsDto phoneDetailsDto1 = new PhoneDetailsDto();
         phoneDetailsDto1.setPhoneNumber("12345");
@@ -121,7 +121,7 @@ class PhoneNumberServiceIT {
         List<PhoneDetailsDto> phonesList = new ArrayList<>();
         phonesList.add(phoneDetailsDto1);
 
-        phoneNumberService.replacePhonesList(currentContactId, phonesList);
+        phoneNumberService.replacePhonesList(phonesList, contactService.findById(currentContactId));
         List<PhoneDetailsDto> resultList = phoneNumberService.getPhonesByContactId(currentContactId);
 
         PhoneDetailsDto phoneDetailsDto2 = new PhoneDetailsDto();
@@ -136,7 +136,7 @@ class PhoneNumberServiceIT {
         phonesList2.add(phoneDetailsDto2);
 
         //when
-        phoneNumberService.replacePhonesList(currentContactId, phonesList2);
+        phoneNumberService.replacePhonesList(phonesList2, contactService.findById(currentContactId));
         resultList = phoneNumberService.getPhonesByContactId(currentContactId);
 
         //then
@@ -161,7 +161,7 @@ class PhoneNumberServiceIT {
         contactDetailsDto.setFirstName("Dezső");
         contactDetailsDto.setEmail("dezső@skfhsk.hu");
 
-        Long currentContactId = contactService.addNewContact(contactDetailsDto);
+        Long currentContactId = contactService.addNewContact(contactDetailsDto).getId();
 
         PhoneDetailsDto phoneDetailsDto1 = new PhoneDetailsDto();
         phoneDetailsDto1.setPhoneNumber("12345");
@@ -181,7 +181,7 @@ class PhoneNumberServiceIT {
         phonesList.add(phoneDetailsDto1);
         phonesList.add(phoneDetailsDto2);
 
-        phoneNumberService.replacePhonesList(currentContactId, phonesList);
+        phoneNumberService.replacePhonesList(phonesList, contactService.findById(currentContactId));
 
         List<PhoneDetailsDto> resultList = phoneNumberService.getPhonesByContactId(currentContactId);
 
@@ -206,7 +206,7 @@ class PhoneNumberServiceIT {
         contactDetailsDto.setFirstName("Dezső");
         contactDetailsDto.setEmail("dezső@skfhsk.hu");
 
-        Long currentContactId = contactService.addNewContact(contactDetailsDto);
+        Long currentContactId = contactService.addNewContact(contactDetailsDto).getId();
 
         PhoneDetailsDto phoneDetailsDto1 = new PhoneDetailsDto();
         phoneDetailsDto1.setPhoneNumber("12345");
@@ -226,12 +226,12 @@ class PhoneNumberServiceIT {
         phonesList.add(phoneDetailsDto1);
         phonesList.add(phoneDetailsDto2);
 
-        phoneNumberService.replacePhonesList(currentContactId, phonesList);
+        phoneNumberService.replacePhonesList(phonesList, contactService.findById(currentContactId));
         phonesList = phoneNumberService.getPhonesByContactId(currentContactId);
 
         //when
         phonesList.get(1).setIsDeleted(true);
-        phoneNumberService.replacePhonesList(currentContactId, phonesList);
+        phoneNumberService.replacePhonesList(phonesList, contactService.findById(currentContactId));
         List<PhoneDetailsDto> resultList = phoneNumberService.getPhonesByContactId(currentContactId);
 
         //then

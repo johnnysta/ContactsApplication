@@ -1,18 +1,30 @@
 package com.example.contactsapplication.mapper;
 
 import com.example.contactsapplication.domain.ContactEntity;
+import com.example.contactsapplication.dto.in_out.AddressDetailsDto;
 import com.example.contactsapplication.dto.in_out.ContactDetailsDto;
+import com.example.contactsapplication.dto.in_out.ContactFullDataDto;
+import com.example.contactsapplication.dto.in_out.PhoneDetailsDto;
 import com.example.contactsapplication.dto.out.ContactListItemDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Component
 public class ContactMapper {
 
+    @Autowired
+    AddressMapper addressMapper;
+    @Autowired
+    PhoneMapper phoneMapper;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     public ContactListItemDto mapContactEntityToContactListItemDto(ContactEntity contactEntity) {
 
@@ -85,9 +97,27 @@ public class ContactMapper {
             contactFound.setBirthDate(LocalDate.parse(contactDetailsDto.getBirthDate(), formatter));
         } catch (DateTimeParseException e) {
             contactFound.setBirthDate(null);
+        } catch (NullPointerException e) {
+            contactFound.setBirthDate(null);
         }
         contactFound.setMothersName(contactDetailsDto.getMothersName());
         contactFound.setSsId(contactDetailsDto.getSsId());
         contactFound.setTaxId(contactDetailsDto.getTaxId());
+    }
+
+    public ContactFullDataDto mapContactEntityToContactFullDataDto(ContactEntity contactEntity) {
+        ContactFullDataDto contactFullDataDto = new ContactFullDataDto();
+        contactFullDataDto.setContactBasicData(mapContactEntityToContactDetailsDto(contactEntity));
+        contactFullDataDto.setPhoneList((ArrayList<PhoneDetailsDto>) contactEntity
+                .getPhoneNumbers()
+                .stream()
+                .map(phoneNumberEntity -> phoneMapper.mapPhoneEntityToPhoneDetailsDto(phoneNumberEntity))
+                .collect(Collectors.toList()));
+        contactFullDataDto.setAddressList((ArrayList<AddressDetailsDto>) contactEntity
+                .getAddresses()
+                .stream()
+                .map(addressEntity -> addressMapper.mapAddressEntityToAddressDetaildDto(addressEntity))
+                .collect(Collectors.toList()));
+        return contactFullDataDto;
     }
 }

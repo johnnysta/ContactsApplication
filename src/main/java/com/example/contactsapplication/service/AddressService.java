@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AddressService {
 
-    ContactService contactService;
     AddressRepository addressRepository;
     AddressMapper addressMapper;
 
@@ -33,21 +32,19 @@ public class AddressService {
         addressRepository.deleteById(addressId);
     }
 
-    public void addNewAddress(AddressDetailsDto addressDetailsDto) {
-        ContactEntity addressOwner = contactService.findById(addressDetailsDto.getAddressOwner());
+    public void addNewAddress(AddressDetailsDto addressDetailsDto, ContactEntity addressOwner) {
         AddressEntity addressEntity = addressMapper.mapAddressDetailsDtoToAddressEntity(addressDetailsDto);
         addressEntity.setAddressOwner(addressOwner);
         addressRepository.save(addressEntity);
     }
 
-    public void replaceAddressesList(Long contactId, List<AddressDetailsDto> addressDetailsDtos) {
+    public void replaceAddressesList(List<AddressDetailsDto> addressDetailsDtos, ContactEntity addressOwner) {
         addressDetailsDtos.forEach(addressDetailsDto -> {
             Long currentId = addressDetailsDto.getId();
             Boolean isDeleted = addressDetailsDto.getIsDeleted();
             if (isDeleted) {
                 addressRepository.deleteById(currentId);
             } else if (addressDetailsDto.getId() == 0) {
-                ContactEntity addressOwner = contactService.findById(contactId);
                 AddressEntity addressEntity = addressMapper.mapAddressDetailsDtoToAddressEntity(addressDetailsDto);
                 addressEntity.setAddressOwner(addressOwner);
                 addressRepository.save(addressEntity);
