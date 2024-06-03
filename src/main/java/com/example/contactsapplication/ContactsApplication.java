@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySources;
 @SpringBootApplication
 @PropertySources({
         @PropertySource("classpath:application.properties"),
-        @PropertySource("classpath:.env")
+//        @PropertySource("classpath:.env")
 })
 public class ContactsApplication {
 
