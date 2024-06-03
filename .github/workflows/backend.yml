@@ -17,11 +17,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Add environment variables to .env
-        run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > src/main/resources/.env
-          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> src/main/resources/.env
-          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> src/main/resources/.env          
+#      - name: Add environment variables to .env
+#        run: |
+#          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > src/main/resources/.env
+#          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> src/main/resources/.env
+#          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> src/main/resources/.env
 
       - name: Build the app
         run: |

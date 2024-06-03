@@ -8,9 +8,12 @@ server:
 
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+#    url: ${DATABASE_URL}
+#    username: ${DATABASE_USERNAME}
+#    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/contacts
+    username: postgres
+    password: root
     driver-class-name: org.postgresql.Driver
 
   jpa:
