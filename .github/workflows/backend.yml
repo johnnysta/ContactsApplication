@@ -5,7 +5,7 @@ on:
 
 jobs:
   backend-build:
-    runs-on: aws-ec2-johnnysta
+    runs-on: self-hosted
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
