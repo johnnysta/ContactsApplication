@@ -19,9 +19,9 @@ jobs:
 
       - name: Add environment variables to .env
         run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
-          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
-          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env          
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > src/main/resources/.env
+          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> src/main/resources/.env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> src/main/resources/.env          
 
       - name: Build the app
         run: |
