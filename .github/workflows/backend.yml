@@ -35,4 +35,4 @@ jobs:
       - name: Backend deploy
         run: |
           docker rm -f contacts-application-backend-container ||true          
-          docker run -dit -p 8383:8080 --name contacts-application-backend-container johnnysta/contacts-application-backend:$GITHUB_RUN_ID
+          docker run -dit -p 8080:8080 --name contacts-application-backend-container johnnysta/contacts-application-backend:$GITHUB_RUN_ID
