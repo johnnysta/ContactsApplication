@@ -1,0 +1,28 @@
+name: Frontend CI pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  frontend-build:
+    runs-on: self-hosted
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Set up NodeJS 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.20.2
+
+      - name: Build frontend
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          cd frontend
+          npm install -g @angular/cli
+          npm i --force
+          ng build
+
+      - name: Deploy frontend
+        run: |
+          sudo cp -fr frontend/dist/frontend-angular/* /var/www/frontend/
