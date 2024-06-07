@@ -18,12 +18,18 @@ jobs:
       - name: Build frontend
         run: |
           export NODE_OPTIONS=--openssl-legacy-provider
+          echo "Current working directory:"
           pwd
+          echo "Listing contents of the current directory:"
           ls
+          echo "Changing to the frontend-angular directory..."
           cd frontend-angular
+           echo "Installing Angular CLI globally..."
           npm install -g @angular/cli
+          echo "Installing project dependencies..."
           npm i --force
-          ng build
+          echo "Building the Angular project..."
+          ng build --verbose
 
       - name: Deploy frontend
         run: |
