@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          sudo cp -fr frontend/dist/frontend-angular/* /var/www/frontend/
+          sudo cp -fr frontend-angular/dist/frontend-angular/* /var/www/frontend/
