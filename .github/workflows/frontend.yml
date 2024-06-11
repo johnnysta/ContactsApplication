@@ -1,0 +1,42 @@
+name: Frontend CI pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  frontend-build:
+    runs-on: self-hosted
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Set up NodeJS 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Build frontend
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          echo "Current working directory:"
+          pwd
+          echo "Listing contents of the current directory:"
+          ls
+          echo "Changing to the frontend-angular directory..."
+          cd frontend-angular
+           echo "Installing Angular CLI globally..."
+          npm install -g @angular/cli
+          echo "Installing project dependencies..."
+          npm i --force
+          echo "Building the Angular project..."
+          ng build --configuration production --verbose
+
+      - name: Deploy frontend
+        run: |
+          sudo cp -fr frontend-angular/dist/frontend-angular/* /var/www/frontend/
+
+      # - name: Cleanup work directory
+      #   if: always()  # Ensures this step runs even if previous steps fail
+      #   run: |
+      #     echo "Cleaning up work directory..."
+      #     rm -rf /home/ubuntu/actions-runner/_work/*

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
@@ -7,8 +7,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
 import {validationHandler} from "../../utils/validationHandler";
 import {ContactFormFullService} from "../../services/contact-form-full.service";
-import {PhonesService} from "../../services/phones.service";
-import {AddressService} from "../../services/address.service";
 import {PhoneDataModel} from "../../models/phone-data.model";
 import {AddressDataModel} from "../../models/address-data.model";
 import {ContactDataModel} from "../../models/contact-data.model";
@@ -18,7 +16,7 @@ import {ContactDataModel} from "../../models/contact-data.model";
   templateUrl: './contact-form-full.component.html',
   styleUrls: ['./contact-form-full.component.css']
 })
-export class ContactFormFullComponent {
+export class ContactFormFullComponent implements OnDestroy {
 
 
   contactDetails!: ContactDetailsDataModel;
@@ -35,7 +33,7 @@ export class ContactFormFullComponent {
               private route: ActivatedRoute,
               private accountService: AccountService,
               private contactFormFullService: ContactFormFullService
-              ) {
+  ) {
     this.contactForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: [''],
@@ -131,6 +129,8 @@ export class ContactFormFullComponent {
       contactData.id = this.contactDetails.id;
       this.contactService.sendContactFullUpdate(contactFullData).subscribe({
         next: () => {
+          this.clearContactSubjects();
+          this.router.navigate(['contacts']);
         },
         error: (err) => {
           validationHandler(err, this.contactForm);
@@ -145,7 +145,6 @@ export class ContactFormFullComponent {
     {
       this.contactService.sendContactFullRegistration(contactFullData).subscribe({
         next: () => {
-          console.log("New contact saved successfully.");
           this.clearContactSubjects();
           this.router.navigate(['contacts']);
         },
@@ -154,7 +153,7 @@ export class ContactFormFullComponent {
           console.log(err);
         },
         complete: () => {
-          console.log("Contact updated successfully.");
+          console.log("New contact saved successfully.");
         }
       });
     }
@@ -165,6 +164,9 @@ export class ContactFormFullComponent {
     this.router.navigate(['contacts']);
   }
 
+  ngOnDestroy(): void {
+    this.clearContactSubjects();
+  }
 
   saveContactDetailsToSubject() {
     let contactData: ContactDetailsDataModel = this.contactForm.value;

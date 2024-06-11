@@ -89,7 +89,8 @@ public class SecurityConfig {
         // @formatter:off
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://127.0.0.1:4200",
-                "http://localhost:4200/*", "http://127.0.0.1:4200/*"));
+                "http://localhost:4200/*", "http://127.0.0.1:4200/*", "http://3.74.37.38:4200",
+                "http://3.74.37.38:4200/*", "http://3.74.37.38", "http://3.74.37.38/*" ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(List.of("Cache-Control", "Content-Language", "Content-Type", "Expires", "Last-Modified", "Pragma", "Location"));

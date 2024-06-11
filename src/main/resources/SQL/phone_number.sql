@@ -997,4 +997,4 @@ insert into phone_number (note, phone_number, phone_use_type, phone_number_owner
 insert into phone_number (note, phone_number, phone_use_type, phone_number_owner_id) values (null, '100-606-9961', 'HOME', 207);
 insert into phone_number (note, phone_number, phone_use_type, phone_number_owner_id) values (null, '566-655-2129', 'OTHER', 175);
 insert into phone_number (note, phone_number, phone_use_type, phone_number_owner_id) values (null, '662-688-4722', 'OTHER', 454);
-insert into phone_number (note, phone_number, phone_use_type, phone_number_owner_id) values (1000, null, '628-842-5361', 'WORK', 308);
+insert into phone_number (note, phone_number, phone_use_type, phone_number_owner_id) values (null, '628-842-5361', 'WORK', 308);

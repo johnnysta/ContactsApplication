@@ -997,4 +997,4 @@ insert into address (city, house_number, note, street, zip_code, address_owner_i
 insert into address (city, house_number, note, street, zip_code, address_owner_id) values ('Luhe', 272, null, 'Westport', null, 220);
 insert into address (city, house_number, note, street, zip_code, address_owner_id) values ('Bratislava', 197, null, 'Brentwood', '851 03', 36);
 insert into address (city, house_number, note, street, zip_code, address_owner_id) values ('Caicara', 8, null, 'Donald', null, 181);
-insert into address (city, house_number, note, street, zip_code, address_owner_id) values (1000, 'Gwangju', 237, null, 'Karstens', null, 593);
+insert into address (city, house_number, note, street, zip_code, address_owner_id) values ('Gwangju', 237, null, 'Karstens', null, 593);
