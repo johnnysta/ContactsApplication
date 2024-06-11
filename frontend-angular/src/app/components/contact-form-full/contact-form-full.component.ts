@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
@@ -16,7 +16,7 @@ import {ContactDataModel} from "../../models/contact-data.model";
   templateUrl: './contact-form-full.component.html',
   styleUrls: ['./contact-form-full.component.css']
 })
-export class ContactFormFullComponent {
+export class ContactFormFullComponent implements OnDestroy {
 
 
   contactDetails!: ContactDetailsDataModel;
@@ -164,6 +164,9 @@ export class ContactFormFullComponent {
     this.router.navigate(['contacts']);
   }
 
+  ngOnDestroy(): void {
+    this.clearContactSubjects();
+  }
 
   saveContactDetailsToSubject() {
     let contactData: ContactDetailsDataModel = this.contactForm.value;
