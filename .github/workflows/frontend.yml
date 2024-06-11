@@ -34,3 +34,9 @@ jobs:
       - name: Deploy frontend
         run: |
           sudo cp -fr frontend-angular/dist/frontend-angular/* /var/www/frontend/
+
+      # - name: Cleanup work directory
+      #   if: always()  # Ensures this step runs even if previous steps fail
+      #   run: |
+      #     echo "Cleaning up work directory..."
+      #     rm -rf /home/ubuntu/actions-runner/_work/*
