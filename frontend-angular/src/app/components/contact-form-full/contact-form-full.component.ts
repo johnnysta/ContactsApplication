@@ -103,7 +103,7 @@ export class ContactFormFullComponent {
     });
 
     //These are the cases when contacts subject's data should be deleted: i.e. when navigating out of the form,
-    // except the three cases: when navivagting to a child item (phone or address) or navigating back to main contact form
+    // except the three cases: when navigating to a child item (phone or address) or navigating back to main contact form
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         console.log("Navigation started: " + event.url);
