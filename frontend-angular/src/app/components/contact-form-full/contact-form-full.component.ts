@@ -1,9 +1,9 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 import {ContactsService} from "../../services/contacts.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationStart, Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
 import {validationHandler} from "../../utils/validationHandler";
 import {ContactFormFullService} from "../../services/contact-form-full.service";
@@ -16,7 +16,7 @@ import {ContactDataModel} from "../../models/contact-data.model";
   templateUrl: './contact-form-full.component.html',
   styleUrls: ['./contact-form-full.component.css']
 })
-export class ContactFormFullComponent implements OnDestroy {
+export class ContactFormFullComponent {
 
 
   contactDetails!: ContactDetailsDataModel;
@@ -96,11 +96,25 @@ export class ContactFormFullComponent implements OnDestroy {
         } else {
           //route did not contain contact id as path variable, so creating a new contact,
           // or this is the case when returning back from phone/address form
-          console.log("Route without contact Id..")
+          console.log("Route without contact Id..");
           this.fillContactForm();
         }
       }
-    })
+    });
+
+    //These are the cases when contacts subject's data should be deleted: i.e. when navigating out of the form,
+    // except the three cases: when navivagting to a child item (phone or address) or navigating back to main contact form
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log("Navigation started: " + event.url);
+        if (!event.url.includes("phoneFormLocal") &&
+          !event.url.includes("addressFormLocal") &&
+          !event.url.includes("contactsFormFull")) {
+          console.log("Clearing all contact data");
+          this.clearContactSubjects();
+        }
+      }
+    });
   }
 
   private fillContactForm() {
@@ -162,10 +176,6 @@ export class ContactFormFullComponent implements OnDestroy {
   cancelForm() {
     this.clearContactSubjects();
     this.router.navigate(['contacts']);
-  }
-
-  ngOnDestroy(): void {
-    this.clearContactSubjects();
   }
 
   saveContactDetailsToSubject() {
