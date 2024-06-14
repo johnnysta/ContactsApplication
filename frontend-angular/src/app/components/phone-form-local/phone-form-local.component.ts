@@ -47,6 +47,7 @@ export class PhoneFormLocalComponent {
       next: param => {
         this.phoneIndex = Number(param.get('id'));
         console.log("phoneIndex: " + this.phoneIndex);
+        //if phoneIndex is -1 this means it is a new phone number to be added
         if (this.phoneIndex != -1) {
           this.fillPhoneForm(this.phoneIndex);
         } else {
@@ -77,6 +78,7 @@ export class PhoneFormLocalComponent {
   }
 
   submitData() {
+    //if phoneIndex is -1 this means it is a new phone number to be added
     if (this.phoneIndex === -1) {
       const phoneData: PhoneDataModel = this.phoneForm.value;
       phoneData.phoneNumberOwner = this.contactFormDetails.id;

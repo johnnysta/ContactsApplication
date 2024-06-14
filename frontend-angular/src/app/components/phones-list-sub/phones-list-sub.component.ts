@@ -15,6 +15,7 @@ export class PhonesListSubComponent {
 
   @Output() saveContactsBasicDetails: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() onPhonesListEdited: EventEmitter<any> = new EventEmitter<any>();
 
   phones!: PhoneDataModel[];
   currentPhoneIndex!: number;
@@ -64,10 +65,12 @@ export class PhonesListSubComponent {
     this.phones[this.currentPhoneIndex].isDeleted = true;
     this.contactFormFullService.phoneList.next(this.phones);
     this.closeDeleteModal();
+    this.onPhonesListEdited.emit();
   }
 
   addNewPhone() {
     this.saveContactsBasicDetails.emit();
+    //-1 as parameter means it is a new phone number to be added
     this.router.navigate(["phoneFormLocal", -1]);
   }
 
@@ -80,5 +83,6 @@ export class PhonesListSubComponent {
   undeletePhone(i: number) {
     this.phones[i].isDeleted = false;
     this.contactFormFullService.phoneList.next(this.phones);
+    this.onPhonesListEdited.emit();
   }
 }

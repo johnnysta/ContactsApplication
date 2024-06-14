@@ -15,19 +15,19 @@
           class="form-control"
           id="firstName"
           formControlName="firstName">
-      </div>
 
-      <small
-        *ngIf="!contactForm.get('firstName')?.valid
+        <small
+          *ngIf="!contactForm.get('firstName')?.valid
                         && contactForm.get('firstName')?.touched
                         && !contactForm.get('firstName')?.errors?.['serverError']"
-        class="text-danger"
-      >First Name is a required field. <br>Please enter a valid first name that is at least 3 characters long.
-      </small>
+          class="text-danger"
+        >First Name is a required field. <br>Please enter a valid first name that is at least 3 characters long.
+        </small>
 
-      <small *ngIf="contactForm.get('firstName')?.errors?.['serverError']" class="text-danger">
-        {{contactForm.get('firstName')?.errors?.['serverError']}}
-      </small>
+        <small *ngIf="contactForm.get('firstName')?.errors?.['serverError']" class="text-danger">
+          {{contactForm.get('firstName')?.errors?.['serverError']}}
+        </small>
+      </div>
 
       <div class="mb-3">
         <label
@@ -45,25 +45,30 @@
         <label
           for="email"
           class="form-label"
-        >E-mail:<sup>*</sup></label>
+        >E-mail:<sup *ngIf=!isPhoneNumberExists()>*</sup></label>
         <input
           type="text"
           class="form-control"
           id="email"
           formControlName="email">
-      </div>
 
-      <small
-        *ngIf="!contactForm.get('email')?.valid
-                        && contactForm.get('email')?.touched
+        <small
+          *ngIf="!contactForm.get('email')?.valid
+                        && contactForm.get('email')?.value
                         && !contactForm.get('email')?.errors?.['serverError']"
-        class="text-danger"
-      >Email is a required field.<br> Please enter a valid first email that is at least 3 characters long.
-      </small>
+          class="text-danger"
+        >Please enter a valid email that is at least 3 characters long. Or you can leave this field empty if a phone
+          number is added.
+        </small>
 
-      <small *ngIf="contactForm.get('email')?.errors?.['serverError']" class="text-danger">
-        {{contactForm.get('email')?.errors?.['serverError']}}
-      </small>
+        <small class="text-danger"
+               *ngIf=" contactForm.hasError('emailOrPhoneRequired')">{{contactForm.getError('emailOrPhoneRequired')}}</small>
+
+        <small *ngIf="contactForm.get('email')?.errors?.['serverError']" class="text-danger">
+          {{contactForm.get('email')?.errors?.['serverError']}}
+        </small>
+
+      </div>
 
       <div class="mb-3">
         <label
@@ -114,7 +119,9 @@
       </div>
 
       <app-phones-list-sub [contactId]="contactDetails.id"
-                           (saveContactsBasicDetails)="saveContactDetailsToSubject()">
+                           (saveContactsBasicDetails)="saveContactDetailsToSubject()"
+                           (onPhonesListEdited)="onPhonesListEdited()"
+      >
       </app-phones-list-sub>
       <app-addresses-list-sub [contactId]="contactDetails.id"
                               (saveContactsBasicDetails)="saveContactDetailsToSubject()">

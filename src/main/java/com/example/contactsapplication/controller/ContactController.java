@@ -26,13 +26,15 @@ public class ContactController {
     PhoneNumberService phoneNumberService;
     AddressService addressService;
 
-    //This endpoint is just for testing
+    @Operation(summary = "Get contacts basic data", description = "This endpoint is just for testing.")
     @GetMapping("/hallo")
     public String hallo() {
         return "Hallo Hallo!";
     }
 
     //This endpoint is just for testing security
+    @Operation(summary = "Get contacts basic data", description = "This endpoint is just for testing Spring Security.")
+    @SecurityRequirement(name = "basicScheme", scopes = {"NEW_USER"})
     @PreAuthorize("hasAuthority('NEW_USER')")
     @GetMapping("/hello")
     public String hello() {
