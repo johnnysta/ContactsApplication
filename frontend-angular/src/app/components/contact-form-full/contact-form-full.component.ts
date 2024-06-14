@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {AuthenticatedUserModel} from "../../models/authenticated-user.model";
 import {ContactDetailsDataModel} from "../../models/contact-details-data.model";
 import {ContactsService} from "../../services/contacts.service";
@@ -37,12 +37,12 @@ export class ContactFormFullComponent {
     this.contactForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: [''],
-      email: ['', [Validators.required, Validators.minLength(3), Validators.email]],
+      email: ['', [Validators.minLength(3), Validators.email]],
       birthDate: [''],
       mothersName: [''],
       ssId: [''],
       taxId: ['']
-    });
+    }, {validators: this.emailOrPhoneRequiredValidator()});
   }
 
   ngOnInit(): void {
@@ -110,7 +110,7 @@ export class ContactFormFullComponent {
         if (!event.url.includes("phoneFormLocal") &&
           !event.url.includes("addressFormLocal") &&
           !event.url.includes("contactsFormFull")) {
-          console.log("Clearing all contact data");
+          console.log("Clearing all contact data from subjects.");
           this.clearContactSubjects();
         }
       }
@@ -191,4 +191,39 @@ export class ContactFormFullComponent {
     this.contactFormFullService.phoneList.next(new Array<PhoneDataModel>());
     this.contactFormFullService.addressList.next(new Array<AddressDataModel>());
   }
+
+  onPhonesListEdited() {
+    console.log("Phones List Edited...")
+    this.triggerReValidation();
+  }
+
+  emailOrPhoneRequiredValidator(): ValidatorFn {
+    console.log("in emailOrPhoneRequiredValidator");
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const email = control.get('email');
+      console.log("E-mail: " + email?.value);
+      if (!email?.value && !this.isPhoneNumberExists()) {
+        return {'emailOrPhoneRequired': 'E-mail or phone number is required. Please enter an e-mail or a phone number.'};
+      }
+      return null;
+    };
+  }
+
+  isPhoneNumberExists() {
+    if (this.contactPhones) {
+      for (let i = 0; i < this.contactPhones.length; i++) {
+        if (!this.contactPhones[i].isDeleted) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Method to trigger re-validation
+  triggerReValidation(): void {
+    this.contactForm.get('email')?.updateValueAndValidity();
+  }
+
+
 }
