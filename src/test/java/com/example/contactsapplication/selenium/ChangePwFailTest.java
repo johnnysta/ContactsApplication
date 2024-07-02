@@ -46,7 +46,7 @@ public class ChangePwFailTest {
     }
 
     @Test
-    public void contactsLoginSuccessfulTest() {
+    public void changePwFailTest() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.get("http://localhost:4200/home");
         driver.manage().window().setSize(new Dimension(1234, 909));
